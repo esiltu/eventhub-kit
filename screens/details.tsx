@@ -4,6 +4,8 @@ import { StyleSheet, View } from 'react-native';
 
 import { RootStackParamList } from '../navigation';
 
+import { InternalizationExample } from '../components/InternalizationExample';
+
 type DetailsSreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
 
 export default function Details() {
