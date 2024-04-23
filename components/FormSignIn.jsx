@@ -6,6 +6,7 @@ import {
   View,
   Platform,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import { Formik } from 'formik';
 import { Input, Icon, Button, Switch } from 'react-native-elements';
@@ -28,6 +29,14 @@ export default function FormSignIn() {
       console.log('Successfully submitted form!', values);
     } catch (error) {
       console.log('Error submitting form:', error);
+    }
+  }
+
+  function googleSignInButton() {
+    try {
+      console.log('Google Sign In Coming Soon!');
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -79,7 +88,7 @@ export default function FormSignIn() {
                   value={rememberMe}
                   onValueChange={toggleRememberMe}
                   color="#5669FF"
-                  style={{ left: '35%' }}
+                  style={styles.switchStyle}
                 />
                 <Text style={styles.switchLabel}>Remember me</Text>
               </View>
@@ -99,19 +108,39 @@ export default function FormSignIn() {
                 type="ionicons"
                 size={35}
                 color="white"
-                containerStyle={{
-                  bottom: '13.5%',
-                  alignSelf: 'flex-end',
-                  right: '16.5%',
-                  backgroundColor: '#3D56F0',
-                  borderRadius: 20,
-                }}
+                containerStyle={styles.iconForwardContainer}
                 onPress={togglePasswordVisibility}
               />
             </>
           )}
         </Formik>
       </KeyboardAvoidingView>
+      <Text style={styles.orTxt}>OR</Text>
+      {/* Other methods for Sign In *OPTIONAL* */}
+      <View style={styles.viewOther}>
+        <TouchableOpacity style={styles.facebookLoginBtn}>
+          <Image
+            source={require('../assets/auth-icons/logininwithfacebook.png')}
+            style={styles.facebookLoginBtnImage}
+          />
+          <Text style={styles.facebookTxt}>Login with Facebook</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.facebookLoginBtn}>
+          <Image
+            source={require('../assets/auth-icons/logininwithgoogle.png')}
+            style={styles.facebookLoginBtnImage}
+          />
+          <Text style={styles.facebookTxt}>Login with Google</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{ bottom: '22.5%' }}>
+        <Text style={styles.dontAccTxt}>
+          Don't have an account?{' '}
+          <TouchableOpacity>
+            <Text style={styles.signUpBtn}>Sign Up</Text>
+          </TouchableOpacity>
+        </Text>
+      </View>
     </View>
   );
 }
@@ -128,13 +157,13 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginHorizontal: '10%',
     marginBottom: '5%',
-    bottom: '25%',
+    top: '0%',
     right: '3%',
   },
   keyboardView: {
     width: '100%',
     alignSelf: 'center',
-    bottom: '29%',
+    bottom: '3.5%',
     padding: 10,
   },
   inputContainer: {
@@ -150,7 +179,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#5669FF',
     borderRadius: 20,
     height: 60,
-    marginTop: 20,
+    marginTop: 0,
     width: '80%',
     alignSelf: 'center',
   },
@@ -176,5 +205,59 @@ const styles = StyleSheet.create({
   forgotPasswordStyleTxt: {
     fontSize: 16,
     color: '#120D26',
+  },
+  iconForwardContainer: {
+    bottom: '13.5%',
+    alignSelf: 'flex-end',
+    right: '16.5%',
+    backgroundColor: '#3D56F0',
+    borderRadius: 20,
+  },
+  switchStyle: {
+    left: '35%',
+  },
+  orTxt: {
+    textAlign: 'center',
+    fontSize: 20,
+    color: '#9D9898',
+    bottom: '7.5%',
+    fontWeight: '500',
+  },
+  facebookLoginBtn: {
+    backgroundColor: '#EDE5E5',
+    borderRadius: 20,
+    paddingHorizontal: '20%',
+    height: '22.5%',
+    margin: 10,
+    bottom: '5%',
+    marginBottom: '0%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  viewOther: {
+    bottom: '5%',
+  },
+  facebookLoginBtnImage: {
+    width: 70,
+    height: 70,
+    right: '70%',
+    top: '20%',
+  },
+  facebookTxt: {
+    textAlign: 'center',
+    bottom: '55%',
+    fontSize: 20,
+    left: '10%',
+    fontWeight: 'bold',
+  },
+  signUpBtn: {
+    color: '#5669FF',
+    fontSize: 18,
+    top: '15%',
+    fontWeight: '500',
+  },
+  dontAccTxt: {
+    fontSize: 18,
+    fontWeight: '500',
   },
 });
