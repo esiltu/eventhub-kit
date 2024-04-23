@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { Formik } from 'formik';
 import { Input, Icon, Button, Switch } from 'react-native-elements';
-import ValidationSchema from 'lib/ValidationSchema';
+import ValidationSchema from 'lib/ValidationSchemaSignIn';
 
 export default function FormSignIn() {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
