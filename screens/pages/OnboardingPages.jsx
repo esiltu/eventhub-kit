@@ -75,8 +75,8 @@ const OnboardingPages = () => {
         bottomBarColor="#FFFFFF"
         DotComponent={Dots}
         // Navigate if user doesn't want to see the onboarding flow
-        onSkip={() => navigation.navigate('#AUTH')}
-        onDone={() => navigation.navigate('#AUTH')}
+        onSkip={() => navigation.navigate('SignIn')}
+        onDone={() => navigation.navigate('SignIn')}
         pages={[
           {
             backgroundColor: '#FFFFFF',
