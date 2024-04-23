@@ -10,9 +10,11 @@ import {
 } from 'react-native';
 import { Formik } from 'formik';
 import { Input, Icon, Button, Switch } from 'react-native-elements';
-import ValidationSchema from 'lib/ValidationSchemaSignIn';
+import ValidationSchemaSignIn from 'lib/ValidationSchemaSignIn';
+import { useNavigation } from '@react-navigation/native';
 
 export default function FormSignIn() {
+  const navigation = useNavigation();
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -40,6 +42,14 @@ export default function FormSignIn() {
     }
   }
 
+  function dontHaveAnAccount() {
+    try {
+      navigation.navigate('SignUp');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <View style={styles.formHeaderContainer}>
       <Text style={styles.formHeaderTxt}>Sign in</Text>
@@ -49,7 +59,7 @@ export default function FormSignIn() {
         <Formik
           initialValues={{ email: '', password: '' }}
           onSubmit={handleSubmit}
-          validationSchema={ValidationSchema}>
+          validationSchema={ValidationSchemaSignIn}>
           {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
             <>
               <Input
@@ -118,14 +128,14 @@ export default function FormSignIn() {
       <Text style={styles.orTxt}>OR</Text>
       {/* Other methods for Sign In *OPTIONAL* */}
       <View style={styles.viewOther}>
-        <TouchableOpacity style={styles.facebookLoginBtn}>
+        <TouchableOpacity style={styles.facebookLoginBtn} activeOpacity={0.6}>
           <Image
             source={require('../assets/auth-icons/logininwithfacebook.png')}
             style={styles.facebookLoginBtnImage}
           />
           <Text style={styles.facebookTxt}>Login with Facebook</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.facebookLoginBtn}>
+        <TouchableOpacity style={styles.facebookLoginBtn} activeOpacity={0.6}>
           <Image
             source={require('../assets/auth-icons/logininwithgoogle.png')}
             style={styles.facebookLoginBtnImage}
@@ -136,7 +146,7 @@ export default function FormSignIn() {
       <View style={{ bottom: '22.5%' }}>
         <Text style={styles.dontAccTxt}>
           Don't have an account?{' '}
-          <TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.6} onPress={dontHaveAnAccount}>
             <Text style={styles.signUpBtn}>Sign Up</Text>
           </TouchableOpacity>
         </Text>
