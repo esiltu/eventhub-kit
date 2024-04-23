@@ -4,7 +4,7 @@ import { AppIcon } from 'routers/OnboardingImgRouter';
 
 export default function Header() {
   return (
-    <View style={styles.containerHeader}>
+    <View>
       <Image source={AppIcon} style={styles.containerHeaderIcon} />
       <Text style={styles.containerHeaderTxt}>EventHub</Text>
     </View>
@@ -12,16 +12,15 @@ export default function Header() {
 }
 
 const styles = StyleSheet.create({
-  containerHeader: {},
   containerHeaderIcon: {
     width: '15.5%',
     height: '27%',
-    top: '20%',
+    top: '17%',
     alignSelf: 'center',
   },
   containerHeaderTxt: {
     textAlign: 'center',
-    top: '30%',
+    top: '23%',
     fontSize: 25,
     fontWeight: '600',
   },
