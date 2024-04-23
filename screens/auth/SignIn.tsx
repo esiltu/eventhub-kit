@@ -1,14 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import React from 'react';
+import Header from 'components/Header';
 
 const SignIn = () => {
   return (
-    <View>
-      <Text>SignIn</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Header />
+    </SafeAreaView>
   );
 };
 
 export default SignIn;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
