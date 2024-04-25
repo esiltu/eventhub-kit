@@ -52,7 +52,7 @@ export default function FormSignIn() {
 
   return (
     <View style={styles.formHeaderContainer}>
-      <Text style={styles.formHeaderTxt}>Sign in</Text>
+      <Text style={styles.formHeaderTxt}>Sign In</Text>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}>

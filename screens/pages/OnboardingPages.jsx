@@ -4,6 +4,8 @@ import Onboarding from 'react-native-onboarding-swiper';
 import { ImageOne, ImageTwo, ImageThree } from '../../routers/OnboardingImgRouter';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import { storage } from 'data/storage';
+import { use } from 'i18next';
 
 const Dots = ({ selected }) => {
   let backgroundColor;
@@ -34,6 +36,8 @@ const nextButtonComponent = ({ ...props }) => {
 
 const doneButtonComponent = ({ ...props }) => {
   let color = '#5669FF';
+  // Set the hasSeenOnboarding to true
+  storage.set('hasSeenOnboarding', true);
   return (
     <TouchableOpacity style={{ right: '15%' }} {...props}>
       <Ionicons name="checkmark-outline" size={30} color={color} />
@@ -42,8 +46,10 @@ const doneButtonComponent = ({ ...props }) => {
 };
 
 const skipButtonComponent = ({ ...props }) => {
+  // Set the hasSeenOnboarding to true
+  storage.set('hasSeenOnboarding', true);
   return (
-    <TouchableOpacity {...props}>
+    <TouchableOpacity {...props} activeOpacity={0.6}>
       <Text style={{ fontSize: 20, left: '15%', color: '#5669FF' }}>Skip</Text>
     </TouchableOpacity>
   );

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { Formik } from 'formik';
 import { Input, Icon, Button } from 'react-native-elements';
-import ValidationSchemaSignIn from 'lib/ValidationSchemaSignIn';
+import ValidationSchemaSignUp from 'lib/ValidationSchemaSignUp';
 import { useNavigation } from '@react-navigation/native';
 
 export default function FormSignUp() {
@@ -23,6 +23,7 @@ export default function FormSignUp() {
   };
 
   async function handleSubmit(values) {
+    console.log('Form Values:', values);
     try {
       console.log('Successfully submitted form!', values);
     } catch (error) {
@@ -56,19 +57,29 @@ export default function FormSignUp() {
 
   return (
     <View style={styles.formHeaderContainer}>
-      <Text style={styles.formHeaderTxt}>Sign in</Text>
+      <Text style={styles.formHeaderTxt}>Sign Up</Text>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}>
         <Formik
-          initialValues={{ email: '', password: '' }}
+          initialValues={{ fullName: '', email: '', password: '', confirmPassword: '' }}
           onSubmit={handleSubmit}
-          validationSchema={ValidationSchemaSignIn}>
+          validationSchema={ValidationSchemaSignUp}>
           {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
             <>
               <Input
+                leftIcon={<Icon name="person" type="material" size={24} color="#807A7A" />}
+                placeholder="Full Name"
+                autoCapitalize="words"
+                onChangeText={handleChange('fullName')}
+                onBlur={handleBlur('fullName')}
+                value={values.fullName}
+                inputContainerStyle={styles.inputContainer}
+                errorMessage={touched.fullName && errors.fullName ? errors.fullName : undefined}
+              />
+              <Input
                 leftIcon={<Icon name="mail" type="material" size={24} color="#807A7A" />}
-                placeholder="abc@gmail.com"
+                placeholder="Email Address"
                 autoCapitalize="none"
                 keyboardType="email-address"
                 onChangeText={handleChange('email')}
@@ -88,7 +99,7 @@ export default function FormSignUp() {
                     onPress={togglePasswordVisibility}
                   />
                 }
-                placeholder="Your password"
+                placeholder="Password"
                 secureTextEntry={passwordVisibility}
                 autoCapitalize="none"
                 onChangeText={handleChange('password')}
@@ -97,7 +108,30 @@ export default function FormSignUp() {
                 inputContainerStyle={styles.inputContainer}
                 errorMessage={touched.password && errors.password ? errors.password : undefined}
               />
-
+              <Input
+                leftIcon={<Icon name="lock" type="material" size={24} color="#807A7A" />}
+                rightIcon={
+                  <Icon
+                    name={passwordVisibility ? 'visibility-off' : 'visibility'}
+                    type="material"
+                    size={24}
+                    color="#807A7A"
+                    onPress={togglePasswordVisibility}
+                  />
+                }
+                placeholder="Confirm Password"
+                secureTextEntry={passwordVisibility}
+                autoCapitalize="none"
+                onChangeText={handleChange('confirmPassword')}
+                onBlur={handleBlur('confirmPassword')}
+                value={values.confirmPassword}
+                inputContainerStyle={styles.inputContainer}
+                errorMessage={
+                  touched.confirmPassword && errors.confirmPassword
+                    ? errors.confirmPassword
+                    : undefined
+                }
+              />
               <Button
                 title="SIGN IN"
                 onPress={handleSubmit}
@@ -116,30 +150,6 @@ export default function FormSignUp() {
           )}
         </Formik>
       </KeyboardAvoidingView>
-      <Text style={styles.orTxt}>OR</Text>
-      {/* Other methods for Sign In *OPTIONAL* */}
-      <View style={styles.viewOther}>
-        <TouchableOpacity
-          style={styles.facebookLoginBtn}
-          onPress={facebookSignIn}
-          activeOpacity={0.6}>
-          <Image
-            source={require('../assets/auth-icons/logininwithfacebook.png')}
-            style={styles.facebookLoginBtnImage}
-          />
-          <Text style={styles.facebookTxt}>Login with Facebook</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.facebookLoginBtn}
-          onPress={googleSignInButton}
-          activeOpacity={0.6}>
-          <Image
-            source={require('../assets/auth-icons/logininwithgoogle.png')}
-            style={styles.facebookLoginBtnImage}
-          />
-          <Text style={styles.facebookTxt}>Login with Google</Text>
-        </TouchableOpacity>
-      </View>
       <View style={{ bottom: '22.5%' }}>
         <Text style={styles.dontAccTxt}>
           Already have an account?{' '}
@@ -193,34 +203,12 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 20,
   },
-  switchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 10,
-  },
-  switchLabel: {
-    marginLeft: 10,
-    fontSize: 16,
-    left: '40%',
-    color: '#120D26',
-  },
-  forgotPasswordStyle: {
-    bottom: '185%',
-    alignSelf: 'flex-end',
-  },
-  forgotPasswordStyleTxt: {
-    fontSize: 16,
-    color: '#120D26',
-  },
   iconForwardContainer: {
-    bottom: '13.5%',
+    bottom: '11%',
     alignSelf: 'flex-end',
     right: '16.5%',
     backgroundColor: '#3D56F0',
     borderRadius: 20,
-  },
-  switchStyle: {
-    left: '35%',
   },
   orTxt: {
     textAlign: 'center',
@@ -236,12 +224,8 @@ const styles = StyleSheet.create({
     height: '22.5%',
     margin: 10,
     bottom: '5%',
-    marginBottom: '0%',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  viewOther: {
-    bottom: '5%',
   },
   facebookLoginBtnImage: {
     width: 70,
@@ -256,14 +240,38 @@ const styles = StyleSheet.create({
     left: '10%',
     fontWeight: 'bold',
   },
+  googleLoginBtn: {
+    backgroundColor: '#EDE5E5',
+    borderRadius: 20,
+    paddingHorizontal: '20%',
+    height: '22.5%',
+    margin: 10,
+    bottom: '5%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  googleLoginBtnImage: {
+    width: 70,
+    height: 70,
+    right: '70%',
+    top: '20%',
+  },
+  googleTxt: {
+    textAlign: 'center',
+    bottom: '55%',
+    fontSize: 20,
+    left: '10%',
+    fontWeight: 'bold',
+  },
+  dontAccTxt: {
+    fontSize: 18,
+    fontWeight: '500',
+  },
   signUpBtn: {
     color: '#5669FF',
     fontSize: 18,
     top: '15%',
     fontWeight: '500',
   },
-  dontAccTxt: {
-    fontSize: 18,
-    fontWeight: '500',
-  },
+  // Add any additional styles here
 });
