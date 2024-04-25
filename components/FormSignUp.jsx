@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Formik } from 'formik';
-import { Input, Icon, Button } from 'react-native-elements';
+import { Input, Icon } from 'react-native-elements';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 

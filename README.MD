@@ -12,7 +12,6 @@ Welcome to the Eventhub Kit, a starter project for those interested in app devel
 
 ### Upcoming Features
 
-
 - OTP maybe??
 - Stripe can also be done with packages for subscriptions??
 - Invoice page to receivce Stripe invoice after payment
@@ -27,7 +26,7 @@ Stay tuned for more updates! 🌟
 1. Clone this repository.
 2. Navigate to the project directory.
 3. Install dependencies using `npm install` or `yarn install`.
-4. Run the app using `npm start` or `yarn start`.
+4. Run the app using `npx expo run:ios` or `yarn run ios`.
 
 Feel free to contribute and enhance the Eventhub template! 🚀
 
