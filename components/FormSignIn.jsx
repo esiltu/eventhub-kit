@@ -37,14 +37,15 @@ export default function FormSignIn() {
     }
   }
 
-  function removeHasSeenOnboarding() {
-    try {
-      storage.delete('hasSeenOnboarding');
-      console.log('Successfully removed hasSeenOnboarding!');
-    } catch (error) {
-      console.log('Error removing hasSeenOnboarding:', error);
-    }
-  }
+  // This is in case you want to remove the key from storage
+  // function removeHasSeenOnboarding() {
+  //   try {
+  //     storage.delete('hasSeenOnboarding');
+  //     console.log('Successfully removed hasSeenOnboarding!');
+  //   } catch (error) {
+  //     console.log('Error removing hasSeenOnboarding:', error);
+  //   }
+  // }
 
   function googleSignInButton() {
     try {
@@ -161,9 +162,9 @@ export default function FormSignIn() {
           <TouchableOpacity activeOpacity={0.6} onPress={dontHaveAnAccount}>
             <Text style={styles.signUpBtn}>Sign Up</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={removeHasSeenOnboarding}>
+          {/* <TouchableOpacity onPress={removeHasSeenOnboarding}>
             <Text>Remove seen MKVV key</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </Text>
       </View>
     </View>
