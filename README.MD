@@ -12,7 +12,6 @@ Welcome to the Eventhub Kit, a starter project for those interested in app devel
 
 ### Upcoming Features
 
-🚀 Bottom tab navigation with 4 different pages:
 
 - OTP maybe??
 - Stripe can also be done with packages for subscriptions??
