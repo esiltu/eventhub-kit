@@ -5,7 +5,7 @@ import { View, Text } from 'react-native';
 
 import { BackButton } from '../components/BackButton';
 import { Overview, Details, OnboardingPages, SignIn, SignUp } from '../routers/PageRouter';
-import { storage } from 'data/storage'; // Make sure this path is correct
+import { storage } from 'data/storage';
 
 export type RootStackParamList = {
   Overview: undefined;
@@ -18,11 +18,11 @@ export type RootStackParamList = {
 const Stack = createStackNavigator<RootStackParamList>();
 
 export default function RootStack() {
-  const [hasSeenOnboarding, setHasSeenOnboarding] = useState<boolean | null>(null); // Use null initially to indicate loading state
+  const [hasSeenOnboarding, setHasSeenOnboarding] = useState<boolean | null>(null);
 
   useEffect(() => {
     // Properly check if onboarding has been seen
-    const onboardingSeen = storage.getBoolean('hasSeenOnboarding'); // Correctly retrieve a boolean value
+    const onboardingSeen = storage.getBoolean('hasSeenOnboarding') ?? false;
     setHasSeenOnboarding(onboardingSeen);
     console.log('Has seen onboarding: ', onboardingSeen);
   }, []);
