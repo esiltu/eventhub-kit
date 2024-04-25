@@ -12,7 +12,6 @@ Welcome to the Eventhub Kit, a starter project for those interested in app devel
 ✅ Sign In (Frontend part done) (Backend currently working on it)
 ✅ Sign Up (Frontend almost done) (Backend currently working on it)
 
-
 ### Upcoming Features
 
 🚀 Bottom tab navigation with 4 different pages:
@@ -23,7 +22,6 @@ Welcome to the Eventhub Kit, a starter project for those interested in app devel
 - Settings page with custom Drawer
 - Custom backend setup with Fastify JS and database MongoDB!!!!
 - Do you have any feature? Contact me please !
-
 
 Stay tuned for more updates! 🌟
 
@@ -38,9 +36,5 @@ Feel free to contribute and enhance the Eventhub template! 🚀
 
 ## Preview Of Template
 
-![Screenshot](/assets/prototypes/splashscreen-prototype.png)
-![Screenshot](/assets/prototypes/onboarding-1.png)
-![Screenshot](/assets/prototypes/onboarding-2.png)
-![Screenshot](/assets/prototypes/onboarding-3.png)
-![Screenshot](/assets/prototypes/signin.png)
-![Screenshot](/assets/prototypes/signin-error.png)
+![Screenshot](/assets/prototypes/onboarding-preview-kit.png)
+![Screenshot](/assets/prototypes/auth-preview-kit.png)
