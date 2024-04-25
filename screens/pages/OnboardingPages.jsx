@@ -5,7 +5,6 @@ import { ImageOne, ImageTwo, ImageThree } from '../../routers/OnboardingImgRoute
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { storage } from 'data/storage';
-import { use } from 'i18next';
 
 const Dots = ({ selected }) => {
   let backgroundColor;

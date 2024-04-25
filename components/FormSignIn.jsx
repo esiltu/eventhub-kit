@@ -12,8 +12,11 @@ import { Formik } from 'formik';
 import { Input, Icon, Button, Switch } from 'react-native-elements';
 import ValidationSchemaSignIn from 'lib/ValidationSchemaSignIn';
 import { useNavigation } from '@react-navigation/native';
+import { storage } from 'data/storage';
 
 export default function FormSignIn() {
+  const doesKeyExit = storage.contains('hasSeenOnboarding');
+  console.log('Does key exist:', doesKeyExit);
   const navigation = useNavigation();
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rememberMe, setRememberMe] = useState(false);
@@ -31,6 +34,15 @@ export default function FormSignIn() {
       console.log('Successfully submitted form!', values);
     } catch (error) {
       console.log('Error submitting form:', error);
+    }
+  }
+
+  function removeHasSeenOnboarding() {
+    try {
+      storage.delete('hasSeenOnboarding');
+      console.log('Successfully removed hasSeenOnboarding!');
+    } catch (error) {
+      console.log('Error removing hasSeenOnboarding:', error);
     }
   }
 
@@ -148,6 +160,9 @@ export default function FormSignIn() {
           Don't have an account?{' '}
           <TouchableOpacity activeOpacity={0.6} onPress={dontHaveAnAccount}>
             <Text style={styles.signUpBtn}>Sign Up</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={removeHasSeenOnboarding}>
+            <Text>Remove seen MKVV key</Text>
           </TouchableOpacity>
         </Text>
       </View>
