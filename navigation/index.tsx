@@ -5,7 +5,7 @@ import { View, Text } from 'react-native';
 
 import { BackButton } from '../components/BackButton';
 import { Overview, Details, OnboardingPages, SignIn, SignUp } from '../routers/PageRouter';
-import { storage } from 'data/storage';
+import { storage } from 'store/storage';
 
 export type RootStackParamList = {
   Overview: undefined;

@@ -4,7 +4,7 @@ import Onboarding from 'react-native-onboarding-swiper';
 import { ImageOne, ImageTwo, ImageThree } from '../../routers/OnboardingImgRouter';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import { storage } from 'data/storage';
+import { storage } from 'store/storage';
 
 const Dots = ({ selected }) => {
   let backgroundColor;

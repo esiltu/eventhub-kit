@@ -12,7 +12,7 @@ import { Formik } from 'formik';
 import { Input, Icon, Button, Switch } from 'react-native-elements';
 import ValidationSchemaSignIn from 'lib/ValidationSchemaSignIn';
 import { useNavigation } from '@react-navigation/native';
-import { storage } from 'data/storage';
+import { storage } from 'store/storage';
 
 export default function FormSignIn() {
   const doesKeyExit = storage.contains('hasSeenOnboarding');
