@@ -54,7 +54,7 @@ const skipButtonComponent = ({ ...props }) => {
   );
 };
 
-const OnboardingPages = () => {
+export default function OnboardingPages() {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
@@ -105,6 +105,4 @@ const OnboardingPages = () => {
       />
     </SafeAreaView>
   );
-};
-
-export default OnboardingPages;
+}
