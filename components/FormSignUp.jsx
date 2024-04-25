@@ -9,19 +9,17 @@ import {
   Image,
 } from 'react-native';
 import { Formik } from 'formik';
-import { Input, Icon, Button, Switch } from 'react-native-elements';
+import { Input, Icon, Button } from 'react-native-elements';
 import ValidationSchemaSignIn from 'lib/ValidationSchemaSignIn';
+import { useNavigation } from '@react-navigation/native';
 
 export default function FormSignUp() {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
-  const [rememberMe, setRememberMe] = useState(false);
+
+  const navigation = useNavigation();
 
   const togglePasswordVisibility = () => {
     setPasswordVisibility(!passwordVisibility);
-  };
-
-  const toggleRememberMe = () => {
-    setRememberMe(!rememberMe);
   };
 
   async function handleSubmit(values) {
@@ -35,6 +33,22 @@ export default function FormSignUp() {
   function googleSignInButton() {
     try {
       console.log('Google Sign In Coming Soon!');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function facebookSignIn() {
+    try {
+      console.log('Facebook Sign In Coming Soon!');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function goBackToSignIn() {
+    try {
+      navigation.goBack();
     } catch (error) {
       console.log(error);
     }
@@ -83,20 +97,7 @@ export default function FormSignUp() {
                 inputContainerStyle={styles.inputContainer}
                 errorMessage={touched.password && errors.password ? errors.password : undefined}
               />
-              <View style={styles.switchContainer}>
-                <Switch
-                  value={rememberMe}
-                  onValueChange={toggleRememberMe}
-                  color="#5669FF"
-                  style={styles.switchStyle}
-                />
-                <Text style={styles.switchLabel}>Remember me</Text>
-              </View>
-              <View>
-                <TouchableOpacity style={styles.forgotPasswordStyle}>
-                  <Text style={styles.forgotPasswordStyleTxt}>Forgot Password?</Text>
-                </TouchableOpacity>
-              </View>
+
               <Button
                 title="SIGN IN"
                 onPress={handleSubmit}
@@ -118,14 +119,20 @@ export default function FormSignUp() {
       <Text style={styles.orTxt}>OR</Text>
       {/* Other methods for Sign In *OPTIONAL* */}
       <View style={styles.viewOther}>
-        <TouchableOpacity style={styles.facebookLoginBtn}>
+        <TouchableOpacity
+          style={styles.facebookLoginBtn}
+          onPress={facebookSignIn}
+          activeOpacity={0.6}>
           <Image
             source={require('../assets/auth-icons/logininwithfacebook.png')}
             style={styles.facebookLoginBtnImage}
           />
           <Text style={styles.facebookTxt}>Login with Facebook</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.facebookLoginBtn}>
+        <TouchableOpacity
+          style={styles.facebookLoginBtn}
+          onPress={googleSignInButton}
+          activeOpacity={0.6}>
           <Image
             source={require('../assets/auth-icons/logininwithgoogle.png')}
             style={styles.facebookLoginBtnImage}
@@ -135,9 +142,9 @@ export default function FormSignUp() {
       </View>
       <View style={{ bottom: '22.5%' }}>
         <Text style={styles.dontAccTxt}>
-          Don't have an account?{' '}
-          <TouchableOpacity>
-            <Text style={styles.signUpBtn}>Sign Up</Text>
+          Already have an account?{' '}
+          <TouchableOpacity activeOpacity={0.6} onPress={goBackToSignIn}>
+            <Text style={styles.signUpBtn}>Sign In</Text>
           </TouchableOpacity>
         </Text>
       </View>
@@ -157,7 +164,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginHorizontal: '10%',
     marginBottom: '5%',
-    top: '0%',
     right: '3%',
   },
   keyboardView: {
