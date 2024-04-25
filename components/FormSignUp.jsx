@@ -5,59 +5,54 @@ import {
   Text,
   View,
   Platform,
-  TouchableOpacity,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import { Formik } from 'formik';
 import { Input, Icon, Button } from 'react-native-elements';
-import ValidationSchemaSignUp from 'lib/ValidationSchemaSignUp';
+import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
+
+const ValidationSchemaSignUp = Yup.object().shape({
+  fullName: Yup.string().required('Full name is required'),
+  email: Yup.string().email('Invalid email').required('Email is required'),
+  password: Yup.string().required('Password is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Confirm password is required'),
+});
 
 export default function FormSignUp() {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
-
   const navigation = useNavigation();
 
   const togglePasswordVisibility = () => {
     setPasswordVisibility(!passwordVisibility);
   };
 
-  async function handleSubmit(values) {
+  const handleSubmit = (values) => {
     console.log('Form Values:', values);
-    try {
-      console.log('Successfully submitted form!', values);
-    } catch (error) {
-      console.log('Error submitting form:', error);
-    }
-  }
-
-  function googleSignInButton() {
-    try {
-      console.log('Google Sign In Coming Soon!');
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  function facebookSignIn() {
-    try {
-      console.log('Facebook Sign In Coming Soon!');
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  };
 
   function goBackToSignIn() {
     try {
       navigation.goBack();
     } catch (error) {
-      console.log(error);
+      console.log('Error going back to sign in:', error);
     }
   }
 
   return (
     <View style={styles.formHeaderContainer}>
       <Text style={styles.formHeaderTxt}>Sign Up</Text>
+      <View style={{ bottom: '17.5%', alignSelf: 'flex-start' }}>
+        <TouchableOpacity
+          onPress={goBackToSignIn}
+          activeOpacity={0.6}
+          style={{ top: '10%', left: '6.5%' }}>
+          <Image source={require('../assets/icons/icon-go-back.png')} />
+        </TouchableOpacity>
+      </View>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}>
@@ -70,12 +65,12 @@ export default function FormSignUp() {
               <Input
                 leftIcon={<Icon name="person" type="material" size={24} color="#807A7A" />}
                 placeholder="Full Name"
-                autoCapitalize="words"
+                autoCapitalize="none"
                 onChangeText={handleChange('fullName')}
                 onBlur={handleBlur('fullName')}
                 value={values.fullName}
                 inputContainerStyle={styles.inputContainer}
-                errorMessage={touched.fullName && errors.fullName ? errors.fullName : undefined}
+                errorMessage={touched.fullName && errors.fullName}
               />
               <Input
                 leftIcon={<Icon name="mail" type="material" size={24} color="#807A7A" />}
@@ -86,7 +81,7 @@ export default function FormSignUp() {
                 onBlur={handleBlur('email')}
                 value={values.email}
                 inputContainerStyle={styles.inputContainer}
-                errorMessage={touched.email && errors.email ? errors.email : undefined}
+                errorMessage={touched.email && errors.email}
               />
               <Input
                 leftIcon={<Icon name="lock" type="material" size={24} color="#807A7A" />}
@@ -106,7 +101,7 @@ export default function FormSignUp() {
                 onBlur={handleBlur('password')}
                 value={values.password}
                 inputContainerStyle={styles.inputContainer}
-                errorMessage={touched.password && errors.password ? errors.password : undefined}
+                errorMessage={touched.password && errors.password}
               />
               <Input
                 leftIcon={<Icon name="lock" type="material" size={24} color="#807A7A" />}
@@ -126,18 +121,14 @@ export default function FormSignUp() {
                 onBlur={handleBlur('confirmPassword')}
                 value={values.confirmPassword}
                 inputContainerStyle={styles.inputContainer}
-                errorMessage={
-                  touched.confirmPassword && errors.confirmPassword
-                    ? errors.confirmPassword
-                    : undefined
-                }
+                errorMessage={touched.confirmPassword && errors.confirmPassword}
               />
-              <Button
-                title="SIGN IN"
+              <TouchableOpacity
                 onPress={handleSubmit}
-                buttonStyle={styles.buttonStyle}
-                titleStyle={styles.buttonTitleStyle}
-              />
+                style={styles.buttonStyle}
+                activeOpacity={0.6}>
+                <Text style={styles.buttonTitleStyle}>SIGN UP</Text>
+              </TouchableOpacity>
               <Icon
                 name={'arrow-forward'}
                 type="ionicons"
@@ -150,12 +141,15 @@ export default function FormSignUp() {
           )}
         </Formik>
       </KeyboardAvoidingView>
-      <View style={{ bottom: '22.5%' }}>
+      <View style={{ bottom: '10%' }}>
         <Text style={styles.dontAccTxt}>
           Already have an account?{' '}
           <TouchableOpacity activeOpacity={0.6} onPress={goBackToSignIn}>
             <Text style={styles.signUpBtn}>Sign In</Text>
           </TouchableOpacity>
+          {/* <TouchableOpacity onPress={removeHasSeenOnboarding}>
+            <Text>Remove seen MKVV key</Text>
+          </TouchableOpacity> */}
         </Text>
       </View>
     </View>
@@ -163,6 +157,17 @@ export default function FormSignUp() {
 }
 
 const styles = StyleSheet.create({
+  signUpBtn: {
+    color: '#5669FF',
+    fontSize: 18,
+    top: '15%',
+    fontWeight: '500',
+  },
+  dontAccTxt: {
+    top: '50%',
+    fontSize: 18,
+    fontWeight: '500',
+  },
   formHeaderContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -175,11 +180,12 @@ const styles = StyleSheet.create({
     marginHorizontal: '10%',
     marginBottom: '5%',
     right: '3%',
+    bottom: '0%',
   },
   keyboardView: {
     width: '100%',
     alignSelf: 'center',
-    bottom: '3.5%',
+    bottom: '9%',
     padding: 10,
   },
   inputContainer: {
@@ -191,87 +197,25 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     height: 60,
   },
-  buttonStyle: {
-    backgroundColor: '#5669FF',
-    borderRadius: 20,
-    height: 60,
-    marginTop: 0,
-    width: '80%',
-    alignSelf: 'center',
-  },
-  buttonTitleStyle: {
-    color: '#FFFFFF',
-    fontSize: 20,
-  },
   iconForwardContainer: {
-    bottom: '11%',
+    bottom: '6%',
     alignSelf: 'flex-end',
     right: '16.5%',
     backgroundColor: '#3D56F0',
     borderRadius: 20,
   },
-  orTxt: {
-    textAlign: 'center',
-    fontSize: 20,
-    color: '#9D9898',
-    bottom: '7.5%',
-    fontWeight: '500',
-  },
-  facebookLoginBtn: {
-    backgroundColor: '#EDE5E5',
+  buttonStyle: {
+    backgroundColor: '#5669FF',
     borderRadius: 20,
-    paddingHorizontal: '20%',
-    height: '22.5%',
-    margin: 10,
-    bottom: '5%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: 60,
+    width: '80%',
+    alignSelf: 'center',
+    top: '5%',
   },
-  facebookLoginBtnImage: {
-    width: 70,
-    height: 70,
-    right: '70%',
-    top: '20%',
-  },
-  facebookTxt: {
-    textAlign: 'center',
-    bottom: '55%',
+  buttonTitleStyle: {
+    color: '#FFFFFF',
     fontSize: 20,
-    left: '10%',
-    fontWeight: 'bold',
-  },
-  googleLoginBtn: {
-    backgroundColor: '#EDE5E5',
-    borderRadius: 20,
-    paddingHorizontal: '20%',
-    height: '22.5%',
-    margin: 10,
-    bottom: '5%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  googleLoginBtnImage: {
-    width: 70,
-    height: 70,
-    right: '70%',
-    top: '20%',
-  },
-  googleTxt: {
     textAlign: 'center',
-    bottom: '55%',
-    fontSize: 20,
-    left: '10%',
-    fontWeight: 'bold',
+    top: '30%',
   },
-  dontAccTxt: {
-    fontSize: 18,
-    fontWeight: '500',
-  },
-  signUpBtn: {
-    color: '#5669FF',
-    fontSize: 18,
-    top: '15%',
-    fontWeight: '500',
-  },
-  // Add any additional styles here
 });

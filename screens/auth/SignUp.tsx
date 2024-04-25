@@ -1,7 +1,6 @@
 import React from 'react';
 
 // Components SIGN UP PAGE😎✅
-import Header from 'components/Header';
 import SafeView from '../../components/SafeView';
 import FormSignUp from 'components/FormSignUp';
 
