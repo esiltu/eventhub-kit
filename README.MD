@@ -1,5 +1,3 @@
-![Screenshot](/thumbnail-preview-app.png)
-
 # Eventhub Template Kit - React Native Expo
 
 Welcome to the Eventhub Kit, a starter project for those interested in app development using React Native and Expo, featuring TypeScript integration, storage checking, and a Fastify with MongoDB backend setup—ideal for beginners; please note that this build is currently in progress and uses Expo's prebuild configuration, so clone the repository and get started!
