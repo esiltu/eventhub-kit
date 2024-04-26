@@ -31,7 +31,11 @@ export default function FormSignUp() {
   };
 
   const handleSubmit = (values) => {
-    console.log('Form Values:', values);
+    try {
+      console.log('Form Values:', values);
+    } catch (error) {
+      console.log('Error signing up:', error);
+    }
   };
 
   function goBackToSignIn() {

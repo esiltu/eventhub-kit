@@ -1,22 +1,18 @@
-import { FastifyInstance, FastifyPluginOptions, FastifySchema } from "fastify";
-import User from "../models/User";
+import { FastifyInstance, FastifyPluginOptions, FastifySchema } from 'fastify';
+import User from '../models/User';
 
-export default async function (
-  server: FastifyInstance,
-  opts: FastifyPluginOptions
-) {
+export default async function (server: FastifyInstance, opts: FastifyPluginOptions) {
   server.post<{
     Body: {
       email: string;
+      fullName: string;
       password: string;
     };
   }>(
-    "/register",
+    '/register',
     {
       schema: {
-        body: server.getSchema(
-          "https://example.com/schemas/user/login"
-        ) as FastifySchema,
+        body: server.getSchema('https://example.com/schemas/user/login') as FastifySchema,
       },
       attachValidation: true,
     },
@@ -24,7 +20,7 @@ export default async function (
       if (!request.body) {
         return reply.code(400).send({
           succes: false,
-          bericht: "Verzoekdata ontbreekt.",
+          bericht: 'Verzoekdata ontbreekt.',
         });
       }
 
@@ -32,27 +28,25 @@ export default async function (
         return reply.code(400).send(request.validationError);
       }
 
-      const { email, password } = request.body;
+      const { email, fullName, password } = request.body;
 
       try {
         const bestaandeGebruiker = await User.findOne({ email: email });
         if (bestaandeGebruiker) {
-          return reply
-            .code(409)
-            .send({ succes: false, bericht: "E-mailadres is al in gebruik." });
+          return reply.code(409).send({ succes: false, bericht: 'E-mailadres is al in gebruik.' });
         }
 
-        const user = new User({ email, password });
+        const user = new User({ email, fullName, password });
         await user.save();
         return reply.code(201).send({
           succes: true,
-          bericht: "Gebruiker succesvol geregistreerd.",
+          bericht: 'Gebruiker succesvol geregistreerd.',
         });
       } catch (error) {
         console.error(error);
         return reply.code(500).send({
           succes: false,
-          bericht: "Interne serverfout. Probeer het later opnieuw.",
+          bericht: 'Interne serverfout. Probeer het later opnieuw.',
         });
       }
     }
