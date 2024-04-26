@@ -12,6 +12,7 @@ import { Formik } from 'formik';
 import { Input, Icon } from 'react-native-elements';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 const ValidationSchemaSignUp = Yup.object().shape({
   fullName: Yup.string().required('Full name is required'),
@@ -31,11 +32,25 @@ export default function FormSignUp() {
   };
 
   const handleSubmit = (values) => {
-    try {
-      console.log('Form Values:', values);
-    } catch (error) {
-      console.log('Error signing up:', error);
-    }
+    axios({
+      url: '/register',
+      method: 'POST',
+      data: {
+        fullName: values.fullName,
+        email: values.email,
+        password: values.password,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        console.log(response.data);
+        // navigation.navigate('');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   function goBackToSignIn() {
