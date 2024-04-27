@@ -13,6 +13,7 @@ import { Input, Icon } from 'react-native-elements';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import Toast from 'react-native-toast-message';
 
 const ValidationSchemaSignUp = Yup.object().shape({
   fullName: Yup.string().required('Full name is required'),
@@ -31,7 +32,7 @@ export default function FormSignUp() {
     setPasswordVisibility(!passwordVisibility);
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, { resetForm }) => {
     axios({
       url: '/register',
       method: 'POST',
@@ -46,7 +47,13 @@ export default function FormSignUp() {
     })
       .then((response) => {
         console.log(response.data);
-        // navigation.navigate('');
+        Toast.show({
+          type: 'success',
+          text1: `${response.data.bericht + ' ✅'}`,
+          text1Style: { textAlign: 'center' },
+        });
+        resetForm();
+        navigation.navigate('SignIn');
       })
       .catch((error) => {
         console.log(error);

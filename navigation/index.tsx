@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 import { BackButton } from '../components/BackButton';
 import { Overview, Details, OnboardingPages, SignIn, SignUp } from '../routers/PageRouter';
@@ -61,6 +62,7 @@ export default function RootStack() {
           })}
         />
       </Stack.Navigator>
+      <Toast />
     </NavigationContainer>
   );
 }
