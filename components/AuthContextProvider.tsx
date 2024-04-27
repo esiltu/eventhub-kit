@@ -6,40 +6,37 @@ import React, {
   ReactNode,
   FunctionComponent,
 } from 'react';
-import { storage } from 'store/storage'; // Ensure this path matches your storage utility
+import { MMKV } from 'react-native-mmkv';
 
-// Define the type for the context value
+const storage = new MMKV();
+
 interface AuthContextType {
   isLoggedIn: boolean;
   setLoggedIn: (value: boolean) => void;
 }
 
-// Create the context with default values and explicit types
 const AuthContext = createContext<AuthContextType>({
   isLoggedIn: false,
-  setLoggedIn: () => {}, // Default function
+  setLoggedIn: () => {},
 });
 
-// Custom hook for consuming context
 export const useAuth = () => useContext(AuthContext);
 
-// Props type for the provider
 interface AuthProviderProps {
   children: ReactNode;
 }
 
-// AuthProvider component
 export const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children }) => {
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
-    // Check if a token is stored and set the logged-in state accordingly
     const token = storage.getString('token');
-    setLoggedIn(!!token); // !! converts a value to boolean, true if token exists
+    setLoggedIn(!!token);
   }, []);
 
-  // Provide isLoggedIn and setLoggedIn to the context consumers
   return (
     <AuthContext.Provider value={{ isLoggedIn, setLoggedIn }}>{children}</AuthContext.Provider>
   );
 };
+
+export default AuthProvider;

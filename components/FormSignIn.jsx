@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { storage } from 'store/storage';
 import Toast from 'react-native-toast-message';
 import axios from 'axios';
+import { useAuth } from './AuthContextProvider';
 
 export default function FormSignIn() {
   const doesTokenExist = storage.getString('token');
@@ -24,6 +25,8 @@ export default function FormSignIn() {
   const navigation = useNavigation();
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rememberMe, setRememberMe] = useState(false);
+
+  const { setLoggedIn } = useAuth();
 
   const togglePasswordVisibility = () => {
     setPasswordVisibility(!passwordVisibility);
@@ -53,8 +56,9 @@ export default function FormSignIn() {
           text1: `${response.data.bericht + ' ✅'}`,
           text1Style: { textAlign: 'center' },
         });
+        setLoggedIn(true);
         resetForm();
-        navigation.navigate('Home');
+        navigation.navigate('BottomTab');
       })
       .catch((error) => {
         console.log(error);
