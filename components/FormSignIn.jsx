@@ -53,7 +53,7 @@ export default function FormSignIn() {
         storage.set('token', response.data.token);
         Toast.show({
           type: 'success',
-          text1: `${response.data.bericht + ' ✅'}`,
+          text1: `${response.data.message + ' ✅'}`,
           text1Style: { textAlign: 'center' },
         });
         setLoggedIn(true);

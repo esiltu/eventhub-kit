@@ -1,14 +1,37 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import SafeView from 'components/SafeView';
+import { storage } from 'store/storage';
+import { jwtDecode } from 'jwt-decode';
 
-const Settings = () => {
+export default function Settings() {
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      try {
+        const token = await storage.getString('token');
+        if (token) {
+          const decoded = jwtDecode(token);
+          setUserInfo(decoded);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getUserInfo();
+  }, []);
+
   return (
-    <View>
-      <Text>Settings</Text>
-    </View>
+    <SafeView>
+      <View>
+        <Text>{userInfo?.email}</Text>
+        <Text>{userInfo?.fullname}</Text>
+        <Text>{userInfo?.id}</Text>
+      </View>
+    </SafeView>
   );
-};
-
-export default Settings;
+}
 
 const styles = StyleSheet.create({});

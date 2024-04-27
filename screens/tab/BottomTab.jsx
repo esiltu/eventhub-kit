@@ -21,11 +21,11 @@ const BottomTabNavigator = () => {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: 'tomato',
+        tabBarActiveTintColor: '#5669FF',
         tabBarInactiveTintColor: 'gray',
       })}>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Settings" component={Settings} />
+      <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
+      <Tab.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 };

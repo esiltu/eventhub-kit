@@ -20,8 +20,8 @@ export default async function (server: FastifyInstance, opts: FastifyPluginOptio
     async (request, reply) => {
       if (!request.body) {
         return reply.code(400).send({
-          succes: false,
-          bericht: 'Verzoekdata ontbreekt.',
+          success: false,
+          message: 'Request data is missing.',
         });
       }
 
@@ -30,27 +30,31 @@ export default async function (server: FastifyInstance, opts: FastifyPluginOptio
       try {
         const user = await User.findOne({ email: email });
         if (!user) {
-          return reply.code(401).send({ succes: false, bericht: 'Onjuiste inloggegevens.' });
+          return reply.code(401).send({ success: false, message: 'Incorrect login credentials.' });
         }
 
         const match = await bcrypt.compare(password, user.password);
         if (!match) {
-          return reply.code(401).send({ succes: false, bericht: 'Onjuiste inloggegevens.' });
+          return reply.code(401).send({ success: false, message: 'Incorrect login credentials.' });
         }
 
-        const token = server.jwt.sign({ id: user.id });
+        const token = server.jwt.sign({
+          id: user.id, // User's ID
+          fullname: user.fullName, // User's Full Name
+          email: user.email, // User's Email
+        });
 
         return reply.code(200).send({
-          succes: true,
-          bericht: 'Succesvol ingelogd.',
+          success: true,
+          message: 'Successfully logged in.',
           token,
         });
       } catch (error) {
         console.error(error);
 
         return reply.code(500).send({
-          succes: false,
-          bericht: 'Interne serverfout. Probeer het later opnieuw.',
+          success: false,
+          message: 'Internal server error. Please try again later.',
         });
       }
     }

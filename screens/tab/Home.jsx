@@ -1,23 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { storage } from 'store/storage';
+import SafeView from 'components/SafeView';
 
-const Home = () => {
+export default function Home() {
   const handleLogout = () => {
     storage.delete('token');
   };
 
   return (
-    <View style={styles.container}>
+    <SafeView>
       <Text>Home</Text>
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
         <Text style={styles.logoutButtonText}>Logout</Text>
       </TouchableOpacity>
-    </View>
+    </SafeView>
   );
-};
-
-export default Home;
+}
 
 const styles = StyleSheet.create({
   container: {
