@@ -14,6 +14,7 @@ import ValidationSchemaSignIn from 'lib/ValidationSchemaSignIn';
 import { useNavigation } from '@react-navigation/native';
 import { storage } from 'store/storage';
 
+
 export default function FormSignIn() {
   const doesKeyExit = storage.contains('hasSeenOnboarding');
   console.log('Does key exist:', doesKeyExit);
