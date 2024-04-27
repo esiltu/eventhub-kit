@@ -13,9 +13,12 @@ import { Input, Icon, Button, Switch } from 'react-native-elements';
 import ValidationSchemaSignIn from 'lib/ValidationSchemaSignIn';
 import { useNavigation } from '@react-navigation/native';
 import { storage } from 'store/storage';
-
+import Toast from 'react-native-toast-message';
+import axios from 'axios';
 
 export default function FormSignIn() {
+  const doesTokenExist = storage.getString('token');
+  console.log('Does token exist:', doesTokenExist);
   const doesKeyExit = storage.contains('hasSeenOnboarding');
   console.log('Does key exist:', doesKeyExit);
   const navigation = useNavigation();
@@ -30,13 +33,33 @@ export default function FormSignIn() {
     setRememberMe(!rememberMe);
   };
 
-  async function handleSubmit(values) {
-    try {
-      console.log('Successfully submitted form!', values);
-    } catch (error) {
-      console.log('Error submitting form:', error);
-    }
-  }
+  const handleSubmit = (values, { resetForm }) => {
+    axios({
+      url: '/login',
+      method: 'POST',
+      data: {
+        email: values.email,
+        password: values.password,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        console.log(response.data);
+        storage.set('token', response.data.token);
+        Toast.show({
+          type: 'success',
+          text1: `${response.data.bericht + ' ✅'}`,
+          text1Style: { textAlign: 'center' },
+        });
+        resetForm();
+        navigation.navigate('Home');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   // This is in case you want to remove the key from storage
   // function removeHasSeenOnboarding() {
