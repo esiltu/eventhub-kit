@@ -1,15 +1,14 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import SafeView from 'components/SafeView';
 import { storage } from 'store/storage';
 import { jwtDecode } from 'jwt-decode';
-import { useAuth } from 'components/AuthContextProvider';
-import { useNavigation } from '@react-navigation/native';
+import { LogOutButton } from '../../routers/Components';
 
 export default function Settings() {
-  const navigation = useNavigation();
   const [userInfo, setUserInfo] = useState(null);
 
+  // Get user info from the token
   useEffect(() => {
     const getUserInfo = async () => {
       try {
@@ -26,27 +25,13 @@ export default function Settings() {
     getUserInfo();
   }, []);
 
-  const { setLoggedIn } = useAuth();
-
-  async function logOutFromApp() {
-    try {
-      await storage.delete('token');
-      setLoggedIn(false);
-      navigation.navigate('SignIn');
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   return (
     <SafeView>
       <View style={styles.container}>
         <Text style={styles.email}>{userInfo?.email}</Text>
         <Text style={styles.fullname}>{userInfo?.fullname}</Text>
         <Text style={styles.id}>{userInfo?.id}</Text>
-        <TouchableOpacity style={styles.logoutButton} onPress={logOutFromApp}>
-          <Text style={styles.logoutText}>Log out</Text>
-        </TouchableOpacity>
+        <LogOutButton />
       </View>
     </SafeView>
   );
