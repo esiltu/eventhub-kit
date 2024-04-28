@@ -21,7 +21,7 @@ export default function FormSignIn() {
   const doesTokenExist = storage.getString('token');
   console.log('Does token exist:', doesTokenExist);
   const doesKeyExit = storage.contains('hasSeenOnboarding');
-  console.log('Does key exist:', doesKeyExit);
+  console.log('Has seen onboarding:', doesKeyExit);
   const navigation = useNavigation();
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rememberMe, setRememberMe] = useState(false);
