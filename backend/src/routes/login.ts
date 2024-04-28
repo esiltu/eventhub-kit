@@ -39,9 +39,9 @@ export default async function (server: FastifyInstance, opts: FastifyPluginOptio
         }
 
         const token = server.jwt.sign({
-          id: user.id, // User's ID
-          fullname: user.fullName, // User's Full Name
-          email: user.email, // User's Email
+          id: user.id,
+          fullname: user.fullName,
+          email: user.email,
         });
 
         return reply.code(200).send({
