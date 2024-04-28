@@ -10,7 +10,6 @@ export default function Settings() {
   const navigation = useNavigation();
   const [userInfo, setUserInfo] = useState(null);
 
-  // Get user info from the token
   useEffect(() => {
     const getUserInfo = async () => {
       try {
@@ -29,13 +28,9 @@ export default function Settings() {
 
   const { setLoggedIn } = useAuth();
 
-  // Log out from the app
   async function logOutFromApp() {
     try {
-      const token = await storage.getString('token');
-      if (token) {
-        await storage.delete('token');
-      }
+      await storage.delete('token');
       setLoggedIn(false);
       navigation.navigate('SignIn');
     } catch (error) {
@@ -45,16 +40,48 @@ export default function Settings() {
 
   return (
     <SafeView>
-      <View>
-        <Text>{userInfo?.email}</Text>
-        <Text>{userInfo?.fullname}</Text>
-        <Text>{userInfo?.id}</Text>
-        <TouchableOpacity onPress={logOutFromApp}>
-          <Text>Log out</Text>
+      <View style={styles.container}>
+        <Text style={styles.email}>{userInfo?.email}</Text>
+        <Text style={styles.fullname}>{userInfo?.fullname}</Text>
+        <Text style={styles.id}>{userInfo?.id}</Text>
+        <TouchableOpacity style={styles.logoutButton} onPress={logOutFromApp}>
+          <Text style={styles.logoutText}>Log out</Text>
         </TouchableOpacity>
       </View>
     </SafeView>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  email: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  fullname: {
+    fontSize: 14,
+    color: 'gray',
+    marginBottom: 5,
+  },
+  id: {
+    fontSize: 12,
+    color: 'darkgray',
+    marginBottom: 20,
+  },
+  logoutButton: {
+    backgroundColor: '#007AFF',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 10,
+  },
+  logoutText: {
+    color: 'white',
+    fontSize: 16,
+  },
+});
