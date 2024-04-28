@@ -6,7 +6,7 @@ import RootStack from './navigation';
 import { decode as atob } from 'base-64';
 global.atob = atob;
 
-axios.defaults.baseURL = 'http://localhost:3000/';
+axios.defaults.baseURL = 'https://esdevelops.pro';
 
 export default function App() {
   return (
