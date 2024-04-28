@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Text, Animated, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import Toast from 'react-native-toast-message';
 
-import { OnboardingPages, SignIn, SignUp, BottomTab } from '../routers/PageRouter';
+import BottomTab from '../screens/tab/BottomTab';
+import CustomDrawerContent from 'components/CustomDrawerContent';
+import { OnboardingPages, SignIn, SignUp } from '../routers/PageRouter';
 import { useAuth } from '../components/AuthContextProvider';
 import { storage } from 'store/storage';
 
@@ -13,29 +16,27 @@ export type RootStackParamList = {
   OnboardingPages: undefined;
   SignIn: undefined;
   SignUp: undefined;
+  Drawer: undefined;
   BottomTab: undefined;
   Details: { name: string };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
+const Drawer = createDrawerNavigator();
 
-const AnimatedBottomTab = () => {
-  const fadeAnim = new Animated.Value(0);
-
-  useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 1000,
-      useNativeDriver: true,
-    }).start();
-  }, []);
-
+function DrawerWithTabs() {
   return (
-    <Animated.View style={{ flex: 1, opacity: fadeAnim }}>
-      <BottomTab />
-    </Animated.View>
+    <Drawer.Navigator
+      initialRouteName="Home"
+      drawerContent={(props) => <CustomDrawerContent {...props} />}>
+      <Drawer.Screen
+        name="Home"
+        component={BottomTab}
+        options={{ headerShown: true, headerTitle: '' }}
+      />
+    </Drawer.Navigator>
   );
-};
+}
 
 const RootStack: React.FC = () => {
   const [hasSeenOnboarding, setHasSeenOnboarding] = useState<boolean | null>(null);
@@ -70,7 +71,7 @@ const RootStack: React.FC = () => {
         {!hasSeenOnboarding ? (
           <Stack.Screen name="OnboardingPages" component={OnboardingPages} />
         ) : isLoggedIn ? (
-          <Stack.Screen name="BottomTab" component={AnimatedBottomTab} />
+          <Stack.Screen name="Drawer" component={DrawerWithTabs} />
         ) : (
           <>
             <Stack.Screen name="SignIn" component={SignIn} />

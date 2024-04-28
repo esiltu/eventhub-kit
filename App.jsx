@@ -6,6 +6,7 @@ import { AuthProvider } from 'components/AuthContextProvider';
 import 'react-native-gesture-handler';
 import * as QuickActions from 'expo-quick-actions';
 import RootStack from './navigation';
+import 'react-native-gesture-handler';
 import { decode as atob } from 'base-64';
 global.atob = atob;
 

@@ -8,7 +8,6 @@ import { LogOutButton } from '../../routers/Components';
 export default function Settings() {
   const [userInfo, setUserInfo] = useState(null);
 
-  // Get user info from the token
   useEffect(() => {
     const getUserInfo = async () => {
       try {
@@ -28,10 +27,20 @@ export default function Settings() {
   return (
     <SafeView>
       <View style={styles.container}>
-        <Text style={styles.email}>{userInfo?.email}</Text>
-        <Text style={styles.fullname}>{userInfo?.fullname}</Text>
-        <Text style={styles.id}>{userInfo?.id}</Text>
-        <LogOutButton />
+        <Text style={styles.header}>Account Settings</Text>
+        <View style={styles.infoContainer}>
+          <Text style={styles.label}>Email:</Text>
+          <Text style={styles.email}>{userInfo?.email}</Text>
+        </View>
+        <View style={styles.infoContainer}>
+          <Text style={styles.label}>Full Name:</Text>
+          <Text style={styles.fullname}>{userInfo?.fullname}</Text>
+        </View>
+        <View style={styles.infoContainer}>
+          <Text style={styles.label}>User ID:</Text>
+          <Text style={styles.id}>{userInfo?.id}</Text>
+        </View>
+        {/* <LogOutButton /> */}
       </View>
     </SafeView>
   );
@@ -40,33 +49,44 @@ export default function Settings() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     padding: 20,
+    backgroundColor: '#F7F7F7',
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+    color: '#333',
+  },
+  infoContainer: {
+    marginBottom: 15,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+    borderRadius: 10,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#555',
   },
   email: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 5,
+    color: '#5669FF',
   },
   fullname: {
-    fontSize: 14,
-    color: 'gray',
-    marginBottom: 5,
+    fontSize: 16,
+    color: '#333',
   },
   id: {
-    fontSize: 12,
+    fontSize: 14,
     color: 'darkgray',
-    marginBottom: 20,
-  },
-  logoutButton: {
-    backgroundColor: '#007AFF',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 10,
-  },
-  logoutText: {
-    color: 'white',
-    fontSize: 16,
   },
 });

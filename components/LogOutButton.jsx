@@ -1,10 +1,11 @@
+// LogOutButton.js
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { storage } from '../store/storage';
 import { useAuth } from './AuthContextProvider';
 
-export default function LogOutButton() {
+export default function LogOutButton({ buttonStyle, textStyle }) {
   const { setLoggedIn } = useAuth();
   const navigation = useNavigation();
 
@@ -20,15 +21,15 @@ export default function LogOutButton() {
   };
 
   return (
-    <TouchableOpacity style={styles.logoutButton} onPress={logOutFromApp}>
-      <Text style={styles.logoutText}>Log out</Text>
+    <TouchableOpacity style={[styles.logoutButton, buttonStyle]} onPress={logOutFromApp}>
+      <Text style={[styles.logoutText, textStyle]}>Log out</Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   logoutButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#5669FF',
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 10,
