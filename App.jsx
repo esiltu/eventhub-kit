@@ -1,7 +1,10 @@
 import './translation';
+import React, { useEffect } from 'react';
+import { Platform } from 'react-native';
 import axios from 'axios';
 import { AuthProvider } from 'components/AuthContextProvider';
 import 'react-native-gesture-handler';
+import * as QuickActions from 'expo-quick-actions';
 import RootStack from './navigation';
 import { decode as atob } from 'base-64';
 global.atob = atob;
@@ -9,6 +12,17 @@ global.atob = atob;
 axios.defaults.baseURL = 'https://esdevelops.pro';
 
 export default function App() {
+  useEffect(() => {
+    QuickActions.setItems([
+      {
+        title: "Wait! Don't delete me!",
+        subtitle: "We're here to help",
+        icon: Platform.OS === 'ios' ? 'symbol:person.crop.circle.badge.questionmark' : undefined,
+        id: '0',
+        params: { href: '/help' },
+      },
+    ]);
+  }, []);
   return (
     <AuthProvider>
       <RootStack />
