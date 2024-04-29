@@ -58,7 +58,6 @@ export default function FormSignIn() {
         });
         setLoggedIn(true);
         resetForm();
-        navigation.navigate('BottomTab');
       })
       .catch((error) => {
         console.log(error);
