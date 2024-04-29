@@ -4,6 +4,7 @@ import SafeView from 'components/SafeView';
 import { storage } from 'store/storage';
 import { jwtDecode } from 'jwt-decode';
 import { getAppIcon, setAppIcon } from 'expo-dynamic-app-icon';
+import { Ionicons } from '@expo/vector-icons';
 
 const ICONS = [
   {
@@ -73,10 +74,13 @@ export default function Settings() {
           {ICONS.map((icon) => (
             <TouchableOpacity
               key={icon.name}
-              style={styles.btn}
+              style={[styles.btn, activeIcon === icon.name ? styles.activeBtn : null]}
               onPress={() => onChangeAppIcon(icon.name)}>
-              <Image source={icon.icon} style={{ width: 24, height: 24 }} />
-              <Text style={{ color: 'black', fontSize: 18 }}>{icon.name}</Text>
+              <Image source={icon.icon} style={styles.iconImage} />
+              <Text style={styles.iconText}>{icon.name}</Text>
+              {activeIcon === icon.name && (
+                <Ionicons name="checkmark-circle" size={24} style={styles.checkmark} />
+              )}
             </TouchableOpacity>
           ))}
         </View>
@@ -111,28 +115,36 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderRadius: 10,
   },
-  label: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#555',
-  },
-  email: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#5669FF',
-  },
-  fullname: {
-    fontSize: 16,
-    color: '#333',
-  },
-  id: {
-    fontSize: 14,
-    color: 'darkgray',
-  },
   actions: {
-    backgroundColor: 'rgba(256,256,256,0.1)',
-    borderRadius: 16,
-    gap: 0,
-    margin: 20,
+    marginTop: 20,
+    alignItems: 'stretch',
+  },
+  btn: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#E6E6E6',
+    backgroundColor: 'white',
+  },
+  activeBtn: {
+    borderColor: '#5669FF',
+  },
+  iconImage: {
+    width: 40,
+    height: 40,
+  },
+  iconText: {
+    flex: 1,
+    marginLeft: 10,
+    color: 'black',
+    fontSize: 16,
+  },
+  checkmark: {
+    marginRight: 15,
+    color: '#5669FF',
   },
 });
