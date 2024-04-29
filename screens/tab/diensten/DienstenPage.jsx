@@ -13,18 +13,17 @@ const JobDetailPage = ({ route }) => {
       <View style={styles.container}>
         <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back" size={35} color="black" />
-          {/* <Text style={styles.goBackText}>Go Back</Text> */}
         </TouchableOpacity>
-        <Image source={item.icon} style={styles.icon} />
-        <Text style={styles.title}>{item.day}</Text>
-        <Text style={styles.attribute}>{item.time}</Text>
-        <Text style={styles.attribute}>{item.location}</Text>
-        <Text style={styles.attribute}>{`Rate: ${item.rate}`}</Text>
+        <Image source={item.icoon} style={styles.icon} />
+        <Text style={styles.title}>{item.dag}</Text>
+        <Text style={styles.attribute}>{item.tijd}</Text>
+        <Text style={styles.attribute}>{item.locatie}</Text>
+        <Text style={styles.attribute}>{`Tarief: ${item.tarief}`}</Text>
         <Text style={styles.attribute}>{`Type: ${item.type}`}</Text>
-        <Text style={styles.description}>{item.description}</Text>
+        <Text style={styles.description}>{item.beschrijving}</Text>
         <TouchableOpacity style={styles.button} onPress={() => console.log('Apply pressed')}>
           <Ionicons name="checkmark-circle" size={24} color="white" />
-          <Text style={styles.buttonText}>Reageer als eerste</Text>
+          <Text style={styles.buttonText}>Reageer Nu</Text>
         </TouchableOpacity>
       </View>
     </SafeView>
@@ -40,16 +39,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   goBackButton: {
-    // backgroundColor: 'red',
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
     width: '15%',
-  },
-  goBackText: {
-    marginLeft: 10,
-    fontSize: 18,
-    color: 'black',
   },
   icon: {
     width: 100,

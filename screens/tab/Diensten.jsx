@@ -7,34 +7,34 @@ const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpaci
 
 const dienstenVoorbeeld = [
   {
-    day: 'Maandag',
-    time: '9:00 AM - 5:00 PM',
-    location: 'Downtown Office',
-    rate: '€25/uur',
+    dag: 'Maandag',
+    tijd: '9:00 - 17:00',
+    locatie: 'Kantoor in het centrum',
+    tarief: '€25/uur',
     type: 'Kantoor',
-    employmentType: 'Detachering',
-    icon: require('../../assets/social-media-icons/github-150.png'), // Using require here
-    description: 'Great team and culture.',
+    dienstverband: 'Detachering',
+    icoon: require('../../assets/social-media-icons/github-150.png'),
+    beschrijving: 'Geweldig team en cultuur.',
   },
   {
-    day: 'Dinsdag',
-    time: '10:00 AM - 6:00 PM',
-    location: 'City Hall Annex',
-    rate: '€30/uur',
+    dag: 'Dinsdag',
+    tijd: '10:00 - 18:00',
+    locatie: 'Stadhuis Bijgebouw',
+    tarief: '€30/uur',
     type: 'Hybride',
-    employmentType: 'Freelance',
-    icon: require('../../assets/social-media-icons/linkedin-150.png'), // Using require here
-    description: 'Flexible working hours.',
+    dienstverband: 'Freelance',
+    icoon: require('../../assets/social-media-icons/linkedin-150.png'),
+    beschrijving: 'Flexibele werktijden.',
   },
   {
-    day: 'Woensdag',
-    time: '9:00 AM - 5:00 PM',
-    location: 'Remote',
-    rate: '€20/uur',
+    dag: 'Woensdag',
+    tijd: '9:00 - 17:00',
+    locatie: 'Thuiswerk',
+    tarief: '€20/uur',
     type: 'Op afstand',
-    employmentType: 'Detachering',
-    icon: require('../../assets/social-media-icons/tiktok-150.png'), // Using require here
-    description: 'Remote work opportunity.',
+    dienstverband: 'Detachering',
+    icoon: require('../../assets/social-media-icons/tiktok-150.png'),
+    beschrijving: 'Mogelijkheid tot thuiswerken.',
   },
 ];
 
@@ -65,14 +65,14 @@ const Diensten = () => {
                 style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}
                 activeOpacity={0.9}>
                 <View style={{ flex: 1, paddingHorizontal: 10 }}>
-                  <Text style={styles.day}>{item.day}</Text>
-                  <Text style={styles.time}>{item.time}</Text>
-                  <Text style={styles.location}>{item.location}</Text>
-                  <Text style={styles.rate}>{item.rate}</Text>
-                  <Text style={styles.employmentType}>{item.employmentType}</Text>
-                  <Text style={styles.description}>{item.description}</Text>
+                  <Text style={styles.day}>{item.dag}</Text>
+                  <Text style={styles.time}>{item.tijd}</Text>
+                  <Text style={styles.location}>{item.locatie}</Text>
+                  <Text style={styles.rate}>{item.tarief}</Text>
+                  <Text style={styles.employmentType}>{item.dienstverband}</Text>
+                  <Text style={styles.description}>{item.beschrijving}</Text>
                 </View>
-                <Image source={item.icon} style={styles.iconRight} />
+                <Image source={item.icoon} style={styles.iconRight} />
               </AnimatedTouchableOpacity>
             </Animated.View>
           );
