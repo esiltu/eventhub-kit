@@ -33,7 +33,7 @@ const JobSchedulePage = () => {
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}
-        estimatedItemSize={60} // Adjust based on your item size
+        estimatedItemSize={60}
       />
     </View>
   );
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: 'white',
   },
   itemContainer: {
     backgroundColor: '#ffffff',
