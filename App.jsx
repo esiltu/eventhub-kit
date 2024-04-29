@@ -16,8 +16,8 @@ export default function App() {
   useEffect(() => {
     QuickActions.setItems([
       {
-        title: "Wait! Don't delete me!",
-        subtitle: "We're here to help",
+        title: 'Wacht! Niet wissen!',
+        subtitle: 'We zijn hier om te helpen',
         icon: Platform.OS === 'ios' ? 'symbol:person.crop.circle.badge.questionmark' : undefined,
         id: '0',
         params: { href: '/help' },
