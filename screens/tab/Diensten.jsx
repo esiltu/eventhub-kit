@@ -43,7 +43,7 @@ const Diensten = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.headerTitle}>Zoek je opdracht</Text>
+      <Text style={styles.headerTitle}>Zoek je opdracht 📝</Text>
       <FlashList
         data={dienstenVoorbeeld}
         renderItem={({ item }) => {
@@ -98,9 +98,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
     color: '#333',
-    textShadowColor: 'rgba(0, 0, 0, 0.75)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 1,
   },
   itemContainer: {
     backgroundColor: '#ffffff',
