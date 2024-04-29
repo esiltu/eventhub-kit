@@ -1,12 +1,41 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import SafeView from 'components/SafeView';
 import { storage } from 'store/storage';
 import { jwtDecode } from 'jwt-decode';
-import { LogOutButton } from '../../routers/Components';
+import { getAppIcon, setAppIcon } from 'expo-dynamic-app-icon';
+
+const ICONS = [
+  {
+    name: 'default',
+    icon: require('../../assets/icon.png'),
+  },
+  {
+    name: 'dark',
+    icon: require('../../assets/icon-3.png'),
+  },
+  {
+    name: 'fancy',
+    icon: require('../../assets/icon-2.png'),
+  },
+];
 
 export default function Settings() {
   const [userInfo, setUserInfo] = useState(null);
+  const [activeIcon, setActiveIcon] = useState('default');
+
+  useEffect(() => {
+    const loadCurrentIcon = async () => {
+      const icon = await getAppIcon();
+      setActiveIcon(icon);
+    };
+    loadCurrentIcon();
+  }, []);
+
+  async function onChangeAppIcon(icon) {
+    await setAppIcon(icon);
+    setActiveIcon(icon);
+  }
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -39,6 +68,17 @@ export default function Settings() {
         <View style={styles.infoContainer}>
           <Text style={styles.label}>User ID:</Text>
           <Text style={styles.id}>{userInfo?.id}</Text>
+        </View>
+        <View style={styles.actions}>
+          {ICONS.map((icon) => (
+            <TouchableOpacity
+              key={icon.name}
+              style={styles.btn}
+              onPress={() => onChangeAppIcon(icon.name)}>
+              <Image source={icon.icon} style={{ width: 24, height: 24 }} />
+              <Text style={{ color: 'black', fontSize: 18 }}>{icon.name}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
         {/* <LogOutButton /> */}
       </View>
@@ -88,5 +128,11 @@ const styles = StyleSheet.create({
   id: {
     fontSize: 14,
     color: 'darkgray',
+  },
+  actions: {
+    backgroundColor: 'rgba(256,256,256,0.1)',
+    borderRadius: 16,
+    gap: 0,
+    margin: 20,
   },
 });

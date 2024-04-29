@@ -9,11 +9,6 @@
     "experiments": {
       "tsconfigPaths": true
     },
-    "plugins": [
-      "expo-localization",
-      "expo-font",
-      "expo-quick-actions"
-    ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -22,9 +17,29 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
+    "plugins": [
+      "expo-localization",
+      "expo-font",
+      "expo-quick-actions",
+      [
+        "expo-dynamic-app-icon",
+        {
+          "default": {
+            "image": "./assets/icon.png",
+            "prerendered": true
+          },
+          "dark": {
+            "image": "./assets/icon-3.png",
+            "prerendered": true
+          },
+          "fancy": {
+            "image": "./assets/icon-2.png",
+            "prerendered": true
+          }
+        }
+      ]
     ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.siltudevelops.eventhubkit"

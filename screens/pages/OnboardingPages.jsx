@@ -5,6 +5,7 @@ import { ImageOne, ImageTwo, ImageThree } from '../../routers/OnboardingImgRoute
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { storage } from 'store/storage';
+import { useAuth } from 'components/AuthContextProvider';
 
 const Dots = ({ selected }) => {
   let backgroundColor;
@@ -37,6 +38,7 @@ const doneButtonComponent = ({ ...props }) => {
   let color = '#5669FF';
   // Set the hasSeenOnboarding to true
   storage.set('hasSeenOnboarding', true);
+   setHasSeenOnboarding(true);
   return (
     <TouchableOpacity style={{ right: '15%' }} {...props}>
       <Ionicons name="checkmark-outline" size={30} color={color} />
@@ -47,6 +49,7 @@ const doneButtonComponent = ({ ...props }) => {
 const skipButtonComponent = ({ ...props }) => {
   // Set the hasSeenOnboarding to true
   storage.set('hasSeenOnboarding', true);
+  setHasSeenOnboarding(true);
   return (
     <TouchableOpacity {...props} activeOpacity={0.6}>
       <Text style={{ fontSize: 20, left: '15%', color: '#5669FF' }}>Skip</Text>
@@ -55,6 +58,15 @@ const skipButtonComponent = ({ ...props }) => {
 };
 
 export default function OnboardingPages() {
+  function onSkipFunc() {
+    try {
+      setHasSeenOnboarding(true);
+      // navigation.navigate('SignIn');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const { setHasSeenOnboarding } = useAuth();
   const navigation = useNavigation();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
@@ -80,8 +92,8 @@ export default function OnboardingPages() {
         bottomBarColor="#FFFFFF"
         DotComponent={Dots}
         // Navigate if user doesn't want to see the onboarding flow
-        onSkip={() => navigation.navigate('SignIn')}
-        onDone={() => navigation.navigate('SignIn')}
+        // onSkip={onSkipFunc}
+        // onDone={onSkipFunc}
         pages={[
           {
             backgroundColor: '#FFFFFF',

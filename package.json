@@ -20,6 +20,7 @@
     "base-64": "^1.0.0",
     "dotenv": "^16.4.5",
     "expo": "~50.0.7",
+    "expo-dynamic-app-icon": "^1.2.0",
     "expo-font": "~11.10.3",
     "expo-localization": "~14.8.3",
     "expo-quick-actions": "^1.0.1",
@@ -37,12 +38,12 @@
     "react-native-jwt-decode": "^1.0.3",
     "react-native-mmkv": "^2.12.2",
     "react-native-onboarding-swiper": "^1.2.0",
+    "react-native-reanimated": "~3.6.2",
     "react-native-safe-area-context": "^4.8.2",
     "react-native-screens": "~3.29.0",
     "react-native-swiper": "^1.6.0",
     "react-native-toast-message": "^2.2.0",
-    "yup": "^1.4.0",
-    "react-native-reanimated": "~3.6.2"
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
