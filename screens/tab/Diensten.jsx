@@ -13,7 +13,7 @@ const dienstenVoorbeeld = [
     rate: '€25/uur',
     type: 'Kantoor',
     employmentType: 'Detachering',
-    icon: 'https://via.placeholder.com/150x150.png?text=Company+1',
+    icon: require('../../assets/social-media-icons/github-150.png'), // Using require here
     description: 'Great team and culture.',
   },
   {
@@ -23,7 +23,7 @@ const dienstenVoorbeeld = [
     rate: '€30/uur',
     type: 'Hybride',
     employmentType: 'Freelance',
-    icon: 'https://via.placeholder.com/150x150.png?text=Company+2',
+    icon: require('../../assets/social-media-icons/linkedin-150.png'), // Using require here
     description: 'Flexible working hours.',
   },
   {
@@ -33,7 +33,7 @@ const dienstenVoorbeeld = [
     rate: '€20/uur',
     type: 'Op afstand',
     employmentType: 'Detachering',
-    icon: 'https://via.placeholder.com/150x150.png?text=Company+3',
+    icon: require('../../assets/social-media-icons/tiktok-150.png'), // Using require here
     description: 'Remote work opportunity.',
   },
 ];
@@ -72,7 +72,7 @@ const Diensten = () => {
                   <Text style={styles.employmentType}>{item.employmentType}</Text>
                   <Text style={styles.description}>{item.description}</Text>
                 </View>
-                <Image source={{ uri: item.icon }} style={styles.iconRight} />
+                <Image source={item.icon} style={styles.iconRight} />
               </AnimatedTouchableOpacity>
             </Animated.View>
           );

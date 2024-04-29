@@ -15,7 +15,7 @@ const JobDetailPage = ({ route }) => {
           <Ionicons name="arrow-back" size={35} color="black" />
           {/* <Text style={styles.goBackText}>Go Back</Text> */}
         </TouchableOpacity>
-        <Image source={{ uri: item.icon }} style={styles.icon} />
+        <Image source={item.icon} style={styles.icon} />
         <Text style={styles.title}>{item.day}</Text>
         <Text style={styles.attribute}>{item.time}</Text>
         <Text style={styles.attribute}>{item.location}</Text>
