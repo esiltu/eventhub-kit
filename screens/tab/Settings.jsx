@@ -71,6 +71,7 @@ export default function Settings() {
           <Text style={styles.id}>{userInfo?.id}</Text>
         </View>
         <View style={styles.actions}>
+          <Text style={styles.header}>App Icon</Text>
           {ICONS.map((icon) => (
             <TouchableOpacity
               key={icon.name}
@@ -84,7 +85,6 @@ export default function Settings() {
             </TouchableOpacity>
           ))}
         </View>
-        {/* <LogOutButton /> */}
       </View>
     </SafeView>
   );
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: 'left',
     color: '#333',
   },
   infoContainer: {
