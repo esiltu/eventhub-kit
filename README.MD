@@ -9,6 +9,8 @@ Welcome to the Eventhub Kit, a starter project for those interested in app devel
 - ✅ Check if a user has seen onboarding with MKVV storage  
 - ✅ Sign In (Frontend part done) (Backend currently working on it)
 - ✅ Sign Up (Frontend almost done) (Backend currently working on it)
+- ✅ Dynamic app icon changes 
+- ✅ Bottom tab authenticated pages with Home and Settings also with a nice Drawer
 
 ### Upcoming Features
 
