@@ -15,7 +15,15 @@ const dienstenVoorbeeld = [
     dienstverband: 'Detachering',
     functie: 'Frontend Ontwikkelaar',
     icoon: require('../../assets/social-media-icons/github-150.png'),
-    beschrijving: 'Geweldig team en cultuur.',
+    beschrijving:
+      'Geweldig team en cultuur. Als Frontend Ontwikkelaar kom je te werken in een dynamisch team waarbij je direct bijdraagt aan de ontwikkeling van innovatieve webapplicaties. Je gebruikt de nieuwste technologieën om responsive, toegankelijke en visueel aantrekkelijke interfaces te bouwen.',
+    bedrijfsinfo: {
+      beschrijving:
+        'Ons bedrijf biedt flexibele werktijden, thuiswerkmogelijkheden, een competitief salaris en een inspirerende werkomgeving.',
+      marge: '6%',
+      extra:
+        "We vragen een marge van 6% over je uurtarief om onze diensten te dekken, inclusief HR-ondersteuning, technische middelen en carrièreontwikkelingsprogramma's.",
+    },
   },
   {
     dag: 'Dinsdag',
@@ -26,7 +34,15 @@ const dienstenVoorbeeld = [
     dienstverband: 'Freelance',
     functie: 'Backend Ontwikkelaar',
     icoon: require('../../assets/social-media-icons/linkedin-150.png'),
-    beschrijving: 'Flexibele werktijden.',
+    beschrijving:
+      'In de rol van Backend Ontwikkelaar ben je verantwoordelijk voor het opzetten van robuuste server-oplossingen en het waarborgen van de connectiviteit tussen de server, de applicatie en de gebruikers. Jouw code zorgt voor efficiënte en veilige uitwisseling van gegevens.',
+    bedrijfsinfo: {
+      beschrijving:
+        'Bij ons krijg je toegang tot de nieuwste technologieën en werk je samen met topexperts in jouw vakgebied.',
+      marge: '6%',
+      extra:
+        'We hanteren een marge van 6% om onze kosten te dekken, waaronder toegang tot ons netwerk van klanten en projectondersteuning.',
+    },
   },
   {
     dag: 'Woensdag',
@@ -37,35 +53,63 @@ const dienstenVoorbeeld = [
     dienstverband: 'Detachering',
     functie: 'Full Stack Ontwikkelaar',
     icoon: require('../../assets/social-media-icons/tiktok-150.png'),
-    beschrijving: 'Mogelijkheid tot thuiswerken.',
+    beschrijving:
+      'Als Full Stack Ontwikkelaar werk je aan zowel de front- als backend van onze webapplicaties. Je bent een cruciale schakel in het vertalen van klantwensen naar technische oplossingen en werkt met een stack die het beste past bij het project.',
+    bedrijfsinfo: {
+      beschrijving:
+        'We bieden een dynamische werkomgeving waar je uitdagende projecten zult tegenkomen en waar ruimte is voor persoonlijke en professionele groei.',
+      marge: '6%',
+      extra:
+        'Onze marge van 6% ondersteunt de voortdurende toegang tot nieuwe projecten en technologische middelen.',
+    },
   },
   {
-    dag: 'Woensdag',
-    datum: '12-01-2024 t/m 12-03-2024',
-    locatie: 'Den Haag',
-    tarief: '€20/uur',
-    type: 'Remote',
-    dienstverband: 'Detachering',
-    functie: 'DevOps Engineer',
-    icoon: require('../../assets/social-media-icons/reddit-icon-150.png'),
-    beschrijving: 'Mogelijkheid tot thuiswerken.',
-  },
-  {
-    dag: 'Woensdag',
-    datum: '12-01-2024 t/m 12-03-2024',
-    locatie: 'Eindhoven',
-    tarief: '€20/uur',
-    type: 'Remote',
-    dienstverband: 'Detachering',
-    functie: 'Data Scientist',
+    dag: 'Donderdag',
+    datum: '13-01-2024 t/m 13-03-2024',
+    locatie: 'Leiden',
+    tarief: '€28/uur',
+    type: 'Op Locatie',
+    dienstverband: 'Vast contract',
+    functie: 'UI/UX Designer',
     icoon: require('../../assets/social-media-icons/whatsapp-icon-150.png'),
-    beschrijving: 'Mogelijkheid tot thuiswerken.',
+    beschrijving:
+      'Als UI/UX Designer ben je verantwoordelijk voor het ontwerpen van intuïtieve en gebruikersvriendelijke interfaces voor mobiele en webapplicaties. Je werkt nauw samen met ontwikkelaars en productmanagers om ontwerpen te creëren die zowel esthetisch aantrekkelijk als functioneel zijn.',
+    bedrijfsinfo: {
+      beschrijving:
+        'Ons bedrijf waardeert creativiteit en innovatie en biedt designers de ruimte om hun ideeën tot leven te brengen met de nieuwste tools en technologieën.',
+      marge: '6%',
+      extra:
+        'Wij nemen een marge van 6% voor de begeleiding, trainingen en de benodigde licenties voor ontwerpsoftware die wij leveren.',
+    },
+  },
+  {
+    dag: 'Vrijdag',
+    datum: '14-01-2024 t/m 14-03-2024',
+    locatie: 'Groningen',
+    tarief: '€32/uur',
+    type: 'Hybride',
+    dienstverband: 'Projectbasis',
+    functie: 'Project Manager',
+    icoon: require('../../assets/social-media-icons/telegram-icon-150.png'),
+    beschrijving:
+      'Als Project Manager coördineer je de planning, uitvoering en oplevering van projecten over diverse afdelingen heen. Je zorgt voor het behalen van projectdoelstellingen binnen de gestelde termijnen en budgetten en communiceert actief met alle betrokken stakeholders.',
+    bedrijfsinfo: {
+      beschrijving:
+        'We bieden een omgeving waar je als projectmanager de leiding kunt nemen over uitdagende projecten met teams die passie hebben voor hun werk.',
+      marge: '6%',
+      extra:
+        'Een marge van 6% helpt ons om de noodzakelijke projectmanagementtools en -systemen te onderhouden en te verbeteren, waardoor jij je kunt focussen op het leveren van topresultaten.',
+    },
   },
 ];
 
 export default function Diensten() {
   const [searchQuery, setSearchQuery] = useState('');
   const navigation = useNavigation();
+
+  const getShortDescription = (description) => {
+    return `${description.substring(0, 25)}...`;
+  };
 
   const filteredData = dienstenVoorbeeld.filter((item) =>
     item.functie.toLowerCase().includes(searchQuery.toLowerCase())
@@ -106,7 +150,7 @@ export default function Diensten() {
                   <Text style={styles.location}>{item.locatie}</Text>
                   <Text style={styles.rate}>{item.tarief}</Text>
                   <Text style={styles.employmentType}>{item.dienstverband}</Text>
-                  <Text style={styles.description}>{item.beschrijving}</Text>
+                  <Text style={styles.description}>{getShortDescription(item.beschrijving)}</Text>
                 </View>
                 <Image source={item.icoon} style={styles.iconRight} />
               </AnimatedTouchableOpacity>

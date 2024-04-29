@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { FlashList } from '@shopify/flash-list';
 import { Ionicons } from '@expo/vector-icons';
 import SafeView from 'components/SafeView';
 import { useNavigation } from '@react-navigation/native';
@@ -8,28 +9,60 @@ const JobDetailPage = ({ route }) => {
   const { item } = route.params;
   const navigation = useNavigation();
 
+  const details = [
+    { label: 'Functie', value: item.functie, type: 'title' },
+    { label: 'Type', value: item.type, type: 'type' },
+    { label: 'Datum', value: item.datum, type: 'attribute' },
+    { label: 'Locatie', value: item.locatie, type: 'attribute' },
+    { label: 'Tarief', value: `Tarief: ${item.tarief}`, type: 'attribute' },
+    { label: 'Beschrijving', value: item.beschrijving, type: 'description' },
+    { label: 'Wat bieden wij', value: item.bedrijfsinfo.beschrijving, type: 'description' },
+    { label: 'Extra Info', value: item.bedrijfsinfo.extra, type: 'description' },
+  ];
+
+  const renderItem = ({ item }) => {
+    switch (item.type) {
+      case 'title':
+        return <Text style={styles.title}>{item.value}</Text>;
+      case 'type':
+        return (
+          <View
+            style={[
+              styles.typeBadge,
+              item.value === 'Op Locatie' ? styles.onSite : styles.typeBadge,
+            ]}>
+            <Ionicons name="business" size={16} color="white" />
+            <Text style={styles.typeText}>{item.value}</Text>
+          </View>
+        );
+      case 'attribute':
+      case 'description':
+        return (
+          <Text style={item.type === 'attribute' ? styles.attribute : styles.description}>
+            {item.value}
+          </Text>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <SafeView>
-      <ScrollView contentContainerStyle={styles.container}>
-        <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={35} color="black" />
-        </TouchableOpacity>
-        <Image source={item.icoon} style={styles.icon} />
-        <Text style={styles.title}>{item.functie}</Text>
-        <View style={[styles.typeBadge, item.type === 'Op Locatie' ? styles.onSite : {}]}>
-          <Text style={styles.typeText}>{item.type}</Text>
-        </View>
-        <View style={styles.detailsContainer}>
-          <Text style={styles.attribute}>{item.datum}</Text>
-          <Text style={styles.attribute}>{item.locatie}</Text>
-          <Text style={styles.attribute}>{`Tarief: ${item.tarief}`}</Text>
-          <Text style={styles.description}>{item.beschrijving}</Text>
-        </View>
-        <TouchableOpacity style={styles.button} onPress={() => console.log('Apply pressed')}>
-          <Ionicons name="checkmark-circle" size={24} color="white" />
-          <Text style={styles.buttonText}>Reageer Nu</Text>
-        </TouchableOpacity>
-      </ScrollView>
+      <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.goBack()}>
+        <Ionicons name="arrow-back" size={35} color="black" />
+      </TouchableOpacity>
+      <Image source={item.icoon} style={styles.icon} />
+      <FlashList
+        data={details}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => `${item.label}-${index}`}
+        estimatedItemSize={100}
+      />
+      <TouchableOpacity style={styles.button} onPress={() => console.log('Apply pressed')}>
+        <Ionicons name="checkmark-circle" size={24} color="white" />
+        <Text style={styles.buttonText}>Reageer Nu</Text>
+      </TouchableOpacity>
     </SafeView>
   );
 };
@@ -41,11 +74,11 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 20,
     backgroundColor: 'white',
-    alignItems: 'center',
   },
   goBackButton: {
     alignSelf: 'flex-start',
     marginBottom: 20,
+    left: '4%',
   },
   icon: {
     width: 120,
@@ -56,41 +89,41 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    textAlign: 'center',
     marginBottom: 10,
+    left: '2%',
   },
   typeBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingVertical: 5,
     paddingHorizontal: 10,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#4CAF50',
     borderRadius: 10,
     marginBottom: 10,
-  },
-  onSite: {
-    backgroundColor: '#4CAF50',
+    width: '50%',
+    left: '5%',
   },
   typeText: {
     fontSize: 16,
     fontWeight: 'bold',
     color: 'white',
-    textAlign: 'center',
-  },
-  detailsContainer: {
-    width: '100%',
+    marginLeft: 5,
+    left: '5%',
   },
   attribute: {
     fontSize: 16,
     color: '#666',
     marginTop: 5,
-    textAlign: 'left',
+    left: '2%',
   },
   description: {
     fontSize: 14,
-    fontStyle: 'italic',
+    // fontStyle: 'italic',
     color: '#666',
     marginTop: 10,
-    textAlign: 'left',
-    marginBottom: 20,
+    marginBottom: 10,
+    alignSelf: 'center',
+    width: '95%',
   },
   button: {
     flexDirection: 'row',
@@ -101,6 +134,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 5,
     elevation: 2,
+    width: '50%',
+    alignSelf: 'center',
+    bottom: '20%',
   },
   buttonText: {
     fontSize: 16,
