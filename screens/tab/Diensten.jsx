@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Animated, Image } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, Animated, Image, TextInput } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { useNavigation } from '@react-navigation/native';
 
@@ -8,44 +8,80 @@ const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpaci
 const dienstenVoorbeeld = [
   {
     dag: 'Maandag',
-    tijd: '9:00 - 17:00',
-    locatie: 'Kantoor in het centrum',
+    datum: '10-01-2024 t/m 10-03-2024',
+    locatie: 'Amsterdam',
     tarief: '€25/uur',
-    type: 'Kantoor',
+    type: 'Op Locatie',
     dienstverband: 'Detachering',
+    functie: 'Frontend Ontwikkelaar',
     icoon: require('../../assets/social-media-icons/github-150.png'),
     beschrijving: 'Geweldig team en cultuur.',
   },
   {
     dag: 'Dinsdag',
-    tijd: '10:00 - 18:00',
-    locatie: 'Stadhuis Bijgebouw',
+    datum: '11-01-2024 t/m 11-03-2024',
+    locatie: 'Rotterdam',
     tarief: '€30/uur',
     type: 'Hybride',
     dienstverband: 'Freelance',
+    functie: 'Backend Ontwikkelaar',
     icoon: require('../../assets/social-media-icons/linkedin-150.png'),
     beschrijving: 'Flexibele werktijden.',
   },
   {
     dag: 'Woensdag',
-    tijd: '9:00 - 17:00',
-    locatie: 'Thuiswerk',
+    datum: '12-01-2024 t/m 12-03-2024',
+    locatie: 'Utrecht',
     tarief: '€20/uur',
-    type: 'Op afstand',
+    type: 'Remote',
     dienstverband: 'Detachering',
+    functie: 'Full Stack Ontwikkelaar',
     icoon: require('../../assets/social-media-icons/tiktok-150.png'),
+    beschrijving: 'Mogelijkheid tot thuiswerken.',
+  },
+  {
+    dag: 'Woensdag',
+    datum: '12-01-2024 t/m 12-03-2024',
+    locatie: 'Den Haag',
+    tarief: '€20/uur',
+    type: 'Remote',
+    dienstverband: 'Detachering',
+    functie: 'DevOps Engineer',
+    icoon: require('../../assets/social-media-icons/reddit-icon-150.png'),
+    beschrijving: 'Mogelijkheid tot thuiswerken.',
+  },
+  {
+    dag: 'Woensdag',
+    datum: '12-01-2024 t/m 12-03-2024',
+    locatie: 'Eindhoven',
+    tarief: '€20/uur',
+    type: 'Remote',
+    dienstverband: 'Detachering',
+    functie: 'Data Scientist',
+    icoon: require('../../assets/social-media-icons/whatsapp-icon-150.png'),
     beschrijving: 'Mogelijkheid tot thuiswerken.',
   },
 ];
 
-const Diensten = () => {
+export default function Diensten() {
+  const [searchQuery, setSearchQuery] = useState('');
   const navigation = useNavigation();
+
+  const filteredData = dienstenVoorbeeld.filter((item) =>
+    item.functie.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.headerTitle}>Zoek je opdracht 📝</Text>
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Zoek naar een functie... 📝"
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+      />
+      <Text style={styles.jobCount}>Aantal opdrachten: {filteredData.length}</Text>
       <FlashList
-        data={dienstenVoorbeeld}
+        data={filteredData}
         renderItem={({ item }) => {
           const scale = new Animated.Value(0.95);
           const handlePress = () => {
@@ -65,8 +101,8 @@ const Diensten = () => {
                 style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}
                 activeOpacity={0.9}>
                 <View style={{ flex: 1, paddingHorizontal: 10 }}>
-                  <Text style={styles.day}>{item.dag}</Text>
-                  <Text style={styles.time}>{item.tijd}</Text>
+                  <Text style={styles.functionTitle}>{item.functie}</Text>
+                  <Text style={styles.time}>{item.datum}</Text>
                   <Text style={styles.location}>{item.locatie}</Text>
                   <Text style={styles.rate}>{item.tarief}</Text>
                   <Text style={styles.employmentType}>{item.dienstverband}</Text>
@@ -82,9 +118,7 @@ const Diensten = () => {
       />
     </View>
   );
-};
-
-export default Diensten;
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -92,12 +126,21 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     backgroundColor: 'white',
   },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
+  searchInput: {
+    fontSize: 16,
+    padding: 10,
+    marginHorizontal: 10,
     marginBottom: 20,
-    color: '#333',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+  },
+  jobCount: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: 'left',
+    left: '5%',
   },
   itemContainer: {
     backgroundColor: '#ffffff',
@@ -146,5 +189,9 @@ const styles = StyleSheet.create({
     color: '#666',
     fontStyle: 'italic',
     marginTop: 5,
+  },
+  functionTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
