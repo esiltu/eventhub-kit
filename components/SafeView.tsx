@@ -12,5 +12,6 @@ export default function SafeView({ children }: SafeViewProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
 });

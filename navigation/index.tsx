@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, ActivityIndicator } from 'react-native';
 import Toast from 'react-native-toast-message';
-
+import JobDetailPage from 'screens/tab/diensten/DienstenPage';
 import BottomTab from '../screens/tab/BottomTab';
 import CustomDrawerContent from 'components/CustomDrawerContent';
 import { OnboardingPages, SignIn, SignUp } from '../routers/PageRouter';
 import { useAuth } from '../components/AuthContextProvider';
 import { storage } from 'store/storage';
+import { BackButton } from 'components/BackButton';
 
 export type RootStackParamList = {
   Overview: undefined;
@@ -18,6 +19,7 @@ export type RootStackParamList = {
   SignUp: undefined;
   Drawer: undefined;
   BottomTab: undefined;
+  JobDetailPage: { id: string; title: string };
   Details: { name: string };
 };
 
@@ -71,7 +73,17 @@ const RootStack: React.FC = () => {
         {!hasSeenOnboarding ? (
           <Stack.Screen name="OnboardingPages" component={OnboardingPages} />
         ) : isLoggedIn ? (
-          <Stack.Screen name="Drawer" component={DrawerWithTabs} />
+          <>
+            <Stack.Screen name="Drawer" component={DrawerWithTabs} options={{ title: '' }} />
+            <Stack.Screen
+              name="JobDetailPage"
+              component={JobDetailPage}
+              options={{
+                headerShown: false,
+                headerTitle: '',
+              }}
+            />
+          </>
         ) : (
           <>
             <Stack.Screen name="SignIn" component={SignIn} />
