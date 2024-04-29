@@ -134,7 +134,7 @@ export default function Diensten() {
               useNativeDriver: true,
             }).start(() => {
               scale.setValue(0.95);
-              navigation.navigate('JobDetailPage', { item });
+              navigation.navigate('JobDetailPage', { item, functieTitel: item.functie });
             });
           };
 

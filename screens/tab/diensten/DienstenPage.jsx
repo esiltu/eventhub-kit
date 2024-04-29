@@ -6,8 +6,13 @@ import SafeView from 'components/SafeView';
 import { useNavigation } from '@react-navigation/native';
 
 const JobDetailPage = ({ route }) => {
-  const { item } = route.params;
+  const { item, functieTitel } = route.params;
   const navigation = useNavigation();
+
+  const applyForJob = () => {
+    console.log(`Applying for: ${functieTitel}`);
+    // Voer verdere acties uit
+  };
 
   const details = [
     { label: 'Functie', value: item.functie, type: 'title' },
@@ -59,7 +64,7 @@ const JobDetailPage = ({ route }) => {
         keyExtractor={(item, index) => `${item.label}-${index}`}
         estimatedItemSize={100}
       />
-      <TouchableOpacity style={styles.button} onPress={() => console.log('Apply pressed')}>
+      <TouchableOpacity style={styles.button} onPress={applyForJob}>
         <Ionicons name="checkmark-circle" size={24} color="white" />
         <Text style={styles.buttonText}>Reageer Nu</Text>
       </TouchableOpacity>
