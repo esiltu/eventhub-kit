@@ -11,7 +11,6 @@ const JobDetailPage = ({ route }) => {
 
   const applyForJob = () => {
     console.log(`Applying for: ${functieTitel}`);
-    // Voer verdere acties uit
   };
 
   const details = [

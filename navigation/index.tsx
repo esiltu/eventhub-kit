@@ -13,6 +13,7 @@ import { storage } from 'store/storage';
 import UserInfo from 'screens/tab/UserInfo';
 import AppIcon from 'screens/tab/AppIcon';
 import BestandenWerker from 'screens/tab/BestandenWerker';
+// import DienstenFormulier from 'screens/tab/diensten/DienstenFormulier';
 
 export type RootStackParamList = {
   Overview: undefined;
@@ -23,6 +24,7 @@ export type RootStackParamList = {
   UserInfo: undefined;
   Drawer: undefined;
   BestandenWerker: undefined;
+  // DienstenFormulier: undefined;
   BottomTab: undefined;
   JobDetailPage: { id: string; title: string };
   Details: { name: string };
@@ -112,6 +114,14 @@ const RootStack: React.FC = () => {
                 headerTitle: '',
               }}
             />
+            {/* <Stack.Screen
+              name="DienstenFormulier"
+              component={DienstenFormulier}
+              options={{
+                headerShown: false,
+                headerTitle: '',
+              }}
+            /> */}
           </>
         ) : (
           <>
