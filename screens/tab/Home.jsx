@@ -1,13 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import SafeView from 'components/SafeView';
+import HeaderAuth from 'components/HeaderAuth';
 
 export default function Home() {
   return (
     <SafeView>
-      <View style={styles.container}>
-        <Text style={{ textAlign: 'center' }}>Soon more here!</Text>
-      </View>
+      <HeaderAuth />
     </SafeView>
   );
 }

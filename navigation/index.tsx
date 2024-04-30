@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Text, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import Toast from 'react-native-toast-message';
 import JobDetailPage from 'screens/tab/diensten/DienstenPage';
 import BottomTab from '../screens/tab/BottomTab';
@@ -34,9 +35,27 @@ const Stack = createStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator();
 
 function DrawerWithTabs() {
+  const { setLoggedIn } = useAuth();
+  const navigation = useNavigation();
+  const logOutFromApp = async () => {
+    try {
+      await storage.delete('token');
+      setLoggedIn(false);
+      navigation.navigate('SignIn' as never);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <Drawer.Navigator
       initialRouteName="Home"
+      screenOptions={{
+        headerRight: () => (
+          <TouchableOpacity onPress={logOutFromApp} style={{ marginRight: 15, right: '5%' }}>
+            <Ionicons name="log-out-outline" size={30} color="black" />
+          </TouchableOpacity>
+        ),
+      }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}>
       <Drawer.Screen
         name="Home"
