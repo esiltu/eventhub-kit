@@ -44,7 +44,7 @@ export default function AppIcon() {
     <SafeView>
       <View style={styles.container}>
         <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={35} color="black" />
+          <Ionicons name="arrow-back" size={35} color="#2C3E50" />
         </TouchableOpacity>
         <Text style={styles.header}>Kies App Icoon</Text>
         <View style={styles.iconContainer}>
@@ -82,7 +82,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 30,
-    color: '#333',
+    color: '#2C3E50',
+    bottom: '7%',
   },
   iconContainer: {
     alignSelf: 'stretch',

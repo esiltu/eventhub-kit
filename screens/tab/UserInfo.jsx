@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { jwtDecode } from 'jwt-decode';
 import SafeView from 'components/SafeView';
 import { storage } from 'store/storage';
@@ -31,9 +31,10 @@ const UserInfo = () => {
     <SafeView>
       <View style={styles.container}>
         <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={30} color="#333" />
+          <Ionicons name="arrow-back" size={30} color="#2C3E50" />
         </TouchableOpacity>
         <Text style={styles.header}>Gebruikersinformatie</Text>
+        <Image source={require('../../assets/icon-avatar-150.png')} style={styles.profilePic} />
         <View style={styles.infoContainer}>
           <Text style={styles.label}>E-mail:</Text>
           <Text style={styles.detail}>{userInfo?.email}</Text>
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   header: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 25,
     color: '#2C3E50',
@@ -70,14 +71,13 @@ const styles = StyleSheet.create({
   infoContainer: {
     marginBottom: 20,
     paddingHorizontal: 25,
-    paddingVertical: 20,
+    paddingVertical: 10,
     backgroundColor: 'white',
     borderRadius: 12,
     width: '100%',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    elevation: 4,
   },
   label: {
     color: '#4A4A4A',
@@ -94,5 +94,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 20,
     left: 20,
+  },
+  profilePic: {
+    width: 100,
+    height: 100,
+    borderRadius: 75, 
+    marginBottom: 20,
+    borderColor: '#ccc',
+    borderWidth: 1,
   },
 });
