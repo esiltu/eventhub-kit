@@ -43,10 +43,6 @@ const UserInfo = () => {
           <Text style={styles.label}>Volledige naam:</Text>
           <Text style={styles.detail}>{userInfo?.fullname}</Text>
         </View>
-        <View style={styles.infoContainer}>
-          <Text style={styles.label}>Gebruikers-ID:</Text>
-          <Text style={styles.detail}>{userInfo?.id}</Text>
-        </View>
       </View>
     </SafeView>
   );
@@ -98,7 +94,7 @@ const styles = StyleSheet.create({
   profilePic: {
     width: 100,
     height: 100,
-    borderRadius: 75, 
+    borderRadius: 75,
     marginBottom: 20,
     borderColor: '#ccc',
     borderWidth: 1,
