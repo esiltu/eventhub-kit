@@ -10,12 +10,16 @@ import CustomDrawerContent from 'components/CustomDrawerContent';
 import { OnboardingPages, SignIn, SignUp } from '../routers/PageRouter';
 import { useAuth } from '../components/AuthContextProvider';
 import { storage } from 'store/storage';
+import UserInfo from 'screens/tab/UserInfo';
+import AppIcon from 'screens/tab/AppIcon';
 
 export type RootStackParamList = {
   Overview: undefined;
   OnboardingPages: undefined;
   SignIn: undefined;
+  AppIcon: undefined;
   SignUp: undefined;
+  UserInfo: undefined;
   Drawer: undefined;
   BottomTab: undefined;
   JobDetailPage: { id: string; title: string };
@@ -77,6 +81,22 @@ const RootStack: React.FC = () => {
             <Stack.Screen
               name="JobDetailPage"
               component={JobDetailPage}
+              options={{
+                headerShown: false,
+                headerTitle: '',
+              }}
+            />
+            <Stack.Screen
+              name="AppIcon"
+              component={AppIcon}
+              options={{
+                headerShown: false,
+                headerTitle: '',
+              }}
+            />
+            <Stack.Screen
+              name="UserInfo"
+              component={UserInfo}
               options={{
                 headerShown: false,
                 headerTitle: '',
