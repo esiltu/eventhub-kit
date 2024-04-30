@@ -18,6 +18,12 @@ const SettingsOptions = [
     icon: 'person-circle-outline',
     navigateTo: 'UserInfo',
   },
+  {
+    id: 'bestandenFlexWerker',
+    title: 'Bestanden Flexwerker',
+    icon: 'briefcase-outline',
+    navigateTo: 'BestandenWerker',
+  },
 ];
 
 export default function Settings() {

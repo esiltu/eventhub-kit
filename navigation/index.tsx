@@ -12,6 +12,7 @@ import { useAuth } from '../components/AuthContextProvider';
 import { storage } from 'store/storage';
 import UserInfo from 'screens/tab/UserInfo';
 import AppIcon from 'screens/tab/AppIcon';
+import BestandenWerker from 'screens/tab/BestandenWerker';
 
 export type RootStackParamList = {
   Overview: undefined;
@@ -21,6 +22,7 @@ export type RootStackParamList = {
   SignUp: undefined;
   UserInfo: undefined;
   Drawer: undefined;
+  BestandenWerker: undefined;
   BottomTab: undefined;
   JobDetailPage: { id: string; title: string };
   Details: { name: string };
@@ -97,6 +99,14 @@ const RootStack: React.FC = () => {
             <Stack.Screen
               name="UserInfo"
               component={UserInfo}
+              options={{
+                headerShown: false,
+                headerTitle: '',
+              }}
+            />
+            <Stack.Screen
+              name="BestandenWerker"
+              component={BestandenWerker}
               options={{
                 headerShown: false,
                 headerTitle: '',
