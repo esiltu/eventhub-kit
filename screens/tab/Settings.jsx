@@ -1,53 +1,52 @@
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { FlashList } from '@shopify/flash-list';
 import SafeView from 'components/SafeView';
-import { storage } from 'store/storage';
-import { jwtDecode } from 'jwt-decode';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
-export default function Settings({ navigation }) {
-  const [userInfo, setUserInfo] = useState(null);
+const SettingsOptions = [
+  {
+    id: 'appIcon',
+    title: 'Kies App Icoon',
+    icon: 'image-outline',
+    navigateTo: 'AppIcon',
+  },
+  {
+    id: 'userInfo',
+    title: 'Profiel Inzien',
+    icon: 'person-circle-outline',
+    navigateTo: 'UserInfo',
+  },
+];
 
-  useEffect(() => {
-    const getUserInfo = async () => {
-      try {
-        const token = await storage.getString('token');
-        if (token) {
-          const decoded = jwtDecode(token);
-          setUserInfo(decoded);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
+export default function Settings() {
+  const navigation = useNavigation();
 
-    getUserInfo();
-  }, []);
+  const handlePress = (navigateTo) => {
+    navigation.navigate(navigateTo);
+  };
 
-  function goToAppIcon() {
-    navigation.navigate('AppIcon');
-  }
+  const renderItem = ({ item }) => (
+    <TouchableOpacity
+      style={styles.button}
+      onPress={() => handlePress(item.navigateTo)}
+      activeOpacity={0.8}>
+      <Ionicons name={item.icon} size={24} color="#4F4F4F" />
+      <Text style={styles.buttonText}>{item.title}</Text>
+    </TouchableOpacity>
+  );
 
   return (
     <SafeView>
       <View style={styles.container}>
-        <Text style={styles.header}>Account Settings</Text>
-        <View style={styles.infoContainer}>
-          <Text style={styles.label}>Email:</Text>
-          <Text style={styles.email}>{userInfo?.email}</Text>
-        </View>
-        <View style={styles.infoContainer}>
-          <Text style={styles.label}>Full Name:</Text>
-          <Text style={styles.fullname}>{userInfo?.fullname}</Text>
-        </View>
-        <View style={styles.infoContainer}>
-          <Text style={styles.label}>User ID:</Text>
-          <Text style={styles.id}>{userInfo?.id}</Text>
-        </View>
-        <TouchableOpacity style={styles.iconButton} onPress={goToAppIcon} activeOpacity={0.6}>
-          <Ionicons name="image-outline" size={20} color="white" />
-          <Text style={styles.iconButtonText}>Kies App Icon</Text>
-        </TouchableOpacity>
+        <Text style={styles.header}>Instellingen</Text>
+        <FlashList
+          data={SettingsOptions}
+          renderItem={renderItem}
+          estimatedItemSize={55}
+          contentContainerStyle={styles.listContentContainer}
+        />
       </View>
     </SafeView>
   );
@@ -60,37 +59,39 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   header: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'left',
     color: '#333',
+    textAlign: 'center',
   },
-  infoContainer: {
-    marginBottom: 15,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    backgroundColor: 'white',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
-    borderRadius: 10,
-  },
-  iconButton: {
+  button: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: '#007BFF',
-    borderRadius: 10,
+    paddingVertical: 12,
+    width: '90%',
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    borderRadius: 20,
     marginTop: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
+    elevation: 5,
+    borderWidth: 1,
+    borderColor: '#EDEDED',
   },
-  iconButtonText: {
-    marginLeft: 10,
-    fontSize: 16,
-    color: 'white',
+  buttonText: {
+    marginLeft: 15,
+    fontSize: 18,
+    color: '#4F4F4F',
+    fontWeight: '600',
+  },
+  listContentContainer: {
+    paddingBottom: 20,
+    paddingTop: 10,
+    // backgroundColor: 'transparent',
+    // borderRadius: 15,
   },
 });

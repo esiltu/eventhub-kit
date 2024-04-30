@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   iconImage: {
-    resizeMode: 'contain', // Ensure the image scales without distortion
+    resizeMode: 'contain',
   },
   iconText: {
     flex: 1,
