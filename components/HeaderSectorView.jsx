@@ -48,11 +48,11 @@ const styles = StyleSheet.create({
   container: {
     width: '90%',
     alignSelf: 'center',
-    top: '7.5%',
+    top: '6%',
     padding: 10,
     borderWidth: 1,
     borderColor: '#ddd',
-    borderRadius: 20,
+    borderRadius: 8,
     margin: 10,
   },
   headerText: {
