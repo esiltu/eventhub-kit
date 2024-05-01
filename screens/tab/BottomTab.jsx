@@ -25,7 +25,7 @@ const BottomTabNavigator = () => {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#5669FF',
+        tabBarActiveTintColor: '#f3a683',
         tabBarInactiveTintColor: 'gray',
       })}>
       <Tab.Screen name="Index" component={Home} options={{ headerShown: false, title: 'Home' }} />

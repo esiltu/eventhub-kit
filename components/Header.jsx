@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import React from 'react';
-import { AppIcon } from 'routers/OnboardingImgRouter';
+import AppIconSecond from '../assets/icons/app-icon.webp';
 
 export default function Header() {
   return (
     <View>
-      <Image source={AppIcon} style={styles.containerHeaderIcon} />
-      <Text style={styles.containerHeaderTxt}>EventHub</Text>
+      <Image source={AppIconSecond} style={styles.containerHeaderIcon} />
+      <Text style={styles.containerHeaderTxt}>VacatureShift</Text>
     </View>
   );
 }
