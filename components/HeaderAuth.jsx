@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '400',
     color: '#2C3E50',
-    left: '7.5%',
+    left: '3.5%',
   },
   headerSecondTxt: {
     fontWeight: '800',
