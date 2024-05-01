@@ -8,6 +8,7 @@ import {
   Animated,
   Image,
   TextInput,
+  Alert,
 } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { useNavigation } from '@react-navigation/native';
@@ -24,51 +25,77 @@ export default function Diensten() {
   const token = storage.getString('token');
 
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const response = await axios.post(
-          '/opdrachten',
-          { token },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (response.data.setLogginIn) {
-          setDiensten(response.data.diensten);
-        } else {
-          console.error('Error fetching data:', response.data.message);
-        }
-      } catch (error) {
-        console.error('Error with the request:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     fetchData();
   }, [token]);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.post(
+        '/opdrachten',
+        { token },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.data.setLogginIn) {
+        setDiensten(response.data.diensten);
+      } else {
+        console.error('Error fetching data:', response.data.message);
+      }
+    } catch (error) {
+      console.error('Error with the request:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const getShortDescription = (description) => {
     return `${description.substring(0, 25)}...`;
   };
 
+  const handleRefresh = () => {
+    fetchData();
+  };
+
+  const handlePress = (item) => {
+    navigation.navigate('JobDetailPage', {
+      item,
+      functieTitel: item.functie,
+      icoon: item.icoon,
+    });
+  };
+
+  useEffect(() => {
+    if (!isLoading && diensten.length === 0) {
+      Alert.alert(
+        'Helaas geen nieuwe opdrachten beschikbaar',
+        'Meld je aan voor notificatie inbox voor nieuwe opdrachten'
+      );
+    }
+  }, [isLoading, diensten]);
+
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Zoek naar een functie... 📝"
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-      />
+      <View style={styles.header}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Zoek naar een functie... 📝"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+        <TouchableOpacity style={styles.refreshButton} onPress={handleRefresh}>
+          <Text style={styles.refreshButtonText}>Verversen</Text>
+        </TouchableOpacity>
+      </View>
       {isLoading ? (
         <View style={styles.loaderContainer}>
           <ActivityIndicator size="large" color="#f3a683" />
         </View>
       ) : (
-        <>
+        <View style={styles.content}>
           <Text style={styles.jobCount}>
             Aantal opdrachten:{' '}
             {
@@ -83,20 +110,11 @@ export default function Diensten() {
             )}
             renderItem={({ item }) => {
               const scale = new Animated.Value(0.95);
-              const handlePress = () => {
-                Animated.spring(scale, {
-                  toValue: 1,
-                  useNativeDriver: true,
-                }).start(() => {
-                  scale.setValue(0.95);
-                  navigation.navigate('JobDetailPage', { item, functieTitel: item.functie });
-                });
-              };
 
               return (
                 <Animated.View style={[styles.itemContainer, { transform: [{ scale }] }]}>
                   <AnimatedTouchableOpacity
-                    onPress={handlePress}
+                    onPress={() => handlePress(item)}
                     style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}
                     activeOpacity={0.9}>
                     <View style={{ flex: 1, paddingHorizontal: 10 }}>
@@ -117,7 +135,7 @@ export default function Diensten() {
             keyExtractor={(item, index) => index.toString()}
             estimatedItemSize={40}
           />
-        </>
+        </View>
       )}
     </View>
   );
@@ -129,27 +147,46 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     backgroundColor: 'white',
   },
-  searchInput: {
-    fontSize: 16,
-    padding: 10,
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginHorizontal: 10,
     marginBottom: 20,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
+    padding: 10,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
   },
+  refreshButton: {
+    marginLeft: 10,
+    padding: 10,
+    backgroundColor: '#f3a683',
+    borderRadius: 5,
+  },
+  refreshButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
   jobCount: {
+    left: '1%',
+    marginLeft: 10,
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 10,
-    textAlign: 'left',
-    left: '5%',
+  },
+  content: {
+    flex: 1,
   },
   itemContainer: {
     backgroundColor: '#ffffff',
     padding: 10,
     marginVertical: 5,
-    marginHorizontal: 10,
+    marginHorizontal: 4,
     borderRadius: 5,
     elevation: 2,
     shadowColor: '#000',

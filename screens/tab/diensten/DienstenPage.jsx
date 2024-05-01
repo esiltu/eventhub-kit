@@ -48,6 +48,7 @@ const JobDetailPage = ({ route }) => {
   };
 
   const details = [
+    { label: 'Icoon', value: item.icoon, type: 'icon' },
     { label: 'Functie', value: item.functie, type: 'title' },
     { label: 'Type', value: item.type, type: 'type' },
     { label: 'Datum', value: item.datum, type: 'attribute' },
@@ -90,7 +91,7 @@ const JobDetailPage = ({ route }) => {
       <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.goBack()}>
         <Ionicons name="arrow-back" size={35} color="black" />
       </TouchableOpacity>
-      <Image source={item.icoon} style={styles.icon} />
+      <Image source={{ uri: item.icoon }} style={styles.icon} />
       <FlashList
         data={details}
         renderItem={renderItem}
