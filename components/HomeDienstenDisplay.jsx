@@ -9,6 +9,16 @@ const dienstenVoorbeeld = [
     datum: '10-01-2024 t/m 10-03-2024',
     tarief: '€25/uur',
     type: 'Op Locatie',
+    dienstverband: 'Detachering',
+    beschrijving:
+      'Geweldig team en cultuur. Als Frontend Ontwikkelaar kom je te werken in een dynamisch team waarbij je direct bijdraagt aan de ontwikkeling van innovatieve webapplicaties. Je gebruikt de nieuwste technologieën om responsive, toegankelijke en visueel aantrekkelijke interfaces te bouwen.',
+    bedrijfsinfo: {
+      beschrijving:
+        'Ons bedrijf biedt flexibele werktijden, thuiswerkmogelijkheden, een competitief salaris en een inspirerende werkomgeving.',
+      marge: '6%',
+      extra:
+        "We vragen een marge van 6% over je uurtarief om onze diensten te dekken, inclusief HR-ondersteuning, technische middelen en carrièreontwikkelingsprogramma's.",
+    },
     icoon: require('../assets/social-media-icons/github-150.png'),
   },
   {
@@ -17,36 +27,39 @@ const dienstenVoorbeeld = [
     datum: '11-01-2024 t/m 11-03-2024',
     tarief: '€30/uur',
     type: 'Hybride',
+    dienstverband: 'Freelance',
+    beschrijving:
+      'In de rol van Backend Ontwikkelaar ben je verantwoordelijk voor het opzetten van robuuste server-oplossingen en het waarborgen van de connectiviteit tussen de server, de applicatie en de gebruikers. Jouw code zorgt voor efficiënte en veilige uitwisseling van gegevens.',
+    bedrijfsinfo: {
+      beschrijving:
+        'Bij ons krijg je toegang tot de nieuwste technologieën en werk je samen met topexperts in jouw vakgebied.',
+      marge: '6%',
+      extra:
+        'We hanteren een marge van 6% om onze kosten te dekken, waaronder toegang tot ons netwerk van klanten en projectondersteuning.',
+    },
     icoon: require('../assets/social-media-icons/linkedin-150.png'),
   },
 ];
 
 export default function HomeDienstenDisplay() {
   const navigation = useNavigation();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [zoekQuery, setZoekQuery] = useState('');
 
-  const filteredData = dienstenVoorbeeld.filter((item) =>
-    item.functie.toLowerCase().includes(searchQuery.toLowerCase())
+  const gefilterdeData = dienstenVoorbeeld.filter((item) =>
+    item.functie.toLowerCase().includes(zoekQuery.toLowerCase())
   );
 
-  const handlePress = (funcName) => {
-    console.log(`${funcName} pressed`);
-  };
-
-  const goToDiensten = () => {
-    navigation.navigate('Diensten');
+  const handlePress = (job) => {
+    navigation.navigate('JobDetailPage', { item: job });
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.jobCount}>
+      <Text style={styles.aantalOpdrachten}>
         Aantal opdrachten beschikbaar: <Text style={styles.bold}>5</Text>
       </Text>
-      {filteredData.map((job, index) => (
-        <TouchableOpacity
-          key={index}
-          style={styles.jobContainer}
-          onPress={() => handlePress(job.functie)}>
+      {gefilterdeData.map((job, index) => (
+        <TouchableOpacity key={index} style={styles.jobContainer} onPress={() => handlePress(job)}>
           <Image source={job.icoon} style={styles.icon} />
           <View style={styles.jobInfo}>
             <Text style={styles.jobTitle}>{job.functie}</Text>
@@ -61,8 +74,8 @@ export default function HomeDienstenDisplay() {
       <TouchableOpacity
         style={{ alignSelf: 'flex-end', right: '5%', bottom: '3%' }}
         activeOpacity={0.6}
-        onPress={goToDiensten}>
-        <Text style={{ fontSize: 17, fontWeight: '600' }}>Zie alles 📑</Text>
+        onPress={() => navigation.navigate('Diensten')}>
+        <Text style={{ fontSize: 17, fontWeight: '600' }}>Bekijk alle opdrachten 📑</Text>
       </TouchableOpacity>
     </View>
   );
@@ -74,7 +87,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'white',
   },
-  jobCount: {
+  aantalOpdrachten: {
     fontSize: 16,
     left: '2.5%',
     marginVertical: 10,

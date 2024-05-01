@@ -1,16 +1,50 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { Ionicons } from '@expo/vector-icons';
 import SafeView from 'components/SafeView';
 import { useNavigation } from '@react-navigation/native';
 
 const JobDetailPage = ({ route }) => {
-  const { item, functieTitel } = route.params;
+  const { item } = route.params ?? {};
   const navigation = useNavigation();
 
+  if (!item) {
+    console.error('No job item provided.');
+    return (
+      <View style={styles.container}>
+        <Text>No job details available.</Text>
+      </View>
+    );
+  }
+
   const applyForJob = () => {
-    console.log(`Applying for: ${functieTitel}`);
+    const title = `${item.functie}`;
+    const message = 'Weet je zeker dat je wilt reageren op deze functie?';
+
+    const handleCancel = () => {
+      console.log('Reageren geannuleerd');
+    };
+
+    const handleConfirm = () => {
+      try {
+        console.log(`Applying for: ${item.functie}`);
+        Alert.alert(
+          'Bevestigd',
+          `Je hebt gereageerd op de functie: ${item.functie}.\nBinnen 24 uur zie je een reactie 📝⚡️`
+        );
+      } catch (error) {
+        console.error('Application failed:', error);
+        Alert.alert('Fout', 'Er is een fout opgetreden bij het reageren.');
+      }
+    };
+
+    const buttons = [
+      { text: 'Nee', onPress: handleCancel, style: 'cancel' },
+      { text: 'Ja', onPress: handleConfirm },
+    ];
+
+    Alert.alert(title, message, buttons);
   };
 
   const details = [
@@ -20,8 +54,8 @@ const JobDetailPage = ({ route }) => {
     { label: 'Locatie', value: item.locatie, type: 'attribute' },
     { label: 'Tarief', value: `Tarief: ${item.tarief}`, type: 'attribute' },
     { label: 'Beschrijving', value: item.beschrijving, type: 'description' },
-    { label: 'Wat bieden wij', value: item.bedrijfsinfo.beschrijving, type: 'description' },
-    { label: 'Extra Info', value: item.bedrijfsinfo.extra, type: 'description' },
+    { label: 'Wat bieden wij', value: item.bedrijfsinfo?.beschrijving, type: 'description' },
+    { label: 'Extra Info', value: item.bedrijfsinfo?.extra, type: 'description' },
   ];
 
   const renderItem = ({ item }) => {
