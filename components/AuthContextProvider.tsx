@@ -6,6 +6,7 @@ import React, {
   ReactNode,
   FunctionComponent,
 } from 'react';
+import { View, ActivityIndicator } from 'react-native';
 import { MMKV } from 'react-native-mmkv';
 import axios from 'axios';
 
@@ -29,13 +30,18 @@ interface AuthProviderProps {
 
 export const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children }) => {
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const verifyToken = async () => {
       const token = storage.getString('token');
       if (token) {
         try {
-          const response = await axios.post(
+          const timeoutPromise = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Verification timeout')), 5000)
+          );
+
+          const tokenVerificationPromise = axios.post(
             '/jwt-verify',
             { token },
             {
@@ -44,8 +50,11 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children })
               },
             }
           );
+
+          await Promise.race([tokenVerificationPromise, timeoutPromise]);
+
           setLoggedIn(true);
-          console.log('Token verified:', response.data);
+          console.log('Token verified');
         } catch (error) {
           console.error('Error verifying token:', error);
           setLoggedIn(false);
@@ -53,10 +62,20 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children })
       } else {
         setLoggedIn(false);
       }
+
+      setLoading(false);
     };
 
     verifyToken();
   }, []);
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, setLoggedIn }}>{children}</AuthContext.Provider>
