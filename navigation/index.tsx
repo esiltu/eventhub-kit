@@ -14,7 +14,6 @@ import { storage } from 'store/storage';
 import UserInfo from 'screens/tab/UserInfo';
 import AppIcon from 'screens/tab/AppIcon';
 import BestandenWerker from 'screens/tab/BestandenWerker';
-// import DienstenFormulier from 'screens/tab/diensten/DienstenFormulier';
 
 export type RootStackParamList = {
   Overview: undefined;
@@ -25,7 +24,6 @@ export type RootStackParamList = {
   UserInfo: undefined;
   Drawer: undefined;
   BestandenWerker: undefined;
-  // DienstenFormulier: undefined;
   BottomTab: undefined;
   JobDetailPage: { id: string; title: string };
   Details: { name: string };
@@ -37,6 +35,7 @@ const Drawer = createDrawerNavigator();
 function DrawerWithTabs() {
   const { setLoggedIn } = useAuth();
   const navigation = useNavigation();
+
   const logOutFromApp = async () => {
     try {
       await storage.delete('token');
@@ -46,6 +45,7 @@ function DrawerWithTabs() {
       console.error(error);
     }
   };
+
   return (
     <Drawer.Navigator
       initialRouteName="Home"
@@ -72,11 +72,11 @@ const RootStack: React.FC = () => {
   const { isLoggedIn } = useAuth();
 
   useEffect(() => {
-    async function loadInitialData() {
+    const loadInitialData = async () => {
       const seenOnboarding = await storage.getBoolean('hasSeenOnboarding');
       setHasSeenOnboarding(seenOnboarding ?? null);
       setLoading(false);
-    }
+    };
 
     loadInitialData();
   }, []);
@@ -100,6 +100,7 @@ const RootStack: React.FC = () => {
           <Stack.Screen name="OnboardingPages" component={OnboardingPages} />
         ) : isLoggedIn ? (
           <>
+            {/* Authorized Pages Only! */}
             <Stack.Screen name="Drawer" component={DrawerWithTabs} options={{ title: '' }} />
             <Stack.Screen
               name="JobDetailPage"
@@ -133,17 +134,10 @@ const RootStack: React.FC = () => {
                 headerTitle: '',
               }}
             />
-            {/* <Stack.Screen
-              name="DienstenFormulier"
-              component={DienstenFormulier}
-              options={{
-                headerShown: false,
-                headerTitle: '',
-              }}
-            /> */}
           </>
         ) : (
           <>
+            {/* Not Authorized  */}
             <Stack.Screen name="SignIn" component={SignIn} />
             <Stack.Screen name="SignUp" component={SignUp} />
           </>

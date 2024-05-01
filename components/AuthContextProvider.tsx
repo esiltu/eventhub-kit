@@ -7,6 +7,7 @@ import React, {
   FunctionComponent,
 } from 'react';
 import { MMKV } from 'react-native-mmkv';
+import axios from 'axios';
 
 const storage = new MMKV();
 
@@ -30,8 +31,31 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children })
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
-    const token = storage.getString('token');
-    setLoggedIn(!!token);
+    const verifyToken = async () => {
+      const token = storage.getString('token');
+      if (token) {
+        try {
+          const response = await axios.post(
+            '/jwt-verify',
+            { token },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          setLoggedIn(true);
+          console.log('Token verified:', response.data);
+        } catch (error) {
+          console.error('Error verifying token:', error);
+          setLoggedIn(false);
+        }
+      } else {
+        setLoggedIn(false);
+      }
+    };
+
+    verifyToken();
   }, []);
 
   return (
