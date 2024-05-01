@@ -16,12 +16,12 @@ import axios from 'axios';
 import Toast from 'react-native-toast-message';
 
 const ValidationSchemaSignUp = Yup.object().shape({
-  fullName: Yup.string().required('Full name is required'),
-  email: Yup.string().email('Invalid email').required('Email is required'),
-  password: Yup.string().required('Password is required'),
+  fullName: Yup.string().required('Volledige naam is verplicht'),
+  email: Yup.string().email('Ongeldig e-mailadres').required('E-mailadres is verplicht'),
+  password: Yup.string().required('Wachtwoord is verplicht'),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Confirm password is required'),
+    .oneOf([Yup.ref('password'), null], 'Wachtwoorden moeten overeenkomen')
+    .required('Bevestig het wachtwoord'),
 });
 
 export default function FormSignUp() {
@@ -70,12 +70,12 @@ export default function FormSignUp() {
 
   return (
     <View style={styles.formHeaderContainer}>
-      <Text style={styles.formHeaderTxt}>Sign Up</Text>
+      <Text style={styles.formHeaderTxt}>Registreren</Text>
       <View style={{ bottom: '17.5%', alignSelf: 'flex-start' }}>
         <TouchableOpacity
           onPress={goBackToSignIn}
           activeOpacity={0.6}
-          style={{ top: '10%', left: '6.5%' }}>
+          style={{ top: '10%', left: '6.5%', top: '35%' }}>
           <Image source={require('../assets/icons/icon-go-back.png')} />
         </TouchableOpacity>
       </View>
@@ -90,7 +90,7 @@ export default function FormSignUp() {
             <>
               <Input
                 leftIcon={<Icon name="person" type="material" size={24} color="#807A7A" />}
-                placeholder="Full Name"
+                placeholder="Voor en achternaam"
                 autoCapitalize="none"
                 onChangeText={handleChange('fullName')}
                 onBlur={handleBlur('fullName')}
@@ -100,7 +100,7 @@ export default function FormSignUp() {
               />
               <Input
                 leftIcon={<Icon name="mail" type="material" size={24} color="#807A7A" />}
-                placeholder="Email Address"
+                placeholder="Email-address"
                 autoCapitalize="none"
                 keyboardType="email-address"
                 onChangeText={handleChange('email')}
@@ -120,7 +120,7 @@ export default function FormSignUp() {
                     onPress={togglePasswordVisibility}
                   />
                 }
-                placeholder="Password"
+                placeholder="Wachtwoord"
                 secureTextEntry={passwordVisibility}
                 autoCapitalize="none"
                 onChangeText={handleChange('password')}
@@ -140,7 +140,7 @@ export default function FormSignUp() {
                     onPress={togglePasswordVisibility}
                   />
                 }
-                placeholder="Confirm Password"
+                placeholder="Bevestig wachtwoord"
                 secureTextEntry={passwordVisibility}
                 autoCapitalize="none"
                 onChangeText={handleChange('confirmPassword')}
@@ -153,7 +153,7 @@ export default function FormSignUp() {
                 onPress={handleSubmit}
                 style={styles.buttonStyle}
                 activeOpacity={0.6}>
-                <Text style={styles.buttonTitleStyle}>SIGN UP</Text>
+                <Text style={styles.buttonTitleStyle}>Registreer</Text>
               </TouchableOpacity>
               <Icon
                 name={'arrow-forward'}
@@ -169,9 +169,9 @@ export default function FormSignUp() {
       </KeyboardAvoidingView>
       <View style={{ bottom: '10%' }}>
         <Text style={styles.dontAccTxt}>
-          Already have an account?{' '}
+          Heb je al een account?{' '}
           <TouchableOpacity activeOpacity={0.6} onPress={goBackToSignIn}>
-            <Text style={styles.signUpBtn}>Sign In</Text>
+            <Text style={styles.signUpBtn}>Log nu in!</Text>
           </TouchableOpacity>
           {/* <TouchableOpacity onPress={removeHasSeenOnboarding}>
             <Text>Remove seen MKVV key</Text>
@@ -184,7 +184,7 @@ export default function FormSignUp() {
 
 const styles = StyleSheet.create({
   signUpBtn: {
-    color: '#5669FF',
+    color: '#f3a683',
     fontSize: 18,
     top: '15%',
     fontWeight: '500',
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     marginHorizontal: '10%',
     marginBottom: '5%',
     right: '3%',
-    bottom: '0%',
+    top: '3.5%',
   },
   keyboardView: {
     width: '100%',
@@ -227,11 +227,11 @@ const styles = StyleSheet.create({
     bottom: '6%',
     alignSelf: 'flex-end',
     right: '16.5%',
-    backgroundColor: '#3D56F0',
+    backgroundColor: '#ECCABB',
     borderRadius: 20,
   },
   buttonStyle: {
-    backgroundColor: '#5669FF',
+    backgroundColor: '#f3a683',
     borderRadius: 20,
     height: 60,
     width: '80%',

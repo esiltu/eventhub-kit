@@ -137,7 +137,7 @@ export default function FormSignIn() {
                 <Switch
                   value={rememberMe}
                   onValueChange={toggleRememberMe}
-                  color="#5669FF"
+                  color="#f3a683"
                   style={styles.switchStyle}
                 />
                 <Text style={styles.switchLabel}>Onthoud mij</Text>
