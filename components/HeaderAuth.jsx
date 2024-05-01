@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   // styles
   headerContainer: {
     top: '5%',
-    width: '75%',
+    width: '95%',
     left: '3%',
   },
   headerTxt: {
