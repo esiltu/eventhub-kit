@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import SafeView from 'components/SafeView';
-import HeaderAuth from 'components/HeaderAuth';
+import { HeaderAuth } from '../../routers/Components';
 
 export default function Home() {
   return (
@@ -10,12 +9,3 @@ export default function Home() {
     </SafeView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
