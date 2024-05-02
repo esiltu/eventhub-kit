@@ -69,6 +69,7 @@ export default function HomeDienstenDisplay() {
         <Text style={styles.companyName}>{item.company}</Text>
         <Text style={styles.jobTitle}>{item.functie}</Text>
         <Text style={styles.jobInfo}>{`${item.tarief} - ${item.locatie}`}</Text>
+        <Text style={styles.jobInfo}>{item.datum}</Text>
         <View style={styles.jobType}>
           <Text style={styles.typeText}>{item.type}</Text>
         </View>
@@ -152,6 +153,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   jobTitle: {
+    fontWeight: 'bold',
     fontSize: 14,
   },
   jobInfo: {
