@@ -14,6 +14,7 @@ import { storage } from 'store/storage';
 import UserInfo from 'screens/tab/UserInfo';
 import AppIcon from 'screens/tab/AppIcon';
 import BestandenWerker from 'screens/tab/BestandenWerker';
+import NotificatieService from 'screens/tab/NotificatieService';
 
 export type RootStackParamList = {
   Overview: undefined;
@@ -24,6 +25,7 @@ export type RootStackParamList = {
   UserInfo: undefined;
   Drawer: undefined;
   BestandenWerker: undefined;
+  NotificatieService: undefined;
   BottomTab: undefined;
   JobDetailPage: { id: string; title: string };
   Details: { name: string };
@@ -140,6 +142,14 @@ const RootStack: React.FC = () => {
               <Stack.Screen
                 name="BestandenWerker"
                 component={BestandenWerker}
+                options={{
+                  headerShown: false,
+                  headerTitle: '',
+                }}
+              />
+              <Stack.Screen
+                name="NotificatieService"
+                component={NotificatieService}
                 options={{
                   headerShown: false,
                   headerTitle: '',

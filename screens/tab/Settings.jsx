@@ -24,6 +24,12 @@ const SettingsOptions = [
     icon: 'briefcase-outline',
     navigateTo: 'BestandenWerker',
   },
+  {
+    id: 'notificiatieService',
+    title: 'Notificatie Service',
+    icon: 'notifications-outline',
+    navigateTo: 'NotificatieService',
+  },
 ];
 
 export default function Settings() {

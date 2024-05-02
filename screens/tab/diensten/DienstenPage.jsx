@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     width: 400,
     alignSelf: 'center',
     position: 'absolute',
-    borderRadius: 40,
+    borderRadius: 60,
     bottom: '70%',
   },
   typeBadge: {
