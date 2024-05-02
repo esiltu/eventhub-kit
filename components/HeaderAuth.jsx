@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { storage } from 'store/storage';
 import { jwtDecode } from 'jwt-decode';
 
@@ -21,30 +21,43 @@ export default function HeaderAuth() {
 
     getUserInfo();
   }, []);
+
   return (
     <View style={styles.headerContainer}>
-      <Text style={styles.headerTxt}>
-        Welkom <Text style={styles.headerSecondTxt}>{userInfo?.fullname}</Text> 🤝
-      </Text>
+      <Text style={styles.headerTxt}>Welkom terug!</Text>
+      <Text style={styles.headerSecondTxt}>{userInfo?.fullname} 🤝</Text>
+      <Image source={require('../assets/icon-avatar-150.png')} style={styles.profilePic} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  // styles
   headerContainer: {
     top: '5%',
     width: '95%',
     left: '3%',
   },
   headerTxt: {
-    fontSize: 24,
-    fontWeight: '300',
-    color: 'black',
+    fontSize: 19,
+    fontWeight: '400',
+    color: '#95969D',
     left: '3.5%',
   },
   headerSecondTxt: {
+    top: '5%',
+    fontSize: 25,
+    color: '#0D0D26',
     fontWeight: '500',
-    fontStyle: 'italic',
+    left: '4%',
+  },
+  profilePic: {
+    width: 60,
+    height: 60,
+    alignSelf: 'flex-end',
+    bottom: '45%',
+    right: '5%',
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 50,
   },
 });

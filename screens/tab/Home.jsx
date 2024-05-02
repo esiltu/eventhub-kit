@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <SafeView>
       <HeaderAuth />
-      <HeaderSectorView />
+      {/* <HeaderSectorView /> */}
       <HomeDienstenDisplay />
     </SafeView>
   );

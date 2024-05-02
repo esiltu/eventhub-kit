@@ -3,11 +3,14 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, ActivityIndicator } fr
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { storage } from 'store/storage';
+import { FlashList } from '@shopify/flash-list';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function HomeDienstenDisplay() {
   const navigation = useNavigation();
   const [jobs, setJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [savedJobs, setSavedJobs] = useState(new Set());
   const token = storage.getString('token');
 
   useEffect(() => {
@@ -17,52 +20,85 @@ export default function HomeDienstenDisplay() {
         const response = await axios.post(
           '/opdrachten',
           { token },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         if (response.data.setLogginIn) {
-          setJobs(response.data.diensten.slice(0, 2));
-        } else {
-          console.error('Error fetching data:', response.data.message);
+          setJobs(response.data.diensten.slice(0, 3));
         }
       } catch (error) {
-        console.error('Error with the request:', error);
+        console.error('Error with the request:', error.message);
       } finally {
         setIsLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
-  const handlePress = (job) => {
-    navigation.navigate('JobDetailPage', { item: job });
+  const toggleSaveJob = (jobId) => {
+    setSavedJobs((current) => {
+      const updated = new Set(current);
+      updated.has(jobId) ? updated.delete(jobId) : updated.add(jobId);
+      return updated;
+    });
   };
+
+  const handlePressJobCard = (item) => {
+    navigation.navigate('JobDetailPage', {
+      item: item,
+      functieTitel: item.functie,
+      icoon: item.icoon,
+    });
+  };
+
+  const logFunctionTitle = (title) => {
+    console.log('Pressed on Ionicon for:', title);
+  };
+
+  const renderItem = ({ item }) => (
+    <TouchableOpacity style={styles.jobCard} onPress={() => handlePressJobCard(item)}>
+      <Image source={{ uri: item.icoon }} style={styles.logo} />
+      <View style={styles.jobDetails}>
+        <Text style={styles.companyName}>{item.company}</Text>
+        <Text style={styles.jobTitle}>{item.functie}</Text>
+        <Text style={styles.jobInfo}>{`${item.tarief} - ${item.locatie}`}</Text>
+        <View style={styles.jobType}>
+          <Text style={styles.typeText}>{item.type}</Text>
+        </View>
+      </View>
+      <TouchableOpacity
+        onPress={() => {
+          toggleSaveJob(item.id);
+          logFunctionTitle(item.functie);
+        }}
+        style={styles.saveIcon}>
+        <Ionicons
+          name={savedJobs.has(item.id) ? 'bookmark' : 'bookmark-outline'}
+          size={24}
+          color={savedJobs.has(item.id) ? '#ff0000' : '#888888'}
+        />
+      </TouchableOpacity>
+    </TouchableOpacity>
+  );
 
   return (
     <View style={styles.container}>
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
-        jobs.map((job, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.jobContainer}
-            onPress={() => handlePress(job)}>
-            <Image source={{ uri: job.icoon }} style={styles.icon} />
-            <View style={styles.jobInfo}>
-              <Text style={styles.jobTitle}>{job.functie}</Text>
-              <Text style={styles.jobDetails}>
-                {job.locatie} - {job.datum}
-              </Text>
-              <Text style={styles.jobRate}>{job.tarief}</Text>
-              <Text style={styles.jobType}>{job.type}</Text>
-            </View>
-          </TouchableOpacity>
-        ))
+        <>
+          <Text style={{ fontSize: 20, left: '6%', fontWeight: '300', color: 'black' }}>
+            Nieuwste Opdrachten
+          </Text>
+          <FlashList
+            data={jobs}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => (item.id ? item.id.toString() : `temp-id-${index}`)}
+            estimatedItemSize={320}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ padding: 10, backgroundColor: 'white' }}
+          />
+        </>
       )}
     </View>
   );
@@ -70,53 +106,57 @@ export default function HomeDienstenDisplay() {
 
 const styles = StyleSheet.create({
   container: {
-    top: '5%',
+    bottom: '2.5%',
     flex: 1,
     paddingTop: 20,
     backgroundColor: 'white',
   },
-  jobContainer: {
-    width: '92.5%',
-    alignSelf: 'center',
-    bottom: '3%',
+  jobCard: {
+    width: 300,
     flexDirection: 'row',
-    marginBottom: 10,
-    alignItems: 'center',
-    backgroundColor: '#f8f8f8',
+    backgroundColor: 'white',
     padding: 10,
+    marginHorizontal: 10,
     borderRadius: 10,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.5,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 4,
+    alignItems: 'center',
   },
-  icon: {
+  logo: {
     width: 50,
     height: 50,
     resizeMode: 'contain',
-    marginRight: 10,
-  },
-  jobInfo: {
-    flex: 1,
-  },
-  jobTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
   },
   jobDetails: {
-    fontSize: 14,
-    color: '#666',
+    flex: 1,
+    paddingLeft: 10,
   },
-  jobRate: {
-    fontSize: 14,
+  companyName: {
+    fontSize: 16,
     fontWeight: 'bold',
-    color: '#333',
+  },
+  jobTitle: {
+    fontSize: 14,
+  },
+  jobInfo: {
+    fontSize: 12,
   },
   jobType: {
+    backgroundColor: '#e0e0e0',
+    borderRadius: 5,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    width: 80,
+    marginTop: 4,
+  },
+  typeText: {
     fontSize: 12,
-    fontWeight: 'bold',
-    color: '#0057e7',
-    marginTop: 5,
+    color: '#333',
+  },
+  saveIcon: {
+    padding: 5,
   },
 });
