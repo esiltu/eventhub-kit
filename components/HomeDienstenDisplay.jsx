@@ -22,7 +22,7 @@ export default function HomeDienstenDisplay() {
           { token },
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        if (response.data.setLogginIn) {
+        if (response.data.diensten) {
           setJobs(response.data.diensten.slice(0, 3));
         }
       } catch (error) {

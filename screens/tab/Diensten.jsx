@@ -40,7 +40,7 @@ export default function Diensten() {
           },
         }
       );
-      if (response.data.setLogginIn) {
+      if (response.data.diensten) {
         setDiensten(response.data.diensten);
       } else {
         console.error('Error fetching data:', response.data.message);

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import React from 'react';
-import AppIconSecond from '../assets/icons/app-icon.webp';
+import AppIconSecond from '../assets/icons/icon.png';
 
 export default function Header() {
   return (
