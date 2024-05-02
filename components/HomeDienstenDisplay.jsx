@@ -50,6 +50,14 @@ export default function HomeDienstenDisplay() {
     });
   };
 
+  function goToDienstenPage() {
+    try {
+      navigation.navigate('Diensten');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const logFunctionTitle = (title) => {
     console.log('Pressed on Ionicon for:', title);
   };
@@ -86,9 +94,15 @@ export default function HomeDienstenDisplay() {
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <>
-          <Text style={{ fontSize: 20, left: '6%', fontWeight: '300', color: 'black' }}>
-            Nieuwste Opdrachten
+          <Text style={{ fontSize: 20, left: '6%', fontWeight: '400', color: 'black', top: '3%' }}>
+            Aanbevolen voor jou
           </Text>
+          <TouchableOpacity
+            style={{ alignSelf: 'flex-end', bottom: '1.5%', right: '5%' }}
+            activeOpacity={0.6}
+            onPress={goToDienstenPage}>
+            <Text style={{ fontSize: 20, color: '#007AFF', fontWeight: '400' }}>Zie alles</Text>
+          </TouchableOpacity>
           <FlashList
             data={jobs}
             renderItem={renderItem}
@@ -106,12 +120,13 @@ export default function HomeDienstenDisplay() {
 
 const styles = StyleSheet.create({
   container: {
-    bottom: '2.5%',
     flex: 1,
     paddingTop: 20,
     backgroundColor: 'white',
+    bottom: '3%',
   },
   jobCard: {
+    bottom: '1%',
     width: 300,
     flexDirection: 'row',
     backgroundColor: 'white',
@@ -120,9 +135,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
+    shadowOpacity: 0.25,
     alignItems: 'center',
   },
   logo: {

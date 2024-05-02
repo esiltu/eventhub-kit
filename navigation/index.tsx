@@ -116,6 +116,7 @@ const RootStack: React.FC = () => {
                 name="JobDetailPage"
                 component={JobDetailPage}
                 options={{
+                  // gestureEnabled: true,
                   headerShown: false,
                   headerTitle: '',
                 }}

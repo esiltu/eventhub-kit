@@ -33,7 +33,8 @@ export default function HeaderAuth() {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    top: '5%',
+    backgroundColor: 'white',
+    top: '4%',
     width: '95%',
     left: '3%',
   },
