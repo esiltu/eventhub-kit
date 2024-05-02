@@ -1,10 +1,42 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import SafeView from 'components/SafeView';
 import { useNavigation } from '@react-navigation/native';
-import { storage } from 'store/storage';
-import axios from 'axios';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+const Tab = createMaterialTopTabNavigator();
+
+const JobFunction = ({ item }) => (
+  <SafeView>
+    <View style={styles.tabContent}>
+      <Text style={styles.dateText}>{`Datum: ${item.datum}`}</Text>
+      <Text style={styles.rateText}>{`Uurtarief: ${item.tarief}`}</Text>
+      <Text style={styles.description}>{item.beschrijving}</Text>
+      <Text style={styles.requirements}>{item.vereisten.join(', ')}</Text>
+    </View>
+  </SafeView>
+);
+
+const AboutUs = ({ item }) => (
+  <SafeView>
+    <View style={styles.tabContent}>
+      <Text style={styles.description}>{item.bedrijfsinfo?.over_ons}</Text>
+      <Text style={styles.companyName}>{item.bedrijfsinfo?.naam}</Text>
+    </View>
+  </SafeView>
+);
+
+const ExtraInfo = ({ item }) => (
+  <SafeView>
+    <View style={styles.tabContent}>
+      <Text style={styles.description}>{item.vacatureshift_info?.extra}</Text>
+      <Text style={styles.description}>{item.vacatureshift_info?.toelichting}</Text>
+    </View>
+  </SafeView>
+);
 
 const JobDetailPage = ({ route }) => {
   const { item } = route.params ?? {};
@@ -52,29 +84,27 @@ const JobDetailPage = ({ route }) => {
       <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.goBack()}>
         <Ionicons name="arrow-back" size={40} color="white" />
       </TouchableOpacity>
+
       <Image source={{ uri: item.icoon }} style={styles.icon} />
-      <View style={{ flex: 1, bottom: '56.5%' }}>
-        <View style={styles.detailsContainer}>
-          <Text style={styles.title}>{item.functie}</Text>
-          <View style={styles.viewTariefLocatieStyle}>
-            <Text style={styles.attribute}>{`Tarief: ${item.tarief} -`}</Text>
-            <Text style={styles.attribute}>{`Locatie: ${item.locatie}`}</Text>
-          </View>
-          <View style={styles.typeBadge}>
-            <Ionicons name="business" size={16} color="black" style={{ left: '80%' }} />
-            <Text style={styles.typeText}>{item.type}</Text>
-          </View>
-          <View style={{}}>
-            <Text style={styles.description}>{`Datum: ${item.datum}`}</Text>
-            <Text style={styles.description}>{item.beschrijving}</Text>
-            <Text style={styles.description}>{item.bedrijfsinfo?.beschrijving}</Text>
-            <Text style={styles.description}>{item.bedrijfsinfo?.extra}</Text>
-          </View>
-        </View>
+      <Text style={styles.title}>{item.functie}</Text>
+      <View style={styles.typeBadge}>
+        <Ionicons name="business" size={16} color="black" style={{ left: '80%' }} />
+        <Text style={styles.typeText}>{item.type}</Text>
       </View>
+      <Tab.Navigator
+        style={{ top: '10%' }}
+        screenOptions={{
+          labelStyle: { fontSize: 12 },
+          tabStyle: { width: width / 3 },
+          style: { backgroundColor: 'white' },
+        }}>
+        <Tab.Screen name="Functie" children={() => <JobFunction item={item} />} />
+        <Tab.Screen name="Over Ons" children={() => <AboutUs item={item} />} />
+        <Tab.Screen name="Extra Info" children={() => <ExtraInfo item={item} />} />
+      </Tab.Navigator>
       <TouchableOpacity style={styles.button} onPress={applyForJob}>
         <Text style={styles.buttonText}>Reageer Nu</Text>
-        <Ionicons name="checkmark-circle" size={24} color="white" style={{ left: '50%' }} />
+        <Ionicons name="checkmark-circle" size={24} color="white" style={{ marginLeft: 10 }} />
       </TouchableOpacity>
     </SafeView>
   );
@@ -87,33 +117,90 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 20,
     backgroundColor: 'white',
-  },
-  viewTariefLocatieStyle: {
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    bottom: '11.5%',
   },
-  goBackButton: {
-    alignSelf: 'flex-start',
-    marginBottom: 20,
-    left: '8.5%',
-    bottom: '47.5%',
+  tabContent: {
+    padding: 20,
+    backgroundColor: 'white',
+  },
+  description: {
+    fontSize: 14,
+    color: '#666',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  dateText: {
+    fontSize: 16,
+    color: '#333',
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  rateText: {
+    fontSize: 16,
+    color: '#333',
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  requirements: {
+    fontSize: 14,
+    color: '#444',
+    marginTop: 5,
+    marginBottom: 10,
+  },
+  companyName: {
+    fontSize: 16,
+    color: '#333',
+    fontWeight: 'bold',
+    marginTop: 5,
   },
   icon: {
-    width: 120,
-    height: 120,
+    width: 100,
+    height: 100,
     resizeMode: 'contain',
-    marginBottom: 20,
     alignSelf: 'center',
-    bottom: '55%',
+    marginTop: 30,
+    borderRadius: 50,
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
     color: 'white',
+    textAlign: 'center',
+    marginTop: 10,
+  },
+  button: {
+    flexDirection: 'row',
+    backgroundColor: '#f3a683',
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    elevation: 2,
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: 20,
+    bottom: '10%',
+  },
+  buttonText: {
+    fontSize: 20,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  goBackButton: {
+    position: 'absolute',
+    top: '12.5%',
+    left: 20,
+    zIndex: 10,
+  },
+  imageStyle: {
+    backgroundColor: '#f3a683',
+    height: 400,
+    width: 400,
+    alignSelf: 'center',
+    position: 'absolute',
+    borderRadius: 40,
+    bottom: '70%',
   },
   typeBadge: {
     flexDirection: 'row',
@@ -134,53 +221,5 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     textAlign: 'center',
     alignSelf: 'center',
-  },
-  attribute: {
-    top: '10%',
-    textAlign: 'center',
-    fontSize: 18,
-    color: 'white',
-    marginTop: 5,
-    marginLeft: 10,
-  },
-  description: {
-    fontSize: 14,
-    color: '#666',
-    marginTop: 10,
-    marginBottom: 10,
-    width: '90%',
-    left: '7.5%',
-    top: '15%',
-  },
-  button: {
-    flexDirection: 'row',
-    backgroundColor: '#f3a683',
-    padding: 10,
-    marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-    elevation: 2,
-    width: '85%',
-    alignSelf: 'center',
-    bottom: '15%',
-  },
-  buttonText: {
-    fontSize: 20,
-    color: 'white',
-    fontWeight: 'bold',
-    marginLeft: 10,
-  },
-  imageStyle: {
-    height: 400,
-    width: 400,
-    alignSelf: 'center',
-    bottom: '12%',
-    borderRadius: 60,
-    backgroundColor: '#f3a683',
-  },
-  detailsContainer: {
-    // padding: 20,
-    // bottom: '10%',
   },
 });
