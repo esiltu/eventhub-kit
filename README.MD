@@ -1,6 +1,4 @@
-# Eventhub Template Kit - React Native Expo
-
-Welcome to the Eventhub Kit, a starter project for those interested in app development using React Native and Expo, featuring TypeScript integration, storage checking, and a Fastify with MongoDB backend setup—ideal for beginners; please note that this build is currently in progress and uses Expo's prebuild configuration, so clone the repository and get started!
+# VacatureShift - React Native Expo
 
 ## Features
 
@@ -29,8 +27,6 @@ Stay tuned for more updates! 🌟
 2. Navigate to the project directory.
 3. Install dependencies using `npm install` or `yarn install`.
 4. Run the app using `npx expo run:ios` or `yarn run ios`.
-
-Feel free to contribute and enhance the Eventhub template! 🚀
 
 ## Preview Of Template
 
