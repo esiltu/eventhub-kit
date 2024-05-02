@@ -98,9 +98,9 @@ const RootStack: React.FC = () => {
     );
   }
 
-  if (hasSeenOnboarding === null) {
-    return <SplashScreen />;
-  }
+  // if (hasSeenOnboarding === null) {
+  //   return <SplashScreen />;
+  // }
 
   return (
     <Animated.View style={{ opacity: fadeAnim, flex: 1 }}>
@@ -159,10 +159,10 @@ const RootStack: React.FC = () => {
   );
 };
 
-const SplashScreen: React.FC = () => (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <ActivityIndicator />
-  </View>
-);
+// const SplashScreen: React.FC = () => (
+//   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//     <ActivityIndicator color="red" />
+//   </View>
+// );
 
 export default RootStack;
