@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   description: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#666',
     marginTop: 10,
     marginBottom: 10,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   requirements: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#444',
     marginTop: 5,
     marginBottom: 10,
