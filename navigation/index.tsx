@@ -42,7 +42,11 @@ function DrawerWithTabs() {
           </TouchableOpacity>
         ),
       }}>
-      <Drawer.Screen name="Home" component={BottomTab} options={{ headerShown: false }} />
+      <Drawer.Screen
+        name="Home"
+        component={BottomTab}
+        options={{ headerShown: true, headerTitle: '' }}
+      />
     </Drawer.Navigator>
   );
 }
@@ -60,7 +64,6 @@ const RootStack = () => {
               name="JobDetailPage"
               component={JobDetailPage}
               options={{
-                // gestureEnabled: true,
                 headerShown: false,
                 headerTitle: '',
               }}
