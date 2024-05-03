@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
-import { Input } from 'react-native-elements';
+import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -33,7 +32,7 @@ export default function NotificatieService() {
         console.error('Fout: E-mailadres is al geregistreerd');
       }
     } catch (error) {
-      Alert.alert('Fout', 'Er is iets misgegaan 😓');
+      Alert.alert('Helaas', 'Je bent al aangemeld voor notificaties.');
     }
   }
 
@@ -52,11 +51,10 @@ export default function NotificatieService() {
           onSubmit={handleSignUp}
           validationSchema={validationSchema}>
           {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid }) => (
-            <View>
-              <Input
-                autoCapitalize="none"
-                containerStyle={styles.inputContainer}
+            <View style={styles.formContainer}>
+              <TextInput
                 style={styles.input}
+                autoCapitalize="none"
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
                 value={values.email}
@@ -84,56 +82,61 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     padding: 20,
-    backgroundColor: 'white',
   },
   goBackButton: {
-    alignSelf: 'flex-start',
-    marginBottom: 20,
-    marginLeft: '4%',
+    position: 'absolute',
+    top: 20,
+    left: 10,
   },
   header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 5,
-    color: '#2C3E50',
+    fontSize: 22,
+    fontWeight: '600',
+    marginBottom: 8,
+    bottom: '36%',
   },
   description: {
     fontSize: 16,
-    color: '#7f8c8d',
-    marginBottom: 20,
-    textAlign: 'center',
+    textAlign: 'left',
+    right: '4%',
+    marginBottom: 16,
+    width: '80%',
+    bottom: '20%',
   },
-  inputContainer: {
-    width: '100%',
-    paddingHorizontal: 10,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#bdc3c7',
-    padding: 10,
-    borderRadius: 5,
-  },
-  errorText: {
-    fontSize: 12,
-    color: 'red',
-    marginBottom: 5,
-  },
-  button: {
-    backgroundColor: '#2C3E50',
-    padding: 15,
-    borderRadius: 5,
-    marginTop: 10,
-    width: '100%',
+  formContainer: {
+    bottom: '20%',
+    width: '90%',
     alignItems: 'center',
   },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
+  input: {
+    width: '100%',
     fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: 'gray',
+    marginBottom: 10,
+    borderRadius: 4,
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 14,
+    marginBottom: 10,
+  },
+  button: {
+    width: '100%',
+    backgroundColor: '#f3a683',
+    padding: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+  },
+  buttonText: {
+    fontSize: 16,
+    color: 'white',
   },
   buttonDisabled: {
-    backgroundColor: '#bdc3c7',
+    backgroundColor: 'gray',
   },
 });
