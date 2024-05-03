@@ -14,6 +14,7 @@ import { FlashList } from '@shopify/flash-list';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { storage } from 'store/storage';
+import SafeView from 'components/SafeView';
 
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -78,66 +79,68 @@ export default function Diensten() {
   }, [isLoading, diensten]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Zoek naar een functie... 📝"
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-        />
-        <TouchableOpacity style={styles.refreshButton} onPress={handleRefresh}>
-          <Text style={styles.refreshButtonText}>Verversen</Text>
-        </TouchableOpacity>
-      </View>
-      {isLoading ? (
-        <View style={styles.loaderContainer}>
-          <ActivityIndicator size="large" color="#f3a683" />
-        </View>
-      ) : (
-        <View style={styles.content}>
-          <Text style={styles.jobCount}>
-            Aantal opdrachten:{' '}
-            {
-              diensten.filter((item) =>
-                item.functie.toLowerCase().includes(searchQuery.toLowerCase())
-              ).length
-            }
-          </Text>
-          <FlashList
-            data={diensten.filter((item) =>
-              item.functie.toLowerCase().includes(searchQuery.toLowerCase())
-            )}
-            renderItem={({ item }) => {
-              const scale = new Animated.Value(0.95);
-
-              return (
-                <Animated.View style={[styles.itemContainer, { transform: [{ scale }] }]}>
-                  <AnimatedTouchableOpacity
-                    onPress={() => handlePress(item)}
-                    style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}
-                    activeOpacity={0.9}>
-                    <View style={{ flex: 1, paddingHorizontal: 10 }}>
-                      <Text style={styles.functionTitle}>{item.functie}</Text>
-                      <Text style={styles.time}>{item.datum}</Text>
-                      <Text style={styles.location}>{item.locatie}</Text>
-                      <Text style={styles.rate}>{item.tarief}</Text>
-                      <Text style={styles.employmentType}>{item.dienstverband}</Text>
-                      <Text style={styles.description}>
-                        {getShortDescription(item.beschrijving)}
-                      </Text>
-                    </View>
-                    <Image source={{ uri: item.icoon }} style={styles.iconRight} />
-                  </AnimatedTouchableOpacity>
-                </Animated.View>
-              );
-            }}
-            keyExtractor={(item, index) => index.toString()}
-            estimatedItemSize={40}
+    <SafeView>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Zoek naar een functie... 📝"
+            value={searchQuery}
+            onChangeText={setSearchQuery}
           />
+          <TouchableOpacity style={styles.refreshButton} onPress={handleRefresh}>
+            <Text style={styles.refreshButtonText}>Verversen</Text>
+          </TouchableOpacity>
         </View>
-      )}
-    </View>
+        {isLoading ? (
+          <View style={styles.loaderContainer}>
+            <ActivityIndicator size="large" color="#f3a683" />
+          </View>
+        ) : (
+          <View style={styles.content}>
+            <Text style={styles.jobCount}>
+              Aantal opdrachten:{' '}
+              {
+                diensten.filter((item) =>
+                  item.functie.toLowerCase().includes(searchQuery.toLowerCase())
+                ).length
+              }
+            </Text>
+            <FlashList
+              data={diensten.filter((item) =>
+                item.functie.toLowerCase().includes(searchQuery.toLowerCase())
+              )}
+              renderItem={({ item }) => {
+                const scale = new Animated.Value(0.95);
+
+                return (
+                  <Animated.View style={[styles.itemContainer, { transform: [{ scale }] }]}>
+                    <AnimatedTouchableOpacity
+                      onPress={() => handlePress(item)}
+                      style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}
+                      activeOpacity={0.9}>
+                      <View style={{ flex: 1, paddingHorizontal: 10 }}>
+                        <Text style={styles.functionTitle}>{item.functie}</Text>
+                        <Text style={styles.time}>{item.datum}</Text>
+                        <Text style={styles.location}>{item.locatie}</Text>
+                        <Text style={styles.rate}>{item.tarief}</Text>
+                        <Text style={styles.employmentType}>{item.dienstverband}</Text>
+                        <Text style={styles.description}>
+                          {getShortDescription(item.beschrijving)}
+                        </Text>
+                      </View>
+                      <Image source={{ uri: item.icoon }} style={styles.iconRight} />
+                    </AnimatedTouchableOpacity>
+                  </Animated.View>
+                );
+              }}
+              keyExtractor={(item, index) => index.toString()}
+              estimatedItemSize={40}
+            />
+          </View>
+        )}
+      </View>
+    </SafeView>
   );
 }
 

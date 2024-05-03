@@ -92,7 +92,7 @@ export default function HomeDienstenDisplay() {
   return (
     <View style={styles.container}>
       {isLoading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="#f3a683" />
       ) : (
         <>
           <Text style={{ fontSize: 20, left: '6%', fontWeight: '400', color: 'black', top: '3%' }}>
