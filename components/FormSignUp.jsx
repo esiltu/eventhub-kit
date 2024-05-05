@@ -173,9 +173,6 @@ export default function FormSignUp() {
           <TouchableOpacity activeOpacity={0.6} onPress={goBackToSignIn}>
             <Text style={styles.signUpBtn}>Log nu in!</Text>
           </TouchableOpacity>
-          {/* <TouchableOpacity onPress={removeHasSeenOnboarding}>
-            <Text>Remove seen MKVV key</Text>
-          </TouchableOpacity> */}
         </Text>
       </View>
     </View>
