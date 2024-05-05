@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import SafeView from 'components/SafeView';
 import { storage } from 'store/storage';
+import Toast from 'react-native-toast-message';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Ongeldig e-mailadres').required('E-mail is verplicht'),
@@ -32,7 +33,12 @@ export default function NotificatieService() {
         console.error('Fout: E-mailadres is al geregistreerd');
       }
     } catch (error) {
-      Alert.alert('Helaas', 'Je bent al aangemeld voor notificaties.');
+      Toast.show({
+        type: 'error',
+        text1: 'Fout',
+        text2: 'E-mailadres is al geregistreerd',
+      });
+      console.log('Fout: E-mailadres is al geregistreerd');
     }
   }
 

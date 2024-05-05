@@ -64,7 +64,7 @@ export default function FormSignIn() {
           text1Style: { textAlign: 'center' },
         });
         // Optional: Reset form after error
-        // resetForm();
+        resetForm();
       });
   };
 
