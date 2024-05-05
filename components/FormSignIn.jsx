@@ -60,7 +60,12 @@ export default function FormSignIn() {
         resetForm();
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response.data);
+        Toast.show({
+          type: 'error',
+          text1: `${error.response.data.message + ' ❌'}`,
+          text1Style: { textAlign: 'center' },
+        });
       });
   };
 
