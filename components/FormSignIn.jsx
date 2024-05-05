@@ -6,7 +6,6 @@ import {
   View,
   Platform,
   TouchableOpacity,
-  Image,
 } from 'react-native';
 import { Formik } from 'formik';
 import { Input, Icon, Button, Switch } from 'react-native-elements';
@@ -20,8 +19,6 @@ import { useAuth } from './AuthContextProvider';
 export default function FormSignIn() {
   const doesTokenExist = storage.getString('token');
   console.log('Does token exist:', doesTokenExist);
-  const doesKeyExit = storage.contains('hasSeenOnboarding');
-  console.log('Has seen onboarding:', doesKeyExit);
   const navigation = useNavigation();
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rememberMe, setRememberMe] = useState(false);
@@ -66,18 +63,10 @@ export default function FormSignIn() {
           text1: `${error.response.data.message + ' ❌'}`,
           text1Style: { textAlign: 'center' },
         });
+        // Optional: Reset form after error
+        // resetForm();
       });
   };
-
-  // This is in case you want to remove the key from storage
-  // function removeHasSeenOnboarding() {
-  //   try {
-  //     storage.delete('hasSeenOnboarding');
-  //     console.log('Successfully removed hasSeenOnboarding!');
-  //   } catch (error) {
-  //     console.log('Error removing hasSeenOnboarding:', error);
-  //   }
-  // }
 
   function googleSignInButton() {
     try {
@@ -170,32 +159,12 @@ export default function FormSignIn() {
           )}
         </Formik>
       </KeyboardAvoidingView>
-      {/* <Text style={styles.orTxt}>OF</Text>
-      <View style={styles.viewOther}>
-        <TouchableOpacity style={styles.facebookLoginBtn} activeOpacity={0.6}>
-          <Image
-            source={require('../assets/auth-icons/logininwithfacebook.png')}
-            style={styles.facebookLoginBtnImage}
-          />
-          <Text style={styles.facebookTxt}>Login with Facebook</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.facebookLoginBtn} activeOpacity={0.6}>
-          <Image
-            source={require('../assets/auth-icons/logininwithgoogle.png')}
-            style={styles.facebookLoginBtnImage}
-          />
-          <Text style={styles.facebookTxt}>Login with Google</Text>
-        </TouchableOpacity>
-      </View> */}
       <View style={{ bottom: '22.5%' }}>
         <Text style={styles.dontAccTxt}>
           Geen account?{' '}
           <TouchableOpacity activeOpacity={0.6} onPress={dontHaveAnAccount}>
             <Text style={styles.signUpBtn}>Registreer!</Text>
           </TouchableOpacity>
-          {/* <TouchableOpacity onPress={removeHasSeenOnboarding}>
-            <Text>Remove seen MKVV key</Text>
-          </TouchableOpacity> */}
         </Text>
       </View>
     </View>
