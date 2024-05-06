@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { View, ActivityIndicator, TouchableOpacity, Animated } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Toast from 'react-native-toast-message';
 import { useAuth } from 'components/AuthContextProvider';
 import { storage } from 'store/storage';
-
 import BottomTab from 'screens/tab/BottomTab';
 import CustomDrawerContent from 'components/CustomDrawerContent';
 import { SignIn, SignUp } from 'routers/PageRouter';
@@ -51,7 +50,7 @@ function DrawerWithTabs() {
   );
 }
 
-const RootStack = () => {
+export default function RootStack() {
   const { isLoggedIn } = useAuth();
 
   return (
@@ -111,6 +110,4 @@ const RootStack = () => {
       <Toast />
     </NavigationContainer>
   );
-};
-
-export default RootStack;
+}
