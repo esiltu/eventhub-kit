@@ -1,4 +1,3 @@
-import './translation';
 import React, { useEffect } from 'react';
 import { Platform } from 'react-native';
 import axios from 'axios';
