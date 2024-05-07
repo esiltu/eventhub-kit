@@ -62,10 +62,13 @@ export default function Diensten() {
   };
 
   const handlePress = (item) => {
-    navigation.navigate('JobDetailPage', {
-      item,
-      functieTitel: item.functie,
-      icoon: item.icoon,
+    navigation.navigate('DrawerRouter', {
+      screen: 'JobDetailPage',
+      params: {
+        item,
+        functieTitel: item.functie,
+        icoon: item.icoon,
+      },
     });
   };
 

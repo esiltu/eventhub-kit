@@ -43,10 +43,13 @@ export default function HomeDienstenDisplay() {
   };
 
   const handlePressJobCard = (item) => {
-    navigation.navigate('JobDetailPage', {
-      item: item,
-      functieTitel: item.functie,
-      icoon: item.icoon,
+    navigation.navigate('DrawerRouter', {
+      screen: 'JobDetailPage',
+      params: {
+        item,
+        functieTitel: item.functie,
+        icoon: item.icoon,
+      },
     });
   };
 

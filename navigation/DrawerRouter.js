@@ -1,9 +1,11 @@
-import JobDetailPage from 'screens/tab/diensten/DienstenPage';
+import JobDetailPage from '../screens/tab/diensten/JobDetailPage';
 import AppIcon from '../screens/tab/AppIcon';
 import UserInfo from '../screens/tab/UserInfo';
 import BestandenWerker from '../screens/tab/BestandenWerker';
 import NotificatieService from '../screens/tab/NotificatieService';
 import { createStackNavigator } from '@react-navigation/stack';
+import Diensten from 'screens/tab/Diensten';
+import HomeDienstenDisplay from 'components/HomeDienstenDisplay';
 
 const Stack = createStackNavigator();
 
@@ -50,6 +52,30 @@ export default function DrawerRouter() {
           headerTitle: '',
         }}
       />
+      <Stack.Screen
+        name="Diensten"
+        component={Diensten}
+        options={{
+          headerShown: false,
+          headerTitle: '',
+        }}
+      />
+      <Stack.Screen
+        name="HomeDienstenDisplay"
+        component={HomeDienstenDisplay}
+        options={{
+          headerShown: false,
+          headerTitle: '',
+        }}
+      />
+      {/* <Stack.Screen
+        name="DienstenPage"
+        component={DienstenPage}
+        options={{
+          headerShown: false,
+          headerTitle: '',
+        }}
+      /> */}
     </Stack.Navigator>
   );
 }
