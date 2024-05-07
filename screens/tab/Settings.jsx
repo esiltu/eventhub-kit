@@ -36,7 +36,9 @@ export default function Settings() {
   const navigation = useNavigation();
 
   const handlePress = (navigateTo) => {
-    navigation.navigate(navigateTo);
+    navigation.navigate('DrawerRouter', {
+      screen: navigateTo,
+    });
   };
 
   const renderItem = ({ item }) => (
