@@ -5,7 +5,7 @@ import { ImageOne, ImageTwo, ImageThree } from '../../routers/OnboardingImgRoute
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { storage } from 'store/storage';
-import { useAuth } from 'components/AuthContextProvider';
+import { useAuth } from 'context/AuthContextProvider';
 
 const Dots = ({ selected }) => {
   let backgroundColor;
@@ -38,7 +38,7 @@ const doneButtonComponent = ({ ...props }) => {
   let color = '#5669FF';
   // Set the hasSeenOnboarding to true
   storage.set('hasSeenOnboarding', true);
-   setHasSeenOnboarding(true);
+  setHasSeenOnboarding(true);
   return (
     <TouchableOpacity style={{ right: '15%' }} {...props}>
       <Ionicons name="checkmark-outline" size={30} color={color} />

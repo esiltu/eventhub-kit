@@ -3,7 +3,7 @@ import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { storage } from '../store/storage';
-import { useAuth } from './AuthContextProvider';
+import { useAuth } from '../context/AuthContextProvider';
 
 export default function LogOutButton({ buttonStyle, textStyle }) {
   const { setLoggedIn } = useAuth();

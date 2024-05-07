@@ -18,9 +18,18 @@
       "backgroundColor": "#ffffff"
     },
     "plugins": [
+      "expo-image-picker",
       "expo-localization",
       "expo-font",
       "expo-quick-actions",
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
+          "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos.",
+          "isAccessMediaLocationEnabled": true
+        }
+      ],
       [
         "expo-dynamic-app-icon",
         {
@@ -39,6 +48,7 @@
         }
       ]
     ],
+
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,

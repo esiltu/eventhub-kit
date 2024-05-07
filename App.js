@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Platform } from 'react-native';
 import axios from 'axios';
-import { AuthProvider } from 'components/AuthContextProvider';
+import { AuthProvider } from 'context/AuthContextProvider';
 import 'react-native-gesture-handler';
 import * as QuickActions from 'expo-quick-actions';
 import RootStack from './navigation';

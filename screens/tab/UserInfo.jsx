@@ -1,31 +1,74 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import { jwtDecode } from 'jwt-decode';
-import SafeView from 'components/SafeView';
-import { storage } from 'store/storage';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker';
+import { jwtDecode } from 'jwt-decode';
+import { storage } from 'store/storage';
+import SafeView from 'components/SafeView';
 
 const UserInfo = () => {
   const [userInfo, setUserInfo] = useState(null);
-
-  useEffect(() => {
-    const getUserInfo = async () => {
-      try {
-        const token = await storage.getString('token');
-        if (token) {
-          const decoded = jwtDecode(token);
-          setUserInfo(decoded);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getUserInfo();
-  }, []);
+  const [imageUri, setImageUri] = useState(null);
 
   const navigation = useNavigation();
+
+  useEffect(() => {
+    checkPermissions();
+    fetchUserInfo();
+    loadImageUri();
+  }, []);
+
+  const checkPermissions = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert(
+        'Permission Required',
+        'This app requires media library permissions to function properly.'
+      );
+    }
+  };
+
+  const fetchUserInfo = async () => {
+    try {
+      const token = await storage.getString('token');
+      if (token) {
+        const decoded = jwtDecode(token);
+        setUserInfo(decoded);
+      }
+    } catch (error) {
+      console.error('Error decoding token:', error);
+    }
+  };
+
+  const loadImageUri = async () => {
+    const storedUri = await storage.getString('userImage');
+    if (storedUri) {
+      setImageUri({ uri: storedUri });
+    }
+  };
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log('Image pick result:', result);
+
+    if (!result.cancelled && result.assets) {
+      const uri = result.assets[0].uri;
+      console.log('Storing image URI:', uri);
+      try {
+        await storage.set('userImage', uri);
+        setImageUri({ uri: uri });
+      } catch (error) {
+        console.error('Error storing image URI:', error);
+      }
+    }
+  };
 
   return (
     <SafeView>
@@ -34,7 +77,12 @@ const UserInfo = () => {
           <Ionicons name="arrow-back" size={30} color="#2C3E50" />
         </TouchableOpacity>
         <Text style={styles.header}>Gebruikersinformatie</Text>
-        <Image source={require('../../assets/icon-avatar-150.png')} style={styles.profilePic} />
+        <TouchableOpacity onPress={pickImage}>
+          <Image
+            source={imageUri || require('../../assets/icon-avatar-150.png')}
+            style={styles.profilePic}
+          />
+        </TouchableOpacity>
         <View style={styles.infoContainer}>
           <Text style={styles.label}>E-mail:</Text>
           <Text style={styles.detail}>{userInfo?.email}</Text>

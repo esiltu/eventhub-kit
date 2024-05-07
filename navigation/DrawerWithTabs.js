@@ -1,4 +1,4 @@
-import { useAuth } from 'components/AuthContextProvider';
+import { useAuth } from 'context/AuthContextProvider';
 import { storage } from 'store/storage';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { TouchableOpacity } from 'react-native';

@@ -1,32 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import { storage } from 'store/storage';
-import { jwtDecode } from 'jwt-decode';
+import { useUser } from 'context/UserContent';
 
 export default function HeaderAuth() {
-  const [userInfo, setUserInfo] = useState(null);
-
-  useEffect(() => {
-    const getUserInfo = async () => {
-      try {
-        const token = await storage.getString('token');
-        if (token) {
-          const decoded = jwtDecode(token);
-          setUserInfo(decoded);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    getUserInfo();
-  }, []);
+  const { userInfo, imageUri } = useUser();
 
   return (
     <View style={styles.headerContainer}>
       <Text style={styles.headerTxt}>Welkom terug!</Text>
       <Text style={styles.headerSecondTxt}>{userInfo?.fullname} 🤝</Text>
-      <Image source={require('../assets/icon-avatar-150.png')} style={styles.profilePic} />
+      <Image
+        source={imageUri || require('../assets/icon-avatar-150.png')}
+        style={styles.profilePic}
+      />
     </View>
   );
 }

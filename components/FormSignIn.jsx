@@ -14,7 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import { storage } from 'store/storage';
 import Toast from 'react-native-toast-message';
 import axios from 'axios';
-import { useAuth } from './AuthContextProvider';
+import { useAuth } from '../context/AuthContextProvider';
 
 export default function FormSignIn() {
   const doesTokenExist = storage.getString('token');

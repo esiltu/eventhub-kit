@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Toast from 'react-native-toast-message';
-import { useAuth } from 'components/AuthContextProvider';
+import { useAuth } from 'context/AuthContextProvider';
 import { SignIn, SignUp } from 'routers/PageRouter';
 import DrawerRouter from './DrawerRouter';
 import DrawerWithTabs from './DrawerWithTabs';
