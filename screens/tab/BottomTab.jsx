@@ -27,6 +27,12 @@ const BottomTabNavigator = () => {
         },
         tabBarActiveTintColor: '#f3a683',
         tabBarInactiveTintColor: 'gray',
+        tabBarStyle: {
+          backgroundColor: '#fff',
+          borderTopWidth: 0,
+          elevation: 0,
+          shadowOpacity: 0,
+        },
       })}>
       <Tab.Screen name="Index" component={Home} options={{ headerShown: false, title: 'Home' }} />
       <Tab.Screen name="Diensten" component={Diensten} options={{ headerShown: false }} />
