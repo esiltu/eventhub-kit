@@ -3,9 +3,9 @@ import AppIcon from '../screens/tab/AppIcon';
 import UserInfo from '../screens/tab/UserInfo';
 import BestandenWerker from '../screens/tab/BestandenWerker';
 import NotificatieService from '../screens/tab/NotificatieService';
-import { createStackNavigator } from '@react-navigation/stack';
 import Diensten from 'screens/tab/Diensten';
 import HomeDienstenDisplay from 'components/HomeDienstenDisplay';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +18,7 @@ export default function DrawerRouter() {
         options={{
           headerShown: false,
           headerTitle: '',
+          gestureEnabled: true,
         }}
       />
       <Stack.Screen
@@ -68,14 +69,6 @@ export default function DrawerRouter() {
           headerTitle: '',
         }}
       />
-      {/* <Stack.Screen
-        name="DienstenPage"
-        component={DienstenPage}
-        options={{
-          headerShown: false,
-          headerTitle: '',
-        }}
-      /> */}
     </Stack.Navigator>
   );
 }
