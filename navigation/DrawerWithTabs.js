@@ -15,6 +15,8 @@ export default function DrawerWithTabs() {
   const logOutFromApp = async () => {
     try {
       await storage.delete('token');
+      await storage.delete('userImage');
+      console.log('Logged out');
       setLoggedIn(false);
     } catch (error) {
       console.error(error);
