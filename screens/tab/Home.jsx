@@ -1,6 +1,6 @@
 import React from 'react';
 import SafeView from 'components/SafeView';
-import { HeaderAuth, HeaderSectorView, HomeDienstenDisplay } from '../../routers/Components';
+import { HeaderAuth, HomeDienstenDisplay, HomeLowSection } from '../../routers/Components';
 import { UserProvider } from 'context/UserContent';
 
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
       <SafeView>
         <HeaderAuth />
         <HomeDienstenDisplay />
-        {/* <HeaderSectorView /> */}
+        <HomeLowSection />
       </SafeView>
     </UserProvider>
   );

@@ -5,3 +5,4 @@ export { default as HeaderAuth } from '../components/HeaderAuth';
 export { default as HomeMidSection } from '../components/HomeMidSection';
 export { default as HeaderSectorView } from '../components/HeaderSectorView';
 export { default as HomeDienstenDisplay } from '../components/HomeDienstenDisplay';
+export { default as HomeLowSection } from '../components/HomeLowSection';

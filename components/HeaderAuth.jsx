@@ -22,20 +22,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     top: '4%',
     width: '95%',
-    left: '3%',
+    left: '4%',
   },
   headerTxt: {
     fontSize: 19,
     fontWeight: '400',
     color: '#95969D',
-    left: '3.5%',
+    left: '2%',
   },
   headerSecondTxt: {
     top: '5%',
     fontSize: 25,
     color: '#0D0D26',
     fontWeight: '500',
-    left: '4%',
+    left: '2%',
   },
   profilePic: {
     width: 60,

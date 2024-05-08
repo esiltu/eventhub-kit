@@ -98,14 +98,15 @@ export default function HomeDienstenDisplay() {
         <ActivityIndicator size="large" color="#f3a683" />
       ) : (
         <>
-          <Text style={{ fontSize: 20, left: '6%', fontWeight: '400', color: 'black', top: '3%' }}>
+          <Text
+            style={{ fontSize: 20, left: '5.5%', fontWeight: '400', color: 'black', top: '6.5%' }}>
             Aanbevolen voor jou
           </Text>
           <TouchableOpacity
-            style={{ alignSelf: 'flex-end', bottom: '1.5%', right: '5%' }}
+            style={{ alignSelf: 'flex-end', bottom: '2.5%', right: '4%' }}
             activeOpacity={0.6}
             onPress={goToDienstenPage}>
-            <Text style={{ fontSize: 20, color: '#007AFF', fontWeight: '400' }}>Zie alles</Text>
+            <Text style={{ fontSize: 20, color: '#007AFF', fontWeight: '600' }}>Zie alles</Text>
           </TouchableOpacity>
           <FlashList
             data={jobs}

@@ -56,11 +56,8 @@ const UserInfo = () => {
       quality: 1,
     });
 
-    console.log('Image pick result:', result);
-
     if (!result.cancelled && result.assets) {
       const uri = result.assets[0].uri;
-      console.log('Storing image URI:', uri);
       try {
         await storage.set('userImage', uri);
         setImageUri({ uri: uri });
@@ -77,11 +74,13 @@ const UserInfo = () => {
           <Ionicons name="arrow-back" size={30} color="#2C3E50" />
         </TouchableOpacity>
         <Text style={styles.header}>Gebruikersinformatie</Text>
-        <TouchableOpacity onPress={pickImage}>
-          <Image
-            source={imageUri || require('../../assets/icon-avatar-150.png')}
-            style={styles.profilePic}
-          />
+
+        <Image
+          source={imageUri || require('../../assets/icon-avatar-150.png')}
+          style={styles.profilePic}
+        />
+        <TouchableOpacity style={styles.updateIcon} onPress={pickImage}>
+          <Ionicons name="add-circle" size={30} color="#2C3E50" />
         </TouchableOpacity>
         <View style={styles.infoContainer}>
           <Text style={styles.label}>E-mail:</Text>
@@ -146,5 +145,16 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderColor: '#ccc',
     borderWidth: 1,
+  },
+  imageContainer: {
+    position: 'relative',
+    marginBottom: 20,
+  },
+  updateIcon: {
+    position: 'absolute',
+    bottom: '91%',
+    right: '40%',
+    backgroundColor: 'white',
+    borderRadius: 15,
   },
 });
