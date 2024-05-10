@@ -1,13 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image
+} from 'react-native';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
-import LogOutButton from './LogOutButton';
 import { storage } from '../store/storage';
 import { jwtDecode } from 'jwt-decode';
 
 export default function CustomDrawerContent(props) {
   const [userInfo, setUserInfo] = useState(null);
+  const [imageUri, setImageUri] = useState(null);
+
+
+  const loadImageUri = async () => {
+    const storedUri = await storage.getString('userImage');
+    if (storedUri) {
+      setImageUri({ uri: storedUri });
+    }
+  };
+
+  useEffect(() => {
+    loadImageUri();
+  }, []);
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -21,52 +39,106 @@ export default function CustomDrawerContent(props) {
         console.log(error);
       }
     };
-
     getUserInfo();
   }, []);
 
+  const logOutFromApp = async () => {
+    try {
+      await storage.delete('token');
+      await storage.delete('userImage');
+      console.log('Logged out');
+      setLoggedIn(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <DrawerContentScrollView {...props}>
-      <View style={styles.headerContainer}>
-        {userInfo && <Text style={styles.fullName}>👋 {userInfo.fullname}</Text>}
+    <View style={{ flex: 1 }}>
+      <DrawerContentScrollView {...props}>
+        <View style={styles.profileContainer}>
+          <Image
+            source={imageUri}
+            style={{ height: 80, width: 80, borderRadius: 40, marginBottom: 10, alignSelf: 'flex-start' }}
+          />
+          <Text style={styles.profileName}>
+            {userInfo ? userInfo.fullname : 'User Name'}
+          </Text>
+        </View>
+
+        <View style={styles.drawerItemListContainer}>
+          <DrawerItemList {...props} />
+          <DrawerItem
+            icon={({ color, size }) => (
+              <Ionicons name="help-circle-outline" size={size} color={color} />
+            )}
+            label="Help"
+            onPress={() => alert('Link to help')}
+          />
+        </View>
+      </DrawerContentScrollView>
+
+      <View style={styles.bottomDrawerSection}>
+        <TouchableOpacity onPress={() => { }} style={styles.bottomDrawerItem}>
+          <View style={styles.drawerItemContainer}>
+            <Ionicons name="share-social-outline" size={22} />
+            <Text style={styles.drawerItemText}>
+              Verwijs een flex-werker
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={logOutFromApp} style={styles.bottomDrawerItem}>
+          <View style={styles.drawerItemContainer}>
+            <Ionicons name="exit-outline" size={22} />
+            <Text style={styles.drawerItemText}>
+              Uitloggen
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
-      <DrawerItemList {...props} />
-      <DrawerItem
-        icon={({ color, size }) => (
-          <Ionicons name="help-circle-outline" size={size} color={color} />
-        )}
-        label="Help"
-        onPress={() => alert('Link to help')}
-      />
-      <LogOutButton buttonStyle={styles.logoutButton} textStyle={styles.logoutText} />
-    </DrawerContentScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    paddingVertical: 20,
-    paddingHorizontal: 15,
-    backgroundColor: '#F7F7F7',
+  profileContainer: {
+    padding: 20,
+    backgroundColor: '#303952',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  fullName: {
+  profileName: {
+    color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
+    marginTop: 5,
+    marginBottom: 5,
+    textAlign: 'left',
+    alignSelf: 'flex-start',
   },
-  logoutButton: {
-    width: 150,
-    alignSelf: 'left',
-    left: '5%',
-    marginTop: 10,
-    backgroundColor: '#5669FF',
-    borderRadius: 10,
+  profileText: {
+    color: '#fff',
+    fontSize: 14,
   },
-  logoutText: {
-    fontSize: 16,
-    color: 'white',
-    textAlign: 'center',
+  drawerItemListContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingTop: 10,
+  },
+  bottomDrawerSection: {
+    padding: 20,
+    borderTopWidth: 1,
+    borderTopColor: '#ccc',
+  },
+  bottomDrawerItem: {
+    paddingVertical: 15,
+  },
+  drawerItemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  drawerItemText: {
+    fontSize: 15,
+    marginLeft: 5,
   },
 });
