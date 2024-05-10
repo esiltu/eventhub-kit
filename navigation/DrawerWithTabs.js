@@ -29,7 +29,7 @@ export default function DrawerWithTabs() {
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         headerRight: () => (
-          <TouchableOpacity onPress={logOutFromApp} style={{ marginRight: 15 }}>
+          <TouchableOpacity onPress={logOutFromApp} style={{ marginRight: 15, right: '5%', }}>
             <Ionicons name="log-out-outline" size={30} color="black" />
           </TouchableOpacity>
         ),
