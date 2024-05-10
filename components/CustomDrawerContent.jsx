@@ -10,10 +10,13 @@ import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navi
 import { Ionicons } from '@expo/vector-icons';
 import { storage } from '../store/storage';
 import { jwtDecode } from 'jwt-decode';
+import * as Sharing from 'expo-sharing';
+import { useAuth } from 'context/AuthContextProvider';
 
 export default function CustomDrawerContent(props) {
   const [userInfo, setUserInfo] = useState(null);
   const [imageUri, setImageUri] = useState(null);
+  const { setLoggedIn } = useAuth();
 
 
   const loadImageUri = async () => {
@@ -53,12 +56,30 @@ export default function CustomDrawerContent(props) {
     }
   };
 
+  const shareApp = async () => {
+    try {
+      const result = await Sharing.shareAsync('/')
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log('Shared with activity type of', result.activityType);
+        } else {
+          console.log('Shared');
+        }
+      } else if (result.action === Share.dismissedAction) {
+        console.log('Dismissed');
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
         <View style={styles.profileContainer}>
           <Image
-            source={imageUri}
+            source={imageUri || require('../assets/icon-avatar-150.png')}
             style={{ height: 80, width: 80, borderRadius: 40, marginBottom: 10, alignSelf: 'flex-start' }}
           />
           <Text style={styles.profileName}>
@@ -79,7 +100,7 @@ export default function CustomDrawerContent(props) {
       </DrawerContentScrollView>
 
       <View style={styles.bottomDrawerSection}>
-        <TouchableOpacity onPress={() => { }} style={styles.bottomDrawerItem}>
+        <TouchableOpacity onPress={shareApp} style={styles.bottomDrawerItem}>
           <View style={styles.drawerItemContainer}>
             <Ionicons name="share-social-outline" size={22} />
             <Text style={styles.drawerItemText}>

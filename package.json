@@ -59,7 +59,8 @@
     "react-native-toast-message": "^2.2.0",
     "react-native-ui-lib": "^7.21.2",
     "styled-components": "^6.1.11",
-    "yup": "^1.4.0"
+    "yup": "^1.4.0",
+    "expo-sharing": "~11.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
