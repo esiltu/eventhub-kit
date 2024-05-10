@@ -5,6 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 import LogOutButton from './LogOutButton';
 import { storage } from '../store/storage';
 import { jwtDecode } from 'jwt-decode';
+import Animated, { useAnimatedStyle, withTiming, interpolate, Extrapolate } from 'react-native-reanimated';
+import { useDrawerProgress } from '@react-navigation/drawer';
 
 export default function CustomDrawerContent(props) {
   const [userInfo, setUserInfo] = useState(null);
@@ -25,11 +27,22 @@ export default function CustomDrawerContent(props) {
     getUserInfo();
   }, []);
 
+  // Using the drawer progress to animate the fade-in effect
+  const progress = useDrawerProgress();
+  const animatedStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(progress.value, [0, 1], [0, 1], Extrapolate.CLAMP);
+    return {
+      opacity: withTiming(opacity, {
+        duration: 300
+      }),
+    };
+  });
+
   return (
     <DrawerContentScrollView {...props}>
-      <View style={styles.headerContainer}>
+      <Animated.View style={[styles.headerContainer, animatedStyle]}>
         {userInfo && <Text style={styles.fullName}>👋 {userInfo.fullname}</Text>}
-      </View>
+      </Animated.View>
       <DrawerItemList {...props} />
       <DrawerItem
         icon={({ color, size }) => (
@@ -58,7 +71,7 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     width: 150,
-    alignSelf: 'left',
+    alignSelf: 'center',
     left: '5%',
     marginTop: 10,
     backgroundColor: '#5669FF',
