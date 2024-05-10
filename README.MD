@@ -6,8 +6,9 @@
 
 ### Opkomende Functionaliteiten
 
-- ... ? 
-
+- User login credentials: 
+- frankeis@gmail.com
+- frankeis19
 
 ## How to Use
 
