@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, View, SafeAreaView, Platform, KeyboardAvoidingView, Text } from 'react-native';
-import { GiftedChat, Send, Bubble, QuickReplies, SystemMessage } from 'react-native-gifted-chat';
+import { GiftedChat, Send, Bubble, } from 'react-native-gifted-chat';
 import { jwtDecode } from 'jwt-decode';
 import { storage } from 'store/storage';
 import moment from 'moment-timezone';
