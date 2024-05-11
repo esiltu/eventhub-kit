@@ -7,5 +7,6 @@ import BottomTab from '../screens/tab/BottomTab'
 import PrivacyPolicy from 'screens/pages/PrivacyPolicy';
 import TermsOfService from 'screens/pages/TermsOfService';
 import AlgemeneVoorwaarden from 'screens/pages/AlgemeneVoorwaarden';
+import ContacteerOns from 'screens/pages/ContacteerOns';
 
-export { OnboardingPages, SignIn, SignUp, Home, Settings, BottomTab, TermsOfService, PrivacyPolicy, AlgemeneVoorwaarden }
+export { OnboardingPages, SignIn, SignUp, Home, Settings, BottomTab, TermsOfService, PrivacyPolicy, AlgemeneVoorwaarden, ContacteerOns }

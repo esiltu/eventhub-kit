@@ -3,8 +3,9 @@ import { storage } from 'store/storage';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { BottomTab, AlgemeneVoorwaarden, TermsOfService, PrivacyPolicy } from 'routers/PageRouter';
+import { BottomTab, AlgemeneVoorwaarden, TermsOfService, PrivacyPolicy, ContacteerOns } from 'routers/PageRouter';
 import CustomDrawerContent from 'components/CustomDrawerContent';
+
 
 const Drawer = createDrawerNavigator();
 
@@ -37,22 +38,33 @@ export default function DrawerWithTabs() {
       <Drawer.Screen
         name="Home"
         component={BottomTab}
-        options={{ headerShown: true, headerTitle: '' }}
+        options={{ drawerLabelStyle: { right: '12.5%', }, headerShown: true, headerTitle: '', drawerIcon: ({ color }) => <Ionicons name="home-outline" size={22} color={color} /> }}
       />
       <Drawer.Screen
         name="AlgemeneVoorwaarden"
         component={AlgemeneVoorwaarden}
-        options={{ headerShown: true, title: 'Algemene voorwaarden' }}
+        options={{ drawerLabel: 'Algemene voorwaarden', drawerLabelStyle: { right: '12.5%', }, headerShown: true, drawerIcon: ({ color }) => <Ionicons name="document-outline" size={22} color={color} /> }}
       />
       <Drawer.Screen
         name="TermsOfService"
         component={TermsOfService}
-        options={{ headerShown: true, title: 'Gebruikersvoorwaarden' }}
+        options={{
+          drawerLabel: 'Gebruikersvoorwaarden',
+          drawerLabelStyle: { right: '12.5%', },
+          headerShown: true, drawerIcon: ({ color }) => <Ionicons name="clipboard-outline" size={22} color={color} />
+        }}
       />
       <Drawer.Screen
         name="PrivacyPolicy"
         component={PrivacyPolicy}
-        options={{ headerShown: true, title: 'Privacybeleid' }}
+        options={{
+          drawerLabel: 'Privacybeleid', drawerLabelStyle: { right: '12.5%', }, headerShown: true, drawerIcon: ({ color }) => <Ionicons name="lock-closed-outline" size={22} color={color} />
+        }}
+      />
+      <Drawer.Screen
+        name="ContacteerOns"
+        component={ContacteerOns}
+        options={{ drawerLabel: 'Contacteer ons', drawerLabelStyle: { right: '12.5%', }, headerShown: true, drawerIcon: ({ color }) => <Ionicons name="call-outline" size={22} color={color} /> }}
       />
     </Drawer.Navigator>
   );

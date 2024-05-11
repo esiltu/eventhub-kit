@@ -89,13 +89,6 @@ export default function CustomDrawerContent(props) {
 
         <View style={styles.drawerItemListContainer}>
           <DrawerItemList {...props} />
-          <DrawerItem
-            icon={({ color, size }) => (
-              <Ionicons name="help-circle-outline" size={size} color={color} />
-            )}
-            label="Help"
-            onPress={() => alert('Link to help')}
-          />
         </View>
       </DrawerContentScrollView>
 
