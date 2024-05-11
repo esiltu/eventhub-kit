@@ -31,5 +31,4 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-// Hook to use the context
 export const useUser = () => useContext(UserContext);

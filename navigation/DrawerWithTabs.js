@@ -43,7 +43,7 @@ export default function DrawerWithTabs() {
       <Drawer.Screen
         name="AlgemeneVoorwaarden"
         component={AlgemeneVoorwaarden}
-        options={{ drawerLabel: 'Algemene voorwaarden', drawerLabelStyle: { right: '12.5%', }, headerShown: true, drawerIcon: ({ color }) => <Ionicons name="document-outline" size={22} color={color} /> }}
+        options={{ drawerLabel: 'Algemene voorwaarden', drawerLabelStyle: { right: '12.5%', }, headerShown: true, headerTitle: 'Algemene voorwaarden', drawerIcon: ({ color }) => <Ionicons name="document-outline" size={22} color={color} /> }}
       />
       <Drawer.Screen
         name="TermsOfService"
@@ -51,6 +51,7 @@ export default function DrawerWithTabs() {
         options={{
           drawerLabel: 'Gebruikersvoorwaarden',
           drawerLabelStyle: { right: '12.5%', },
+          headerTitle: 'Gebruikersvoorwaarden',
           headerShown: true, drawerIcon: ({ color }) => <Ionicons name="clipboard-outline" size={22} color={color} />
         }}
       />
@@ -58,13 +59,14 @@ export default function DrawerWithTabs() {
         name="PrivacyPolicy"
         component={PrivacyPolicy}
         options={{
+          headerTitle: 'Privacybeleid',
           drawerLabel: 'Privacybeleid', drawerLabelStyle: { right: '12.5%', }, headerShown: true, drawerIcon: ({ color }) => <Ionicons name="lock-closed-outline" size={22} color={color} />
         }}
       />
       <Drawer.Screen
         name="ContacteerOns"
         component={ContacteerOns}
-        options={{ drawerLabel: 'Contacteer ons', drawerLabelStyle: { right: '12.5%', }, headerShown: true, drawerIcon: ({ color }) => <Ionicons name="call-outline" size={22} color={color} /> }}
+        options={{ headerTitle: 'Contacteer ons', drawerLabel: 'Contacteer ons', drawerLabelStyle: { right: '12.5%', }, headerShown: true, drawerIcon: ({ color }) => <Ionicons name="call-outline" size={22} color={color} /> }}
       />
     </Drawer.Navigator>
   );
