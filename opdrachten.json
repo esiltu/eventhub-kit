@@ -1,0 +1,140 @@
+[{
+  "_id": {
+    "$oid": "663b981b1f9c4ae2233b3072"
+  },
+  "datum": "10-01-2024 t/m 10-03-2024",
+  "locatie": "Amsterdam",
+  "tarief": "€25/uur",
+  "type": "Op Locatie",
+  "dienstverband": "Detachering",
+  "functie": "Frontend Ontwikkelaar",
+  "sector": "Security",
+  "icoon": "https://esdevelops.pro/assets/github-150.png",
+  "beschrijving": "Als Frontend Ontwikkelaar in de security sector, werk je aan de ontwikkeling van veilige en robuuste interfaces die voldoen aan de hoogste beveiligingsstandaarden. Je integreert geavanceerde beveiligingsfuncties in webapplicaties en zorgt voor compliance met de nieuwste cybersecurity richtlijnen.",
+  "bedrijfsinfo": {
+    "naam": "TechWorks BV",
+    "over_ons": "TechWorks BV is een innovatief technologiebedrijf dat zich richt op het leveren van hoogwaardige softwareoplossingen voor klanten over de hele wereld. We zijn gepassioneerd door technologie en streven ernaar om onze klanten te helpen hun digitale doelstellingen te bereiken."
+  },
+  "vacatureshift_info": {
+    "marge": "6%",
+    "extra": "Wij hebben in overleg met de opdrachtgever besloten om 6% over je uurtarief te hanteren gedurende de opdracht.",
+    "toelichting": "Wij hanteren een toeslag van 6% over je uurtarief gedurende de opdracht om onze diensten te dekken, inclusief HR-ondersteuning, technische middelen en carrièreontwikkelingsprogramma's."
+  },
+  "vereisten": [
+    "Ervaring met HTML, CSS en JavaScript",
+    "Kennis van frameworks zoals React of Angular",
+    "Bekendheid met responsive design principes"
+  ]
+},
+{
+  "_id": {
+    "$oid": "663b981b1f9c4ae2233b3073"
+  },
+  "datum": "11-01-2024 t/m 11-03-2024",
+  "locatie": "Rotterdam",
+  "tarief": "€30/uur",
+  "type": "Hybride",
+  "dienstverband": "Freelance",
+  "functie": "Backend Ontwikkelaar",
+  "sector": "Cloud",
+  "icoon": "https://esdevelops.pro/assets/linkedin-150.png",
+  "beschrijving": "Als Backend Ontwikkelaar gespecialiseerd in cloud-technologieën, ben je verantwoordelijk voor het ontwerpen, ontwikkelen en onderhouden van schaalbare en veilige server-oplossingen in de cloud. Je werkt met moderne infrastructuur en cloud services om performante en kosteneffectieve oplossingen te bieden.",
+  "bedrijfsinfo": {
+    "naam": "CodeCrafters Inc.",
+    "over_ons": "CodeCrafters Inc. is een toonaangevend softwareontwikkelingsbedrijf dat zich toelegt op het leveren van hoogwaardige oplossingen voor bedrijven van alle groottes."
+  },
+  "vacatureshift_info": {
+    "marge": "6%",
+    "extra": "Wij hebben in overleg met de opdrachtgever besloten om 6% over je uurtarief te hanteren gedurende de opdracht.",
+    "toelichting": "Wij hanteren een toeslag van 6% over je uurtarief gedurende de opdracht om onze diensten te dekken, inclusief HR-ondersteuning, technische middelen en carrièreontwikkelingsprogramma's."
+  },
+  "vereisten": [
+    "Ervaring met server-side ontwikkeling in bijvoorbeeld Node.js of Python",
+    "Kennis van databases zoals SQL of MongoDB",
+    "Vaardigheid in het optimaliseren van API's voor prestaties en veiligheid"
+  ]
+},
+{
+  "_id": {
+    "$oid": "663b981b1f9c4ae2233b3074"
+  },
+  "datum": "12-01-2024 t/m 12-03-2024",
+  "locatie": "Utrecht",
+  "tarief": "€20/uur",
+  "type": "Remote",
+  "dienstverband": "Detachering",
+  "functie": "Full Stack Ontwikkelaar",
+  "sector": "Agile",
+  "icoon": "https://esdevelops.pro/assets/tiktok-150.png",
+  "beschrijving": "Als Full Stack Ontwikkelaar werkzaam in een agile-georiënteerde omgeving, combineer je front- en backend ontwikkeling om dynamische en interactieve webapplicaties te creëren. Je past agile methodologieën toe om efficiënt te werken en te zorgen voor continue verbetering.",
+  "bedrijfsinfo": {
+    "naam": "InnovateTech Solutions",
+    "over_ons": "InnovateTech Solutions is een vooruitstrevend bedrijf dat zich richt op het leveren van innovatieve oplossingen voor diverse klanten. We geloven in continue groei en ontwikkeling, zowel voor onze medewerkers als voor onze producten en diensten."
+  },
+  "vacatureshift_info": {
+    "marge": "6%",
+    "extra": "Wij hebben in overleg met de opdrachtgever besloten om 6% over je uurtarief te hanteren gedurende de opdracht.",
+    "toelichting": "Wij hanteren een toeslag van 6% over je uurtarief gedurende de opdracht om onze diensten te dekken, inclusief HR-ondersteuning, technische middelen en carrièreontwikkelingsprogramma's."
+  },
+  "vereisten": [
+    "Ervaring met zowel front-end als back-end ontwikkeling",
+    "Kennis van frameworks zoals React, Vue.js of Angular",
+    "Bekendheid met databases zoals MySQL of PostgreSQL"
+  ]
+},
+{
+  "_id": {
+    "$oid": "663b981b1f9c4ae2233b3075"
+  },
+  "datum": "13-01-2024 t/m 13-03-2024",
+  "locatie": "Leiden",
+  "tarief": "€28/uur",
+  "type": "Op Locatie",
+  "dienstverband": "Vast contract",
+  "functie": "UI/UX Designer",
+  "sector": "Design",
+  "icoon": "https://esdevelops.pro/assets/whatsapp-icon-150.png",
+  "beschrijving": "Als UI/UX Designer in de designsector, focus je op het creëren van gebruikersgerichte ontwerpen die de bruikbaarheid en toegankelijkheid van web en mobiele applicaties verhogen. Je werkt samen met ontwikkelaars en productmanagers om innovatieve designoplossingen te implementeren.",
+  "bedrijfsinfo": {
+    "naam": "DesignVision Studios",
+    "over_ons": "DesignVision Studios is een toonaangevend designbureau dat zich richt op het leveren van hoogwaardige ontwerpoplossingen voor diverse platforms. Ons team van creatieve professionals streeft ernaar om de grenzen van design te verleggen en innovatieve oplossingen te leveren die onze klanten inspireren."
+  },
+  "vacatureshift_info": {
+    "marge": "6%",
+    "extra": "Wij hebben in overleg met de opdrachtgever besloten om 6% over je uurtarief te hanteren gedurende de opdracht.",
+    "toelichting": "Wij hanteren een toeslag van 6% over je uurtarief gedurende de opdracht om onze diensten te dekken, inclusief HR-ondersteuning, technische middelen en carrièreontwikkelingsprogramma's."
+  },
+  "vereisten": [
+    "Ervaring met UI/UX design voor web- en mobiele applicaties",
+    "Bekendheid met ontwerptools zoals Adobe XD, Sketch of Figma",
+    "Kennis van gebruikersgedrag en UX-onderzoeksmethoden"
+  ]
+},
+{
+  "_id": {
+    "$oid": "663b981b1f9c4ae2233b3076"
+  },
+  "datum": "14-01-2024 t/m 14-03-2024",
+  "locatie": "Groningen",
+  "tarief": "€32/uur",
+  "type": "Hybride",
+  "dienstverband": "Projectbasis",
+  "functie": "Project Manager",
+  "sector": "Software",
+  "icoon": "https://esdevelops.pro/assets/telegram-icon-150.png",
+  "beschrijving": "Als Project Manager in de softwaresector, leid en beheer je complexe projecten door gebruik te maken van moderne projectmanagementtechnieken en tools. Je waarborgt de tijdige levering van softwareoplossingen die voldoen aan de specificaties en verwachtingen van de klant.",
+  "bedrijfsinfo": {
+    "naam": "ProjectPro Solutions",
+    "over_ons": "ProjectPro Solutions is gespecialiseerd in projectmanagementoplossingen voor uiteenlopende industrieën. Ons ervaren team van projectmanagers streeft ernaar om op maat gemaakte oplossingen te bieden die voldoen aan de behoeften van onze klanten."
+  },
+  "vacatureshift_info": {
+    "marge": "6%",
+    "extra": "Wij hebben in overleg met de opdrachtgever besloten om 6% over je uurtarief te hanteren gedurende de opdracht.",
+    "toelichting": "Wij hanteren een toeslag van 6% over je uurtarief gedurende de opdracht om onze diensten te dekken, inclusief HR-ondersteuning, technische middelen en carrièreontwikkelingsprogramma's."
+  },
+  "vereisten": [
+    "Ervaring met projectmanagementmethodologieën zoals Agile of Scrum",
+    "Uitstekende communicatieve vaardigheden en leiderschapskwaliteiten",
+    "In staat om projectrisico's te identificeren en te beheren"
+  ]
+}]
