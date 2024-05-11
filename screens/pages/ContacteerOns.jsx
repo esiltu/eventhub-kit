@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { StyleSheet, View, SafeAreaView, Platform, KeyboardAvoidingView } from 'react-native';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { StyleSheet, View, SafeAreaView, Platform, KeyboardAvoidingView, Text } from 'react-native';
+import { GiftedChat, Send, Bubble, QuickReplies, SystemMessage } from 'react-native-gifted-chat';
 import { jwtDecode } from 'jwt-decode';
 import { storage } from 'store/storage';
 import moment from 'moment-timezone';
@@ -8,9 +8,10 @@ import moment from 'moment-timezone';
 const ChatPage = () => {
     const [messages, setMessages] = useState([]);
     const [userInfo, setUserInfo] = useState({});
+    const [isTyping, setIsTyping] = useState(false);
 
     useEffect(() => {
-        const loadUserAndMessages = async () => {
+        async function loadUserAndMessages() {
             try {
                 const token = await storage.getString('token');
                 if (token) {
@@ -22,44 +23,73 @@ const ChatPage = () => {
             }
 
             const amsterdamTime = moment().tz("Europe/Amsterdam").toDate();
-
             setMessages([
                 {
                     _id: 2,
                     text: 'Chat nu met onze live en snel over hulp of een opdracht! 😊',
                     createdAt: amsterdamTime,
-                    user: {
-                        _id: 2,
-                        name: 'Assistent',
-                    },
+                    user: { _id: 2, name: 'Assistent' },
+                    system: true,
                 },
                 {
                     _id: 1,
-                    text: 'Hallo ontwikkelaar, hoe kan ik je vandaag helpen?',
+                    text: 'Hallo flex-werker, hoe kan ik je vandaag helpen?',
                     createdAt: amsterdamTime,
-                    user: {
-                        _id: 2,
-                        name: 'Assistent',
-                    },
+                    user: { _id: 2, name: 'Assistent' },
+                    system: true,
                 },
             ]);
-        };
+        }
 
         loadUserAndMessages();
     }, []);
 
-    const onSend = useCallback((messages = []) => {
+    const onSend = useCallback((newMessages = []) => {
         const amsterdamTime = moment().tz("Europe/Amsterdam").toDate();
-        const newMessages = messages.map(msg => ({
+        newMessages.forEach(message => {
+            console.log(`Message sent by ${userInfo.fullname || 'Onbekende Gebruiker'}: ${message.text}`);
+        });
+        setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages.map(msg => ({
             ...msg,
             createdAt: amsterdamTime,
-        }));
-        setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages));
-        console.log(newMessages); // Logging out the sent messages
-    }, []);
+            user: { _id: 1, name: userInfo.fullname || 'Onbekende Gebruiker' },
+        }))));
+        setIsTyping(false);
+    }, [userInfo.fullname]);
+
+    const renderSend = (props) => (
+        <Send {...props}>
+            <View style={styles.sendButton}>
+                <Text style={styles.sendText}>Verstuur</Text>
+            </View>
+        </Send>
+    );
+
+    const renderBubble = (props) => (
+        <Bubble
+            {...props}
+            wrapperStyle={{
+                right: { backgroundColor: '#007bff' },
+                left: { backgroundColor: '#f0f0f0' }
+            }}
+            textStyle={{
+                right: { color: '#fff' },
+                left: { color: '#000' }
+            }}
+        />
+    );
+
+    const renderQuickReplies = (props) => (
+        <QuickReplies
+            {...props}
+            onQuickReply={(reply) => console.log('Selected quick reply:', reply)}
+            quickReplyStyle={{ backgroundColor: '#007bff' }}
+            textStyle={{ color: '#fff' }}
+        />
+    );
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "android" ? "padding" : "height"}
                 style={{ flex: 1 }}
@@ -68,14 +98,15 @@ const ChatPage = () => {
                 <GiftedChat
                     messages={messages}
                     onSend={messages => onSend(messages)}
-                    user={{
-                        _id: 1,
-                        name: userInfo.fullname || 'Onbekende Gebruiker'
-                    }}
+                    user={{ _id: 1, name: userInfo.fullname || 'Onbekende Gebruiker' }}
                     placeholder="Typ een bericht..."
                     alwaysShowSend
                     scrollToBottom
+                    isTyping={isTyping}
                     showUserAvatar={false}
+                    renderSend={renderSend}
+                    renderBubble={renderBubble}
+                    renderQuickReplies={renderQuickReplies}
                     inverted={false}
                 />
             </KeyboardAvoidingView>
@@ -83,10 +114,20 @@ const ChatPage = () => {
     );
 };
 
-export default ChatPage;
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: 'white',
     },
+    sendButton: {
+        marginBottom: 5,
+        marginRight: 10,
+        bottom: '20%',
+    },
+    sendText: {
+        fontSize: 18,
+        color: '#007bff'
+    }
 });
+
+export default ChatPage;
