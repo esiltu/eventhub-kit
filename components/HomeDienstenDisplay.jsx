@@ -66,7 +66,7 @@ export default function HomeDienstenDisplay() {
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.jobCard} onPress={() => handlePressJobCard(item)}>
+    <TouchableOpacity style={styles.jobCard} onPress={() => handlePressJobCard(item)} activeOpacity={0.6}>
       <Image source={{ uri: item.icoon }} style={styles.logo} />
       <View style={styles.jobDetails}>
         <Text style={styles.companyName}>{item.company}</Text>

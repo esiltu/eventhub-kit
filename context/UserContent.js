@@ -1,4 +1,3 @@
-// Create a context
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { storage } from 'store/storage';
 import { jwtDecode } from 'jwt-decode';

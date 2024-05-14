@@ -4,7 +4,7 @@ import { Chip } from 'react-native-paper';
 import { FlashList } from '@shopify/flash-list';
 import axios from 'axios';
 import { Ionicons } from '@expo/vector-icons';
-import { storage } from '../store/storage'; // Update this path if incorrect
+import { storage } from '../store/storage';
 import { useNavigation } from '@react-navigation/native';
 
 export default function HomeLowSection() {
@@ -33,7 +33,7 @@ export default function HomeLowSection() {
         const response = await axios.post('/opdrachten', { token }, { headers: { Authorization: `Bearer ${token}` } });
         if (response.data.diensten) {
           setJobs(response.data.diensten);
-          setFilteredJobs(response.data.diensten); // Initially show all jobs
+          setFilteredJobs(response.data.diensten);
         }
       } catch (error) {
         console.error('Error with the request:', error.message);
@@ -43,7 +43,7 @@ export default function HomeLowSection() {
     };
 
     fetchData();
-  }, []);  // Fetch data when token changes
+  }, []);
 
   const handleChipPress = (chipKey) => {
     setSelectedChip(chipKey);
@@ -120,13 +120,18 @@ export default function HomeLowSection() {
       {isLoading ? (
         <ActivityIndicator size="large" color="#f3a683" />
       ) : (
-        <FlashList
-          data={filteredJobs}
-          renderItem={renderItem}
-          keyExtractor={(item, index) => (item.id ? item.id.toString() : `temp-id-${index}`)}
-          estimatedItemSize={100}
-          contentContainerStyle={styles.listContent}
-        />
+        <>
+          <View style={styles.secondContainer}>
+            <FlashList
+              data={filteredJobs}
+              renderItem={renderItem}
+              keyExtractor={(item, index) => (item.id ? item.id.toString() : `temp-id-${index}`)}
+              estimatedItemSize={100}
+              contentContainerStyle={styles.listContent}
+              scrollEnabled={true}
+            />
+          </View>
+        </>
       )}
     </View>
   );
@@ -136,7 +141,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    bottom: '19.5%',
+    bottom: '19%',
+  },
+  secondContainer: {
+    flex: 1,
+    bottom: '10%',
   },
   chip: {
     marginHorizontal: 4,
@@ -164,10 +173,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 8,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.5,
-    bottom: '5%',
+    shadowOffset: { width: 0.5, height: 0.5 },
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
+    bottom: '2%',
 
   },
   logo: {
