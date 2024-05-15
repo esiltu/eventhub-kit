@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   goBackButton: {
     position: 'absolute',
     top: 20,
-    left: 10,
+    left: 20,
   },
   header: {
     fontSize: 22,

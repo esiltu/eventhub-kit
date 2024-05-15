@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, ActivityIndicator, Dimensions, ScrollView } from 'react-native';
 import { Chip } from 'react-native-paper';
-import { FlashList } from '@shopify/flash-list';
-import axios from 'axios';
 import { Ionicons } from '@expo/vector-icons';
+import axios from 'axios';
 import { storage } from '../store/storage';
 import { useNavigation } from '@react-navigation/native';
+import { FlashList } from '@shopify/flash-list';
 
 export default function HomeLowSection() {
   const [selectedChip, setSelectedChip] = useState('Alles');
@@ -14,8 +14,7 @@ export default function HomeLowSection() {
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [savedJobs, setSavedJobs] = useState(new Set());
   const token = storage.getString('token');
-
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   const chipsData = [
     { key: 'Alles', label: 'Alles' },
@@ -41,7 +40,6 @@ export default function HomeLowSection() {
         setIsLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
@@ -62,8 +60,12 @@ export default function HomeLowSection() {
     });
   };
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.jobCard} onPress={() => handlePressJobCard(item)}>
+  const renderItem = ({ item, index }) => (
+    <TouchableOpacity
+      key={item.id ? `job-${item.id}` : `job-${index}`}
+      style={styles.jobCard}
+      onPress={() => handlePressJobCard(item)}
+    >
       <Image source={{ uri: item.icoon }} style={styles.logo} />
       <View style={styles.jobDetails}>
         <Text style={styles.companyName}>{item.company}</Text>
@@ -75,10 +77,7 @@ export default function HomeLowSection() {
         </View>
       </View>
       <TouchableOpacity
-        onPress={() => {
-          toggleSaveJob(item.id);
-          logFunctionTitle(item.functie);
-        }}
+        onPress={() => toggleSaveJob(item.id)}
         style={styles.saveIcon}>
         <Ionicons
           name={savedJobs.has(item.id) ? 'bookmark' : 'bookmark-outline'}
@@ -120,18 +119,9 @@ export default function HomeLowSection() {
       {isLoading ? (
         <ActivityIndicator size="large" color="#f3a683" />
       ) : (
-        <>
-          <View style={styles.secondContainer}>
-            <FlashList
-              data={filteredJobs}
-              renderItem={renderItem}
-              keyExtractor={(item, index) => (item.id ? item.id.toString() : `temp-id-${index}`)}
-              estimatedItemSize={100}
-              contentContainerStyle={styles.listContent}
-              scrollEnabled={true}
-            />
-          </View>
-        </>
+        <View style={styles.fullListContainer}>
+          {filteredJobs.map((item, index) => renderItem({ item, index }))}
+        </View>
       )}
     </View>
   );
@@ -143,9 +133,9 @@ const styles = StyleSheet.create({
     padding: 10,
     bottom: '19%',
   },
-  secondContainer: {
+  fullListContainer: {
     flex: 1,
-    bottom: '10%',
+    paddingHorizontal: 10
   },
   chip: {
     marginHorizontal: 4,
@@ -166,7 +156,6 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   jobCard: {
-    flex: 1,
     flexDirection: 'row',
     padding: 10,
     margin: 10,
@@ -177,7 +166,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 1,
     bottom: '2%',
-
   },
   logo: {
     width: 50,

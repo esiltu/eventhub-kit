@@ -16,6 +16,7 @@ import Toast from 'react-native-toast-message';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContextProvider';
 
+
 export default function FormSignIn() {
   const doesTokenExist = storage.getString('token');
   console.log('Does token exist:', doesTokenExist);
@@ -63,7 +64,6 @@ export default function FormSignIn() {
           text1: `${error.response.data.message + ' ❌'}`,
           text1Style: { textAlign: 'center' },
         });
-        // Optional: Reset form after error
         resetForm();
       });
   };
