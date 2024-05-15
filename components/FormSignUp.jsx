@@ -14,6 +14,7 @@ import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
+import { Ionicons } from '@expo/vector-icons';
 
 const ValidationSchemaSignUp = Yup.object().shape({
   fullName: Yup.string().required('Volledige naam is verplicht'),
@@ -76,7 +77,7 @@ export default function FormSignUp() {
           onPress={goBackToSignIn}
           activeOpacity={0.6}
           style={{ top: '10%', left: '6.5%', top: '35%' }}>
-          <Image source={require('../assets/icons/icon-go-back.png')} />
+          <Ionicons name="arrow-back-circle-outline" size={50} />
         </TouchableOpacity>
       </View>
       <KeyboardAvoidingView
@@ -203,7 +204,7 @@ const styles = StyleSheet.create({
     marginHorizontal: '10%',
     marginBottom: '5%',
     right: '3%',
-    top: '3.5%',
+    top: '0%',
   },
   keyboardView: {
     width: '100%',

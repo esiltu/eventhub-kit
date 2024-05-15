@@ -231,6 +231,7 @@ const styles = StyleSheet.create({
   forgotPasswordStyleTxt: {
     fontSize: 16,
     color: '#120D26',
+    right: '2.5%',
   },
   iconForwardContainer: {
     bottom: '13.5%',
