@@ -80,7 +80,7 @@ export default function CustomDrawerContent(props) {
         <View style={styles.profileContainer}>
           <Image
             source={imageUri || require('../assets/icon-avatar-150.png')}
-            style={{ height: 80, width: 80, borderRadius: 40, marginBottom: 10, alignSelf: 'flex-start' }}
+            style={{ height: 80, width: 80, borderRadius: 50, marginBottom: 10, alignSelf: 'flex-start' }}
           />
           <Text style={styles.profileName}>
             {userInfo ? userInfo.fullname : 'User Name'}

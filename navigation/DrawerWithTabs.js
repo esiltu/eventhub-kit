@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { BottomTab, AlgemeneVoorwaarden, TermsOfService, PrivacyPolicy, ContacteerOns } from 'routers/PageRouter';
 import CustomDrawerContent from 'components/CustomDrawerContent';
 import { UserProvider } from 'context/UserContent';
+import Toast from 'react-native-toast-message';
 
 
 const Drawer = createDrawerNavigator();
@@ -13,12 +14,16 @@ const Drawer = createDrawerNavigator();
 export default function DrawerWithTabs() {
   const { setLoggedIn } = useAuth();
 
-  // Log out from the app
+
   const logOutFromApp = async () => {
     try {
       await storage.delete('token');
       await storage.delete('userImage');
-      console.log('Logged out');
+      Toast.show({
+        type: 'success',
+        text1: 'Uitgelogd en tot snel! 👋',
+        text1Style: { textAlign: 'center' }
+      })
       setLoggedIn(false);
     } catch (error) {
       console.error(error);
