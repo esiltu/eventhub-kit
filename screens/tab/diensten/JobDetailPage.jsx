@@ -5,6 +5,7 @@ import SafeView from 'components/SafeView';
 import { useNavigation } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Dimensions } from 'react-native';
+import { useFonts } from 'expo-font';
 
 const { width, height } = Dimensions.get('window');
 const Tab = createMaterialTopTabNavigator();
@@ -75,20 +76,30 @@ const JobDetailPage = ({ route }) => {
     Alert.alert(title, message, buttons);
   };
 
+  // loading the fonts
+  const [fontsLoaded, fontError] = useFonts({
+    'DynaPuff-Regular': require('../../../assets/fonts/DynaPuff-Regular.ttf')
+  })
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
+
   return (
     <SafeView>
       <Image
         source={require('../../../assets/auth-icons/diensten-achtergrond.png')}
         style={styles.imageStyle}
       />
-      <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.goBack()}>
+      <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.goBack()} activeOpacity={0.6}>
         <Ionicons name="arrow-back" size={40} color="white" />
       </TouchableOpacity>
 
       <Image source={{ uri: item.icoon }} style={styles.icon} />
       <Text style={styles.title}>{item.functie}</Text>
       <View style={styles.typeBadge}>
-        <Ionicons name="business" size={16} color="black" style={{ left: '80%' }} />
+        <Ionicons name="business" size={16} color="black" style={{ left: '70%' }} />
         <Text style={styles.typeText}>{item.type}</Text>
       </View>
       <Tab.Navigator
@@ -102,7 +113,7 @@ const JobDetailPage = ({ route }) => {
         <Tab.Screen name="Over Ons" children={() => <AboutUs item={item} />} />
         <Tab.Screen name="Extra Info" children={() => <ExtraInfo item={item} />} />
       </Tab.Navigator>
-      <TouchableOpacity style={styles.button} onPress={applyForJob}>
+      <TouchableOpacity style={styles.button} onPress={applyForJob} activeOpacity={0.6}>
         <Text style={styles.buttonText}>Reageer Nu</Text>
         <Ionicons name="checkmark-circle" size={24} color="white" style={{ marginLeft: 10 }} />
       </TouchableOpacity>
@@ -168,6 +179,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     marginTop: 10,
+    fontFamily: 'DynaPuff-Regular'
   },
   button: {
     flexDirection: 'row',
@@ -219,7 +231,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
     marginLeft: 20,
+    right: '10%',
     textAlign: 'center',
     alignSelf: 'center',
+    // fontFamily: 'DynaPuff-Regular'
   },
 });

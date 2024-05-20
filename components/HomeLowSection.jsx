@@ -22,7 +22,7 @@ export default function HomeLowSection() {
   })
 
   if (!fontsLoaded && !fontError) {
-    return null;
+    console.log("er ging iets mis met het inladen...?")
   }
 
 
@@ -75,6 +75,7 @@ export default function HomeLowSection() {
       key={item.id ? `job-${item.id}` : `job-${index}`}
       style={styles.jobCard}
       onPress={() => handlePressJobCard(item)}
+      activeOpacity={0.6}
     >
       <Image source={{ uri: item.icoon }} style={styles.logo} />
       <View style={styles.jobDetails}>
