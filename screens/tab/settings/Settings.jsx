@@ -54,7 +54,7 @@ export default function Settings() {
   return (
     <SafeView>
       <View style={styles.container}>
-        <Text style={styles.header}>Instellingen</Text>
+        {/* <Text style={styles.header}>Profiel 👤</Text> */}
         <FlashList
           data={SettingsOptions}
           renderItem={renderItem}

@@ -76,7 +76,7 @@ const UserInfo = () => {
         <Text style={styles.header}>Gebruikersinformatie</Text>
 
         <Image
-          source={imageUri || require('../../assets/icon-avatar-150.png')}
+          source={imageUri || require('../../../assets/icon-avatar-150.png')}
           style={styles.profilePic}
         />
         <TouchableOpacity style={styles.updateIcon} onPress={pickImage}>

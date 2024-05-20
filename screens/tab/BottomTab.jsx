@@ -1,27 +1,33 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { AnimatedTabBarNavigator } from 'react-native-animated-nav-tab-bar';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from './Home';
-import Settings from './Settings';
+import Settings from './settings/Settings';
 import Calendar from './Calendar';
 import Diensten from './Diensten';
 import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync();
 
 const Tabs = AnimatedTabBarNavigator();
 
 export default function BottomTabNavigator() {
+
   const [fontsLoaded, fontError] = useFonts({
-    'DynaPuff-Regular': require('../../assets/fonts/DynaPuff-Regular.ttf')
+    'DynaPuff-Regular': require('../../assets/fonts/DynaPuff-Regular.ttf'),
   });
+
 
   if (!fontsLoaded && !fontError) {
     return null;
   }
+
   return (
     <Tabs.Navigator
       tabBarOptions={{
-        activeTintColor: "white",
-        inactiveTintColor: "gray",
+        activeTintColor: 'white',
+        inactiveTintColor: 'gray',
         tabStyle: {
           borderTopWidth: 0,
           elevation: 0,
@@ -29,7 +35,7 @@ export default function BottomTabNavigator() {
         },
         labelStyle: {
           fontFamily: 'DynaPuff-Regular',
-        }
+        },
       }}
       appearance={{
         topPadding: 20,
@@ -38,35 +44,36 @@ export default function BottomTabNavigator() {
         floating: false,
         dotCornerRadius: 100,
         dotSize: 'medium',
-        activeTabBackgrounds: "#f3a683",
+        activeTabBackgrounds: '#f3a683',
       }}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === 'Index') {
-            iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'Settings') {
-            iconName = focused ? 'person' : 'person-outline';
-          } else if (route.name === 'Diensten') {
-            iconName = focused ? 'briefcase' : 'briefcase-outline';
-          } else if (route.name === 'Calendar') {
-            iconName = focused ? 'calendar' : 'calendar-outline';
+          switch (route.name) {
+            case 'Index':
+              iconName = focused ? 'home' : 'home-outline';
+              break;
+            case 'Settings':
+              iconName = focused ? 'person' : 'person-outline';
+              break;
+            case 'Diensten':
+              iconName = focused ? 'briefcase' : 'briefcase-outline';
+              break;
+            case 'Calendar':
+              iconName = focused ? 'calendar' : 'calendar-outline';
+              break;
+            default:
+              iconName = 'circle';
+              break;
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-      })}>
-      <Tabs.Screen name="Index" component={Home} options={{ title: 'Home', }} />
-      <Tabs.Screen name="Diensten" component={Diensten} options={{ title: 'Diensten', }} />
-      <Tabs.Screen
-        name="Calendar"
-        component={Calendar}
-        options={{ title: 'Rooster', }}
-      />
-      <Tabs.Screen
-        name="Settings"
-        component={Settings}
-        options={{ title: 'Profiel' }}
-      />
+      })}
+    >
+      <Tabs.Screen name="Index" component={Home} options={{ title: 'Home' }} />
+      <Tabs.Screen name="Diensten" component={Diensten} options={{ title: 'Diensten' }} />
+      <Tabs.Screen name="Calendar" component={Calendar} options={{ title: 'Rooster' }} />
+      <Tabs.Screen name="Settings" component={Settings} options={{ title: 'Profiel' }} />
     </Tabs.Navigator>
   );
-};
+}

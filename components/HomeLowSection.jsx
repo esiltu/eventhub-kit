@@ -129,9 +129,9 @@ export default function HomeLowSection() {
       {isLoading ? (
         <ActivityIndicator size="large" color="#f3a683" />
       ) : (
-        <View style={styles.fullListContainer}>
+        <ScrollView style={styles.fullListContainer}>
           {filteredJobs.map((item, index) => renderItem({ item, index }))}
-        </View>
+        </ScrollView>
       )}
     </View>
   );
@@ -145,7 +145,8 @@ const styles = StyleSheet.create({
   },
   fullListContainer: {
     flex: 1,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    bottom: '10%',
   },
   chip: {
     marginHorizontal: 4,
@@ -170,8 +171,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
     margin: 10,
+    width: '98%',
     backgroundColor: 'white',
     borderRadius: 8,
+    right: '1%',
     shadowColor: '#000',
     shadowOffset: { width: 0.5, height: 0.5 },
     shadowOpacity: 0.5,
@@ -182,6 +185,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     resizeMode: 'contain',
+    top: '5%',
   },
   jobDetails: {
     flex: 1,

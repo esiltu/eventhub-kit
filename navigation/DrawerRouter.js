@@ -1,9 +1,9 @@
 import JobDetailPage from '../screens/tab/diensten/JobDetailPage';
-import AppIcon from '../screens/tab/AppIcon';
-import UserInfo from '../screens/tab/UserInfo';
-import BestandenWerker from '../screens/tab/BestandenWerker';
-import NotificatieService from '../screens/tab/NotificatieService';
+import AppIcon from '../screens/tab/settings/AppIcon';
+import BestandenWerker from '../screens/tab/settings/BestandenWerker';
+import NotificatieService from '../screens/tab/settings/NotificatieService';
 import Diensten from 'screens/tab/Diensten';
+import UserInfo from 'screens/tab/settings/UserInfo';
 import HomeDienstenDisplay from 'components/HomeDienstenDisplay';
 import { createStackNavigator } from '@react-navigation/stack';
 

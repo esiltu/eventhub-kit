@@ -11,15 +11,15 @@ const iconSize = width * 0.15;
 const ICONS = [
   {
     name: 'default',
-    icon: require('../../assets/icon.png'),
+    icon: require('../../../assets/icon.png'),
   },
   {
     name: 'dark',
-    icon: require('../../assets/icon-3.png'),
+    icon: require('../../../assets/icon-3.png'),
   },
   {
     name: 'fancy',
-    icon: require('../../assets/icon-2.png'),
+    icon: require('../../../assets/icon-2.png'),
   },
 ];
 
