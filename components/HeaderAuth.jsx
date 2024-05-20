@@ -1,9 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { useUser } from 'context/UserContent';
+import { useFonts } from 'expo-font'
 
 export default function HeaderAuth() {
   const { userInfo, imageUri } = useUser();
+  const [fontsLoaded, fontError] = useFonts({
+    'DynaPuff-Regular': require('../assets/fonts/DynaPuff-Regular.ttf')
+  })
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
 
   return (
     <View style={styles.headerContainer}>
@@ -29,6 +37,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: '#95969D',
     left: '2%',
+    //  fontFamily: 'DynaPuff-Regular'
   },
   headerSecondTxt: {
     top: '5%',
@@ -36,6 +45,7 @@ const styles = StyleSheet.create({
     color: '#0D0D26',
     fontWeight: '500',
     left: '2%',
+    fontFamily: 'DynaPuff-Regular'
   },
   profilePic: {
     width: 60,

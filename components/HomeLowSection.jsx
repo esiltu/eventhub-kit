@@ -6,6 +6,7 @@ import axios from 'axios';
 import { storage } from '../store/storage';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
+import { useFonts } from 'expo-font';
 
 export default function HomeLowSection() {
   const [selectedChip, setSelectedChip] = useState('Alles');
@@ -15,6 +16,15 @@ export default function HomeLowSection() {
   const [savedJobs, setSavedJobs] = useState(new Set());
   const token = storage.getString('token');
   const navigation = useNavigation();
+
+  const [fontsLoaded, fontError] = useFonts({
+    'DynaPuff-Regular': require('../assets/fonts/DynaPuff-Regular.ttf')
+  })
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
 
   const chipsData = [
     { key: 'Alles', label: 'Alles' },
@@ -150,6 +160,7 @@ const styles = StyleSheet.create({
   activeText: {
     fontWeight: 'bold',
     color: '#fff',
+    fontFamily: 'DynaPuff-Regular'
   },
   listContent: {
     paddingHorizontal: 5,

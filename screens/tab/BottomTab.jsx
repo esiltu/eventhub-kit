@@ -5,10 +5,18 @@ import Home from './Home';
 import Settings from './Settings';
 import Calendar from './Calendar';
 import Diensten from './Diensten';
+import { useFonts } from 'expo-font';
 
 const Tabs = AnimatedTabBarNavigator();
 
 export default function BottomTabNavigator() {
+  const [fontsLoaded, fontError] = useFonts({
+    'DynaPuff-Regular': require('../../assets/fonts/DynaPuff-Regular.ttf')
+  });
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
   return (
     <Tabs.Navigator
       tabBarOptions={{
@@ -19,6 +27,9 @@ export default function BottomTabNavigator() {
           elevation: 0,
           shadowOpacity: 0,
         },
+        labelStyle: {
+          fontFamily: 'DynaPuff-Regular',
+        }
       }}
       appearance={{
         topPadding: 20,
@@ -28,8 +39,6 @@ export default function BottomTabNavigator() {
         dotCornerRadius: 100,
         dotSize: 'medium',
         activeTabBackgrounds: "#f3a683",
-        // whenActiveShow: 'icon-only',
-        // whenInactiveShow: 'icon-only',
       }}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
@@ -46,8 +55,8 @@ export default function BottomTabNavigator() {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
       })}>
-      <Tabs.Screen name="Index" component={Home} options={{ title: 'Home' }} />
-      <Tabs.Screen name="Diensten" component={Diensten} options={{ title: 'Diensten' }} />
+      <Tabs.Screen name="Index" component={Home} options={{ title: 'Home', }} />
+      <Tabs.Screen name="Diensten" component={Diensten} options={{ title: 'Diensten', }} />
       <Tabs.Screen
         name="Calendar"
         component={Calendar}

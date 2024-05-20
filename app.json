@@ -20,7 +20,6 @@
     "plugins": [
       "expo-image-picker",
       "expo-localization",
-      "expo-font",
       "expo-quick-actions",
       [
         "expo-media-library",
@@ -46,10 +45,19 @@
             "prerendered": true
           }
         }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/DynaPuff-Regular.ttf"
+          ]
+        }
       ]
     ],
-
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.siltudevelops.eventhubkit"
