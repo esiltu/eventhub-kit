@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { AnimatedTabBarNavigator } from 'react-native-animated-nav-tab-bar';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from './Home';
-import Settings from './settings/Settings';
+import Settings from './Settings';
 import Calendar from './Calendar';
 import Diensten from './Diensten';
 import { useFonts } from 'expo-font';
