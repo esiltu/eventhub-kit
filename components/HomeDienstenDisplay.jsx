@@ -5,6 +5,7 @@ import axios from 'axios';
 import { storage } from 'store/storage';
 import { FlashList } from '@shopify/flash-list';
 import { Ionicons } from '@expo/vector-icons';
+import { useFonts } from 'expo-font';
 
 export default function HomeDienstenDisplay() {
   const navigation = useNavigation();
@@ -12,6 +13,16 @@ export default function HomeDienstenDisplay() {
   const [isLoading, setIsLoading] = useState(true);
   const [savedJobs, setSavedJobs] = useState(new Set());
   const token = storage.getString('token');
+
+  // loading the fonts
+  const [fontsLoaded, fontError] = useFonts({
+    'DynaPuff-Regular': require('../assets/fonts/DynaPuff-Regular.ttf')
+  })
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -99,14 +110,14 @@ export default function HomeDienstenDisplay() {
       ) : (
         <>
           <Text
-            style={{ fontSize: 20, left: '5.5%', fontWeight: '400', color: 'black', top: '6.5%' }}>
+            style={{ fontSize: 18, left: '5.5%', fontWeight: '400', color: 'black', top: '6.5%', fontFamily: 'DynaPuff-Regular' }}>
             Aanbevolen voor jou
           </Text>
           <TouchableOpacity
             style={{ alignSelf: 'flex-end', bottom: '2.5%', right: '4%' }}
             activeOpacity={0.6}
             onPress={goToDienstenPage}>
-            <Text style={{ fontSize: 20, color: '#007AFF', fontWeight: '600' }}>Zie alles</Text>
+            <Text style={{ fontSize: 18, color: '#007AFF', fontWeight: '600', fontFamily: 'DynaPuff-Regular' }}>Zie alles</Text>
           </TouchableOpacity>
           <FlashList
             data={jobs}
