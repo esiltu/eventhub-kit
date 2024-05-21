@@ -7,7 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 import { storage } from 'store/storage';
 import SafeView from 'components/SafeView';
 
-const UserInfo = () => {
+export default function UserInfo() {
   const [userInfo, setUserInfo] = useState(null);
   const [imageUri, setImageUri] = useState(null);
 
@@ -94,8 +94,6 @@ const UserInfo = () => {
     </SafeView>
   );
 };
-
-export default UserInfo;
 
 const styles = StyleSheet.create({
   container: {
